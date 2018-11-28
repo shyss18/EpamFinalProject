@@ -1,0 +1,31 @@
+﻿@model IEnumerable<EC.Entities.Entities.Phone>
+@{
+    ViewBag.Title = "Index";
+    Layout = null;
+}
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>@ViewBag.Title</title>
+    <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
+</head>
+<body>
+    <div class="container">
+        <h3 class="text-info text-center">Телефоны</h3>
+        <div class="row col-sm-6 text-center">
+            @foreach (var phone in Model)
+            {
+                <div class="col-sm-3">
+                    @phone.Id
+                </div>
+                <div class="col-sm-3">
+                    @phone.PhoneNumber
+                </div>
+            }
+        </div>
+    </div>
+</body>
+</html>
+
+
