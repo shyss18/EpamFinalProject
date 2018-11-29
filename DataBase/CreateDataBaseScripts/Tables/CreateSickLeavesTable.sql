@@ -1,0 +1,10 @@
+USE ElectronicCardDB;
+GO
+
+CREATE TABLE SickLeaves
+(
+    Id INT PRIMARY KEY IDENTITY,
+	IsGive BIT NOT NULL,
+	Number INT NOT NULL,
+	PeriodAction INT NOT NULL
+)

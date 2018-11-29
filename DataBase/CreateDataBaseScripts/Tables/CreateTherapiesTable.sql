@@ -1,0 +1,11 @@
+USE ElectronicCardDB;
+GO
+
+CREATE TABLE Therapies
+(
+    Id INT PRIMARY KEY IDENTITY,
+	PreparationId INT
+	FOREIGN KEY REFERENCES Preparations(Id) ON DELETE SET NULL,
+	ProcedureId INT
+	FOREIGN KEY REFERENCES Procedures(Id) ON DELETE SET NULL
+)

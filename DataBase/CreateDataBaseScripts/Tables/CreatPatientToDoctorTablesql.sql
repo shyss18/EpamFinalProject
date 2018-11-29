@@ -1,0 +1,11 @@
+USE ElectronicCardDB;
+GO
+
+CREATE TABLE PatientsToDoctors
+(
+   Id INT PRIMARY KEY IDENTITY,
+   PatientId INT
+   FOREIGN KEY REFERENCES Patients(Id) ON DELETE CASCADE,
+   DoctorId INT
+   FOREIGN KEY REFERENCES Doctors(Id) ON DELETE NO ACTION,
+)
