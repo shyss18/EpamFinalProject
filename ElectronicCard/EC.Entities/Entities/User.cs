@@ -24,8 +24,6 @@ namespace EC.Entities.Entities
 
         public IReadOnlyCollection<Phone> PhoneNumbers { get; set; }
 
-        public string PlaceWork { get; set; }
-
         public Url Photo { get; set; }
 
         public IReadOnlyCollection<Role> Roles { get; set; }
