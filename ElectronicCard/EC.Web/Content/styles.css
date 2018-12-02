@@ -4,6 +4,27 @@ body {
     padding-top: 4.5rem;
 }
 
+.navBack{
+    background-color: #007b5e !important;
+}
+
+.navBack a{
+    color: #fff !important;
+}
+
+#navbarCollapse > ul li a{
+    -webkit-transition: all 0.3s ease;;
+    -moz-transition: all 0.3s ease;;
+    -o-transition: all 0.3s ease;;
+    transition: all 0.3s ease;
+}
+
+#navbarCollapse ul li:hover a{
+    -webkit-transform: scale(1.2);
+    -ms-transform: scale(1.2);
+    transform: scale(1.2);
+}
+
 .wrapper {
     display: table;
     height: 100%;
@@ -37,4 +58,12 @@ body {
 #footer div:hover p a {
     font-size: 16px;
     margin-top: -10px;
+}
+
+@media(max-width: 768px){
+    #navbarCollapse ul li:hover a{
+        -webkit-transform: scale(1.0);
+        -ms-transform: scale(1.0);
+        transform: scale(1.0);
+    }
 }
