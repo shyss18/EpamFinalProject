@@ -27,7 +27,7 @@ namespace EC.Web.DependencyResolution {
             Scan(
                 scan => {
                     scan.TheCallingAssembly();
-                    scan.WithDefaultConventions();
+                    //scan.WithDefaultConventions();
 					scan.With(new ControllerConvention());
                 });
             //For<IExample>().Use<Example>();
