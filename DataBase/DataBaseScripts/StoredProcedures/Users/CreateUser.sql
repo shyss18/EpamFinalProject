@@ -24,6 +24,6 @@ IF @isDoctor != 0
 INSERT Doctors(FirstName, MiddleName, LastName, DateBirth, Position, PhotoPath, UserId)
 VALUES(@firstName, @middleName, @lastName, @dateBirth, @work, @photoPath, @userId)
 ELSE
-INSERT Doctors(FirstName, MiddleName, LastName, DateBirth, Position, PhotoPath, UserId)
+INSERT Patients(FirstName, MiddleName, LastName, DateBirth, PlaceWork, PhotoPath, UserId)
 VALUES(@firstName, @middleName, @lastName, @dateBirth, @work, @photoPath, @userId)
 END;
