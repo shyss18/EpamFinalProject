@@ -2,6 +2,7 @@ USE ElectronicCardDB;
 GO
 
 CREATE PROC UpdateUser
+    @id INT,
     @login NVARCHAR(20),
 	@password NVARCHAR(20),
 	@email NVARCHAR(30),
@@ -22,9 +23,9 @@ WHERE Id = @id
 IF @isDoctor != 0
 UPDATE Doctors
 SET FirstName = @firstName, MiddleName = @middleName, LastName = @lastName, DateBirth = @dateBirth, Position = @work, PhotoPath = @photoPath
-WHERE Id = @id
+WHERE UserId = @id
 ELSE
 UPDATE Patients
 SET FirstName = @firstName, MiddleName = @middleName, LastName = @lastName, DateBirth = @dateBirth, PlaceWork = @work, PhotoPath = @photoPath
-WHERE Id = @id
+WHERE UserId = @id
 END

@@ -2,11 +2,11 @@ USE ElectronicCardDB;
 GO
 
 CREATE PROCEDURE CreateProcedure 
-      @title NVARCHAR(20),
+      @name NVARCHAR(20),
 	  @description NVARCHAR(60),
 	  @timeUse INT
 AS
 BEGIN
-INSERT Procedures(Title, Description, TimeUse)
-VALUES(@title, @description, @timeUse)
+INSERT Procedures(Name, Description, TimeUse)
+VALUES(@name, @description, @timeUse)
 END;

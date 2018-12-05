@@ -3,13 +3,13 @@ GO
 
 CREATE PROC dbo.CreateRecord
 	 @dateRecord DATE,
-	 @userId INT,
+	 @patientId INT,
 	 @diagnosisId INT,
 	 @therapyId INT,
 	 @doctorId INT,
 	 @sickLeaveId INT
 AS
 BEGIN
-INSERT dbo.Records(DateRecord, UserId, DiagnosisId, TherapyId, DoctorId, SickLeaveId)
-VALUES(@dateRecord, @userId, @diagnosisId, @therapyId, @doctorId, @sickLeaveId)
+INSERT dbo.Records(DateRecord, PatientId, DiagnosisId, TherapyId, DoctorId, SickLeaveId)
+VALUES(@dateRecord, @patientId, @diagnosisId, @therapyId, @doctorId, @sickLeaveId)
 END
