@@ -56,7 +56,7 @@ sqlcmd -S %sqlServer% -i StoredProcedures/Phones/GetUserPhone.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Phones/UpdatePhone.sql
 
 sqlcmd -S %sqlServer% -i StoredProcedures/Records/CreateRecord.sql
-sqlcmd -S %sqlServer% -i StoredProcedures/Records/DeleteRecordsql.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Records/DeleteRecords.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Records/GetUserRecords.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Records/UpdateRecord.sql
 

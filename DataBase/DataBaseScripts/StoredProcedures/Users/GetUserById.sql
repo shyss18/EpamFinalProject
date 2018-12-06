@@ -5,7 +5,7 @@ CREATE PROC GetUserById
        @id INT
 AS
 BEGIN
-   IF GetUserStatusFunc(@Id) != 0
+   IF (SELECT * FROM GetUserStatusFunc(@id)) != 0
    SELECT * FROM Users
    JOIN Doctors ON Users.Id = Doctors.UserId
    JOIN Phones ON Users.Id = Phones.UserId
