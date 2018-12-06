@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light navBack fixed-top">
@@ -28,10 +28,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a class="btn btn-outline-primary mr-sm-2" href="#">Войти</a>
+                    @Html.ActionLink("Войти", "SignIn", "Auth", null, new { @class = "btn btn-outline-primary mr-sm-2" })
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-success my-2 my-sm-0" href="#">Регистрация</a>
+                    @Html.ActionLink("Регистрация", "SignUp", "Auth", null, new { @class = "btn btn-outline-success my-2 my-sm-0" })
                 </li>
             </ul>
         </div>
