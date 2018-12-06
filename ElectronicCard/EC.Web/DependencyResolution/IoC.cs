@@ -25,7 +25,6 @@ namespace EC.Web.DependencyResolution {
         public static IContainer Initialize() {
             return new Container(c =>
             {
-                c.AddRegistry<DefaultRegistry>();
                 c.AddRegistry<DependencyRegister>();
             });
         }
