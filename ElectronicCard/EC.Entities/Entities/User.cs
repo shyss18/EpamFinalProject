@@ -20,6 +20,8 @@ namespace EC.Entities.Entities
 
         public string Password { get; set; }
 
+        public string ConfirmPassword { get; set; }
+
         public DateTime DateBirth { get; set; }
 
         public IReadOnlyCollection<Phone> PhoneNumbers { get; set; }
