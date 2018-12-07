@@ -9,6 +9,7 @@ namespace EC.BusinessLogic.Dependency
         public ServiceRegistry()
         {
             For<IPhoneService>().Use<PhoneService>();
+            For<IRoleService>().Use<RoleService>();
         }
     }
 }
