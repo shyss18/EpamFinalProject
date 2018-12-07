@@ -45,9 +45,13 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Helpers\Context\CommonContext.cs" />
+    <Compile Include="Helpers\Context\ICommonContext.cs" />
     <Compile Include="Dependency\DataRegistry.cs" />
+    <Compile Include="Helpers\Helper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementation\PhoneRepository.cs" />
+    <Compile Include="Repositories\Implementation\RoleRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDiagnosisRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPhoneRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPreparationRepository.cs" />
@@ -58,7 +62,7 @@
     <Compile Include="Repositories\Interfaces\ISickLeaveRepository.cs" />
     <Compile Include="Repositories\Interfaces\ITherapyRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
-    <Compile Include="StoredProcedure\StoredProcedure.cs" />
+    <Compile Include="DbConstants.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />
@@ -69,8 +73,6 @@
       <Name>EC.Entities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Context\" />
-  </ItemGroup>
+  <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>

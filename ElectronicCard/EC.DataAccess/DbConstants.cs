@@ -1,8 +1,8 @@
 ﻿using System.Configuration;
 
-namespace EC.DataAccess.StoredProcedure
+namespace EC.DataAccess
 {
-    public static class StoredProcedure
+    public static class DbConstants
     {
         #region Diagnosis
 
