@@ -8,13 +8,12 @@ namespace EC.Dependency
     {
         public DependencyRegister()
         {
-            Scan(d =>
+            Scan(scan =>
             {
-                d.AssemblyContainingType<DataRegistry>();
-                d.AssemblyContainingType<ServiceRegistry>();
+                scan.AssemblyContainingType<DataRegistry>();
+                scan.AssemblyContainingType<ServiceRegistry>();
 
-                d.WithDefaultConventions();
-                d.LookForRegistries();
+                scan.LookForRegistries();
             });
         }
     }

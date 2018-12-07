@@ -14,7 +14,7 @@ namespace EC.Web.Controllers
 
         public ActionResult Index()
         {
-            return View(_phoneService.GetPhones());
+            return View();
         }
     }
 }

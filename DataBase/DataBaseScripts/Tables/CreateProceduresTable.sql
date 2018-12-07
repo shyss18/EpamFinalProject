@@ -1,0 +1,10 @@
+USE ElectronicCardDB;
+GO
+
+CREATE TABLE Procedures
+(
+    Id INT PRIMARY KEY IDENTITY,
+	Name NVARCHAR(20) NOT NULL,
+	Description NVARCHAR(60) NOT NULL,
+	TimeUse INT NOT NULL
+)

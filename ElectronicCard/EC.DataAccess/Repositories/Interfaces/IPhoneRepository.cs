@@ -1,10 +1,9 @@
-﻿using System.Collections.Generic;
-using EC.Entities.Entities;
+﻿using EC.Entities.Entities;
 
 namespace EC.DataAccess.Repositories.Interfaces
 {
-    public interface IPhoneRepository
+    public interface IPhoneRepository : IRepository<Phone>
     {
-        IEnumerable<Phone> GetPhones();
+        
     }
 }
