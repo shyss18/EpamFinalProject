@@ -8,6 +8,7 @@ namespace EC.DataAccess.Helpers.Implementation
     {
         private IDbCommand _sqlCommand;
         private IDbConnection _sqlConnection;
+        private IDataReader _sqlReader;
 
         public ICreateQuery CreateConnection()
         {
@@ -48,16 +49,11 @@ namespace EC.DataAccess.Helpers.Implementation
 
         public IDataReader ExecuteReader()
         {
-            IDataReader executedQuery = null;
+            _sqlConnection.Open();
 
-            using (_sqlConnection)
-            {
-                _sqlConnection.Open();
+            _sqlReader = _sqlCommand.ExecuteReader(CommandBehavior.CloseConnection);
 
-                executedQuery = _sqlCommand.ExecuteReader();
-            }
-
-            return executedQuery;
+            return _sqlReader;
         }
 
         public int ExecuteScalar()
