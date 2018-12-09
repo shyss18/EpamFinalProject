@@ -10,11 +10,12 @@ namespace EC.DataAccess.Dependency
     {
         public DataRegistry()
         {
-            For<ICreateQuery>().Singleton().Use<CreateQuery>();
-
-            For<IHelper>().Use<Helper>();
+            For<ICreateQuery>().Use<CreateQuery>();
+            For<ICreateParameterHelper>().Use<CreateParameterHelper>();
             For<IPhoneRepository>().Use<PhoneRepository>();
             For<IRoleRepository>().Use<RoleRepository>();
+            For<IProcedureRepository>().Use<ProcedureRepository>();
+            For<IPreparationRepository>().Use<PreparationRepository>();
         }
     }
 }

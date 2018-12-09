@@ -48,10 +48,12 @@
     <Compile Include="Helpers\Implementation\CreateQuery.cs" />
     <Compile Include="Helpers\Interface\ICreateQuery.cs" />
     <Compile Include="Dependency\DataRegistry.cs" />
-    <Compile Include="Helpers\Implementation\Helper.cs" />
-    <Compile Include="Helpers\Interface\IHelper.cs" />
+    <Compile Include="Helpers\Implementation\CreateParameterHelper.cs" />
+    <Compile Include="Helpers\Interface\ICreateParameterHelper.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementation\PhoneRepository.cs" />
+    <Compile Include="Repositories\Implementation\PreparationRepository.cs" />
+    <Compile Include="Repositories\Implementation\ProcedureRepository.cs" />
     <Compile Include="Repositories\Implementation\RoleRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDiagnosisRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPhoneRepository.cs" />
