@@ -58,6 +58,7 @@ namespace EC.DataAccess
         public const string DELETE_ROLE = "DeleteRole";
         public const string UPDATE_ROLE = "UpdateRole";
         public const string GET_ALL_ROLES = "GetAllRole";
+        public const string GET_ROLE_BY_ID = "GetRoleById";
 
         #endregion
 
