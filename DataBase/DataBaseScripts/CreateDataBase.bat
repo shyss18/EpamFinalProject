@@ -64,6 +64,7 @@ sqlcmd -S %sqlServer% -i StoredProcedures/Roles/CreateRole.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Roles/DeleteRole.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Roles/GetAllRole.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Roles/UpdateRole.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Roles/GetRoleById.sql
 
 sqlcmd -S %sqlServer% -i StoredProcedures/SickLeaves/CreateSickLeave.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/SickLeaves/DeleteSickLeave.sql
