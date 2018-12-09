@@ -10,8 +10,7 @@ namespace EC.DataAccess.Dependency
     {
         public DataRegistry()
         {
-            For<ICreateQuery>().Use<CreateQuery>();
-            For<ICreateParameterHelper>().Use<CreateParameterHelper>();
+            For<ISqlFactory>().Use<SqlFactory>();
             For<IPhoneRepository>().Use<PhoneRepository>();
             For<IRoleRepository>().Use<RoleRepository>();
             For<IProcedureRepository>().Use<ProcedureRepository>();

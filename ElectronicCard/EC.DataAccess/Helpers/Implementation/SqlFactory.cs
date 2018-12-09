@@ -1,23 +1,23 @@
-﻿using System.Data;
+﻿using System.Collections.Generic;
+using System.Data;
 using System.Data.SqlClient;
 using EC.DataAccess.Helpers.Interface;
 
 namespace EC.DataAccess.Helpers.Implementation
 {
-    public class CreateQuery : ICreateQuery
+    public class SqlFactory : ISqlFactory
     {
         private IDbCommand _sqlCommand;
         private IDbConnection _sqlConnection;
-        private IDataReader _sqlReader;
 
-        public ICreateQuery CreateConnection()
+        public ISqlFactory CreateConnection()
         {
             _sqlConnection = new SqlConnection(DbConstants.ConnectionString);
 
             return this;
         }
 
-        public ICreateQuery CreateCommand(string name)
+        public ISqlFactory CreateCommand(string name)
         {
             _sqlCommand = new SqlCommand(name, _sqlConnection as SqlConnection)
             {
@@ -27,7 +27,7 @@ namespace EC.DataAccess.Helpers.Implementation
             return this;
         }
 
-        public ICreateQuery AddParameters(params IDataParameter[] parameters)
+        public ISqlFactory AddParameters(params IDataParameter[] parameters)
         {
             foreach (var item in parameters)
             {
@@ -47,13 +47,20 @@ namespace EC.DataAccess.Helpers.Implementation
             }
         }
 
-        public IDataReader ExecuteReader()
+        public IEnumerable<IDataRecord> ExecuteReader()
         {
-            _sqlConnection.Open();
+            using (_sqlConnection)
+            {
+                _sqlConnection.Open();
 
-            _sqlReader = _sqlCommand.ExecuteReader(CommandBehavior.CloseConnection);
-
-            return _sqlReader;
+                using (var read = _sqlCommand.ExecuteReader())
+                {
+                    while (read.Read())
+                    {
+                        yield return read;
+                    }
+                }
+            }
         }
 
         public int ExecuteScalar()
@@ -68,6 +75,20 @@ namespace EC.DataAccess.Helpers.Implementation
             }
 
             return id;
+        }
+
+        public IDataParameter CreateParameter(string name, object value, DbType type)
+        {
+            name = name.StartsWith("@") ? name : "@" + name;
+
+            var parameter = new SqlParameter
+            {
+                ParameterName = name,
+                Value = value,
+                DbType = type
+            };
+
+            return parameter;
         }
     }
 }

@@ -8,20 +8,18 @@ namespace EC.DataAccess.Repositories.Implementation
 {
     public class PreparationRepository : IPreparationRepository
     {
-        private readonly ICreateQuery _query;
-        private readonly ICreateParameterHelper _helper;
+        private readonly ISqlFactory _query;
 
-        public PreparationRepository(ICreateQuery query, ICreateParameterHelper helper)
+        public PreparationRepository(ISqlFactory query)
         {
             _query = query;
-            _helper = helper;
         }
 
         public void Create(Preparation item)
         {
-            var nameParameter = _helper.CreateParameter("name", item.Title, DbType.String);
-            var descParameter = _helper.CreateParameter("description", item.Description, DbType.String);
-            var timeParameter = _helper.CreateParameter("timeUse", item.TimeUse, DbType.Int32);
+            var nameParameter = _query.CreateParameter("title", item.Title, DbType.String);
+            var descParameter = _query.CreateParameter("description", item.Description, DbType.String);
+            var timeParameter = _query.CreateParameter("timeUse", item.TimeUse, DbType.Int32);
 
             _query.CreateConnection()
                 .CreateCommand(DbConstants.CREATE_PREPARATION)
@@ -31,19 +29,20 @@ namespace EC.DataAccess.Repositories.Implementation
 
         public void Update(Preparation item)
         {
-            var nameParameter = _helper.CreateParameter("name", item.Title, DbType.String);
-            var descParameter = _helper.CreateParameter("description", item.Description, DbType.String);
-            var timeParameter = _helper.CreateParameter("timeUse", item.TimeUse, DbType.Int32);
+            var idParameter = _query.CreateParameter("id", item.Id, DbType.Int32);
+            var nameParameter = _query.CreateParameter("title", item.Title, DbType.String);
+            var descParameter = _query.CreateParameter("description", item.Description, DbType.String);
+            var timeParameter = _query.CreateParameter("timeUse", item.TimeUse, DbType.Int32);
 
             _query.CreateConnection()
                 .CreateCommand(DbConstants.UPDATE_PREPARATION)
-                .AddParameters(nameParameter, descParameter, timeParameter)
+                .AddParameters(idParameter, nameParameter, descParameter, timeParameter)
                 .ExecuteQuery();
         }
 
         public void Delete(int? id)
         {
-            var idParameter = _helper.CreateParameter("id", id, DbType.Int32);
+            var idParameter = _query.CreateParameter("id", id, DbType.Int32);
 
             _query.CreateConnection()
                 .CreateCommand(DbConstants.DELETE_PREPARATION)
@@ -55,27 +54,22 @@ namespace EC.DataAccess.Repositories.Implementation
         {
             Preparation preparation = null;
 
-            var idParameter = _helper.CreateParameter("id", id, DbType.Int32);
+            var idParameter = _query.CreateParameter("id", id, DbType.Int32);
 
             var reader = _query.CreateConnection()
                 .CreateCommand(DbConstants.GET_PREPARATION_BY_ID)
                 .AddParameters(idParameter)
                 .ExecuteReader();
 
-            if (reader != null)
+            foreach (var item in reader)
             {
-                while (reader.Read())
+                preparation = new Preparation
                 {
-                    preparation = new Preparation
-                    {
-                        Id = (int)reader["Id"],
-                        Title = (string)reader["Name"],
-                        Description = (string)reader["Description"],
-                        TimeUse = (int)reader["TimeUse"]
-                    };
-                }
-
-                reader.Close();
+                    Id = (int)item["Id"],
+                    Title = (string)item["Title"],
+                    Description = (string)item["Description"],
+                    TimeUse = (int)item["TimeUse"]
+                };
             }
 
             return preparation;
@@ -89,22 +83,17 @@ namespace EC.DataAccess.Repositories.Implementation
                 .CreateCommand(DbConstants.GET_ALL_PREPARATION)
                 .ExecuteReader();
 
-            if (reader != null)
+            foreach (var item in reader)
             {
-                while (reader.Read())
+                var procedure = new Preparation
                 {
-                    var procedure = new Preparation
-                    {
-                        Id = (int)reader["Id"],
-                        Title = (string)reader["Name"],
-                        Description = (string)reader["Description"],
-                        TimeUse = (int)reader["TimeUse"]
-                    };
+                    Id = (int)item["Id"],
+                    Title = (string)item["Title"],
+                    Description = (string)item["Description"],
+                    TimeUse = (int)item["TimeUse"]
+                };
 
-                    allPreparations.Add(procedure);
-                }
-
-                reader.Close();
+                allPreparations.Add(procedure);
             }
 
             return allPreparations;

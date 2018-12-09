@@ -8,18 +8,16 @@ namespace EC.DataAccess.Repositories.Implementation
 {
     public class RoleRepository : IRoleRepository
     {
-        private readonly ICreateQuery _query;
-        private readonly ICreateParameterHelper _helper;
+        private readonly ISqlFactory _query;
 
-        public RoleRepository(ICreateQuery query, ICreateParameterHelper helper)
+        public RoleRepository(ISqlFactory query)
         {
             _query = query;
-            _helper = helper;
         }
 
         public void Create(Role item)
         {
-            var titleParameter = _helper.CreateParameter("title", item.Name, DbType.String);
+            var titleParameter = _query.CreateParameter("title", item.Name, DbType.String);
 
             _query.CreateConnection()
                 .CreateCommand(DbConstants.CREATE_ROLE)
@@ -29,8 +27,8 @@ namespace EC.DataAccess.Repositories.Implementation
 
         public void Update(Role item)
         {
-            var idParameter = _helper.CreateParameter("id", item.Id, DbType.Int32);
-            var titleParameter = _helper.CreateParameter("title", item.Name, DbType.String);
+            var idParameter = _query.CreateParameter("id", item.Id, DbType.Int32);
+            var titleParameter = _query.CreateParameter("title", item.Name, DbType.String);
 
             _query.CreateConnection()
                 .CreateCommand(DbConstants.UPDATE_ROLE)
@@ -40,7 +38,7 @@ namespace EC.DataAccess.Repositories.Implementation
 
         public void Delete(int? id)
         {
-            var idParameter = _helper.CreateParameter("id", id, DbType.Int32);
+            var idParameter = _query.CreateParameter("id", id, DbType.Int32);
 
             _query.CreateConnection()
                 .CreateCommand(DbConstants.DELETE_ROLE)
@@ -52,25 +50,20 @@ namespace EC.DataAccess.Repositories.Implementation
         {
             Role role = null;
 
-            var idParameter = _helper.CreateParameter("id", id, DbType.Int32);
+            var idParameter = _query.CreateParameter("id", id, DbType.Int32);
 
             var reader = _query.CreateConnection()
                 .CreateCommand(DbConstants.GET_ROLE_BY_ID)
                 .AddParameters(idParameter)
                 .ExecuteReader();
 
-            if (reader != null)
+            foreach (var item in reader)
             {
-                while (reader.Read())
+                role = new Role
                 {
-                    role = new Role
-                    {
-                        Id = (int)reader["Id"],
-                        Name = (string)reader["Title"]
-                    };
-                }
-
-                reader.Close();
+                    Id = (int)item["Id"],
+                    Name = (string)item["Title"]
+                };
             }
 
             return role;
@@ -84,20 +77,15 @@ namespace EC.DataAccess.Repositories.Implementation
                 .CreateCommand(DbConstants.GET_ALL_ROLES)
                 .ExecuteReader();
 
-            if (reader != null)
+            foreach (var item in reader)
             {
-                while (reader.Read())
+                var role = new Role
                 {
-                    var role = new Role
-                    {
-                        Id = (int)reader["Id"],
-                        Name = (string)reader["Title"]
-                    };
+                    Id = (int)item["Id"],
+                    Name = (string)item["Title"]
+                };
 
-                    allRoles.Add(role);
-                }
-
-                reader.Close();
+                allRoles.Add(role);
             }
 
             return allRoles;
