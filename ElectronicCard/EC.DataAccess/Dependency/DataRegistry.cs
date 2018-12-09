@@ -15,6 +15,7 @@ namespace EC.DataAccess.Dependency
             For<IRoleRepository>().Use<RoleRepository>();
             For<IProcedureRepository>().Use<ProcedureRepository>();
             For<IPreparationRepository>().Use<PreparationRepository>();
+            For<ISickLeaveRepository>().Use<SickLeaveRepository>();
         }
     }
 }
