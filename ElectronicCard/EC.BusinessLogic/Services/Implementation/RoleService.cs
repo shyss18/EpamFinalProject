@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
 using EC.BusinessLogic.Services.Interfaces;
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
@@ -26,6 +22,21 @@ namespace EC.BusinessLogic.Services.Implementation
         public void DeleteRole(int? id)
         {
             _roleRepository.Delete(id);
+        }
+
+        public void UpdateRole(Role role)
+        {
+            _roleRepository.Update(role);
+        }
+
+        public Role GetById(int? id)
+        {
+            return id == null ? null : _roleRepository.GetById(id);
+        }
+
+        public IReadOnlyCollection<Role> GetAll()
+        {
+            return _roleRepository.GetAll();
         }
     }
 }
