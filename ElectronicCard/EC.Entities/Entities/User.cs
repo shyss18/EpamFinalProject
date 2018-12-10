@@ -1,6 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Policy;
+﻿using System.Collections.Generic;
 
 namespace EC.Entities.Entities
 {
@@ -8,24 +6,20 @@ namespace EC.Entities.Entities
     {
         public int Id { get; set; }
 
-        public string FirstName { get; set; }
-
-        public string MiddleName { get; set; }
-
-        public string LastName { get; set; }
-
         public string Login { get; set; }
 
         public string Email { get; set; }
 
         public string Password { get; set; }
 
-        public DateTime DateBirth { get; set; }
+        public bool IsDoctor { get; set; }
 
         public IReadOnlyCollection<Phone> PhoneNumbers { get; set; }
 
-        public Url Photo { get; set; }
-
         public IReadOnlyCollection<Role> Roles { get; set; }
+
+        public virtual Patient Patient { get; set; }
+
+        public virtual Doctor Doctor { get; set; }
     }
 }
