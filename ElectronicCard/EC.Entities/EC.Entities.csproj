@@ -51,7 +51,6 @@
     <Compile Include="Entities\Record.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\SickLeave.cs" />
-    <Compile Include="Entities\Therapy.cs" />
     <Compile Include="Entities\User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

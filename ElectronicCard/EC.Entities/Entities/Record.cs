@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace EC.Entities.Entities
 {
@@ -8,14 +9,16 @@ namespace EC.Entities.Entities
 
         public DateTime DateRecord { get; set; }
 
-        public User Patient { get; set; }
+        public Patient Patient { get; set; }
 
         public Diagnosis Diagnosis { get; set; }
-
-        public Therapy Therapy { get; set; }
 
         public Doctor Doctor { get; set; }
 
         public SickLeave Type { get; set; }
+
+        public virtual IReadOnlyCollection<Procedure> Procedures { get; set; }
+
+        public virtual IReadOnlyCollection<Preparation> Preparations { get; set; }
     }
 }

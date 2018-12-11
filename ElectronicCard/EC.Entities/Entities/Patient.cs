@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Security.Policy;
 
 namespace EC.Entities.Entities
@@ -20,5 +21,7 @@ namespace EC.Entities.Entities
         public DateTime DateBirth { get; set; }
 
         public User User { get; set; }
+
+        public virtual IReadOnlyCollection<Doctor> Doctors { get; set; }
     }
 }

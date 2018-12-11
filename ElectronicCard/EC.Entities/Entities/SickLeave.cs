@@ -9,5 +9,7 @@
         public int Number{ get; set; }
 
         public int PeriodAction { get; set; }
+
+        public Diagnosis Diagnosis { get; set; }
     }
 }

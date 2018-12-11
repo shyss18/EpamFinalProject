@@ -14,9 +14,9 @@ namespace EC.Entities.Entities
 
         public bool IsDoctor { get; set; }
 
-        public IReadOnlyCollection<Phone> PhoneNumbers { get; set; }
+        public virtual IReadOnlyCollection<Phone> PhoneNumbers { get; set; }
 
-        public IReadOnlyCollection<Role> Roles { get; set; }
+        public Role Roles { get; set; }
 
         public virtual Patient Patient { get; set; }
 
