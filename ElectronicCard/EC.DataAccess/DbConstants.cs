@@ -72,16 +72,6 @@ namespace EC.DataAccess
 
         #endregion
 
-        #region Therapy
-
-        public const string CREATE_THERAPY = "CreateTherapy";
-        public const string DELETE_THERAPY = "DeleteTherapy";
-        public const string GET_ALL_THERAPIES = "GetAllTherapies";
-        public const string GET_THERAPY_BY_ID = "GetTherById";
-        public const string UPDATE_THERAPY = "UpdateTherapy";
-
-        #endregion
-
         #region User
 
         public const string CREATE_USER = "CreateUser";

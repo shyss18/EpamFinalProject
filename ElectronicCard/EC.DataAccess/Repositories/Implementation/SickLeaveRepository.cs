@@ -1,12 +1,9 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Data;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using EC.DataAccess.Helpers.Interface;
+﻿using EC.DataAccess.Helpers.Interface;
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
+using System;
+using System.Collections.Generic;
+using System.Data;
 
 namespace EC.DataAccess.Repositories.Implementation
 {
@@ -24,10 +21,11 @@ namespace EC.DataAccess.Repositories.Implementation
             var isGiveParameter = _query.CreateParameter("isGive", item.IsGive, DbType.Binary);
             var numberParameter = _query.CreateParameter("number", item.Number, DbType.Int32);
             var periodParameter = _query.CreateParameter("periodAction", item.PeriodAction, DbType.Int32);
+            var diagnosisParameter = _query.CreateParameter("diagnosisId", item.Diagnosis.Id, DbType.Int32);
 
             _query.CreateConnection()
                 .CreateCommand(DbConstants.CREATE_SICKLEAVE)
-                .AddParameters(isGiveParameter, numberParameter, periodParameter)
+                .AddParameters(isGiveParameter, numberParameter, periodParameter, diagnosisParameter)
                 .ExecuteQuery();
         }
 
@@ -37,16 +35,22 @@ namespace EC.DataAccess.Repositories.Implementation
             var isGiveParameter = _query.CreateParameter("isGive", item.IsGive, DbType.Binary);
             var numberParameter = _query.CreateParameter("number", item.Number, DbType.Int32);
             var periodParameter = _query.CreateParameter("periodAction", item.PeriodAction, DbType.Int32);
+            var diagnosisParameter = _query.CreateParameter("diagnosisId", item.Diagnosis.Id, DbType.Int32);
 
             _query.CreateConnection()
                 .CreateCommand(DbConstants.UPDATE_SICKLEAVE)
-                .AddParameters(idParameter, isGiveParameter, numberParameter, periodParameter)
+                .AddParameters(idParameter, isGiveParameter, numberParameter, periodParameter, diagnosisParameter)
                 .ExecuteQuery();
         }
 
         public void Delete(int? id)
         {
-            throw new NotImplementedException();
+            var idParameter = _query.CreateParameter("id", id, DbType.Int32);
+
+            _query.CreateConnection()
+                .CreateCommand(DbConstants.DELETE_SICKLEAVE)
+                .AddParameters(idParameter)
+                .ExecuteQuery();
         }
 
         public SickLeave GetById(int? id)

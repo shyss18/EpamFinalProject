@@ -62,7 +62,6 @@
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRoleRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISickLeaveRepository.cs" />
-    <Compile Include="Repositories\Interfaces\ITherapyRepository.cs" />
     <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="DbConstants.cs" />
   </ItemGroup>

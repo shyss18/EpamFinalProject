@@ -85,15 +85,13 @@ namespace EC.DataAccess.Repositories.Implementation
 
             foreach (var item in reader)
             {
-                var procedure = new Procedure
+                allProcedures.Add(new Procedure
                 {
                     Id = (int)item["Id"],
                     Title = (string)item["Name"],
                     Description = (string)item["Description"],
                     TimeUse = (int)item["TimeUse"]
-                };
-
-                allProcedures.Add(procedure);
+                });
             }
 
             return allProcedures;

@@ -79,13 +79,11 @@ namespace EC.DataAccess.Repositories.Implementation
 
             foreach (var item in reader)
             {
-                var role = new Role
+                allRoles.Add(new Role
                 {
                     Id = (int)item["Id"],
                     Name = (string)item["Title"]
-                };
-
-                allRoles.Add(role);
+                });
             }
 
             return allRoles;
