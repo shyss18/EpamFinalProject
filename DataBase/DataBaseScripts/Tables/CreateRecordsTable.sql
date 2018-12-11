@@ -8,11 +8,9 @@ CREATE TABLE Records
 	PatientId INT NOT NULL
 	FOREIGN KEY REFERENCES Patients(UserId),
 	DiagnosisId INT NULL
-	FOREIGN KEY REFERENCES Diagnosis(Id),
-	TherapyId INT NULL
-	FOREIGN KEY REFERENCES Therapies(Id),
+	FOREIGN KEY REFERENCES Diagnosis(DiagnosisId),
 	DoctorId INT NULL
 	FOREIGN KEY REFERENCES Doctors(UserId),
 	SickLeaveId INT NULL
-	FOREIGN KEY REFERENCES SickLeaves(Id)
+	FOREIGN KEY REFERENCES SickLeaves(SickLeaveId)
 )

@@ -2,11 +2,10 @@ USE ElectronicCardDB;
 GO
 
 CREATE PROC CreateDiagnosis
-     @title NVARCHAR(20),
-     @sickLeaveId INT
+     @title NVARCHAR(20)
 AS
 BEGIN
-INSERT Diagnosis(Title, SickLeaveId)
-VALUES(@title, @sickLeaveId)
+INSERT Diagnosis(Title)
+VALUES(@title)
 END;
 GO

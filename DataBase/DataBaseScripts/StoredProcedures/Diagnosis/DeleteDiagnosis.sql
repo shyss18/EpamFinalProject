@@ -6,6 +6,6 @@ CREATE PROC DeleteDiagnosis
 AS
 BEGIN
 DELETE Diagnosis
-WHERE Id = @id
+WHERE DiagnosisId = @id
 END
 GO

@@ -11,13 +11,14 @@ sqlcmd -S %sqlServer% -i Tables/CreateDoctorsTable.sql
 sqlcmd -S %sqlServer% -i Tables/CreatePatientsTable.sql
 sqlcmd -S %sqlServer% -i Tables/CreatePatientToDoctorTable.sql
 sqlcmd -S %sqlServer% -i Tables/CreatePhonesTable.sql
-sqlcmd -S %sqlServer% -i Tables/CreateSickLeavesTable.sql
 sqlcmd -S %sqlServer% -i Tables/CreateDiagnosisTable.sql
+sqlcmd -S %sqlServer% -i Tables/CreateSickLeavesTable.sql
 sqlcmd -S %sqlServer% -i Tables/CreatePreparationsTable.sql
 sqlcmd -S %sqlServer% -i Tables/CreateProceduresTable.sql
-sqlcmd -S %sqlServer% -i Tables/CreateTherapiesTable.sql
 sqlcmd -S %sqlServer% -i Tables/CreateRecordsTable.sql
 sqlcmd -S %sqlServer% -i Tables/CreateForeignKey.sql
+sqlcmd -S %sqlServer% -i Tables/CreateTablePreparationsToRecords.sql
+sqlcmd -S %sqlServer% -i Tables/CreateTableProceduresToRecords.sql
 
 sqlcmd -S %sqlServer% -i Functions/Preparations/GetAllPrepFunc.sql
 sqlcmd -S %sqlServer% -i Functions/Preparations/GetPrepByIdFunc.sql
@@ -25,8 +26,6 @@ sqlcmd -S %sqlServer% -i Functions/Procedures/GetAllProc.sql
 sqlcmd -S %sqlServer% -i Functions/Procedures/GetProcByIdFunc.sql
 sqlcmd -S %sqlServer% -i Functions/SickLeaves/GetAllSLFunc.sql
 sqlcmd -S %sqlServer% -i Functions/SickLeaves/GetSLByIdFunc.sql
-sqlcmd -S %sqlServer% -i Functions/Therapies/GetAllTherFunc.sql
-sqlcmd -S %sqlServer% -i Functions/Therapies/GetTherByIdFunc.sql
 sqlcmd -S %sqlServer% -i Functions/Phones/GetUserPhoneFunc.sql
 sqlcmd -S %sqlServer% -i Functions/Diagnosis/GetAllDiagFunc.sql
 sqlcmd -S %sqlServer% -i Functions/Diagnosis/GetDiagByIdFunc.sql
@@ -71,12 +70,6 @@ sqlcmd -S %sqlServer% -i StoredProcedures/SickLeaves/DeleteSickLeave.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/SickLeaves/GetAllSickLeaves.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/SickLeaves/GetSickLeaveById.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/SickLeaves/UpdateSickLeave.sql
-
-sqlcmd -S %sqlServer% -i StoredProcedures/Therapies/CreateTherapy.sql
-sqlcmd -S %sqlServer% -i StoredProcedures/Therapies/DeleteTherapy.sql
-sqlcmd -S %sqlServer% -i StoredProcedures/Therapies/GetAllTherapies.sql
-sqlcmd -S %sqlServer% -i StoredProcedures/Therapies/GetTherById.sql
-sqlcmd -S %sqlServer% -i StoredProcedures/Therapies/UpdateTherapy.sql
 
 sqlcmd -S %sqlServer% -i StoredProcedures/Users/CreateUser.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Users/DeleteUser.sql
