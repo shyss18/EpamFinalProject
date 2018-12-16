@@ -37,6 +37,8 @@
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -45,6 +47,11 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\PromotionService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Helpers\Implementation\SqlFactory.cs" />
     <Compile Include="Helpers\Interface\ISqlFactory.cs" />
     <Compile Include="Dependency\DataRegistry.cs" />
@@ -52,12 +59,14 @@
     <Compile Include="Repositories\Implementation\PhoneRepository.cs" />
     <Compile Include="Repositories\Implementation\PreparationRepository.cs" />
     <Compile Include="Repositories\Implementation\ProcedureRepository.cs" />
+    <Compile Include="Repositories\Implementation\PromotionRepository.cs" />
     <Compile Include="Repositories\Implementation\RoleRepository.cs" />
     <Compile Include="Repositories\Implementation\SickLeaveRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDiagnosisRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPhoneRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPreparationRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProcedureRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPromotionRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRecordRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRoleRepository.cs" />
@@ -66,7 +75,28 @@
     <Compile Include="DbConstants.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\PromotionService\PromotionService.wsdl" />
+    <None Include="Connected Services\PromotionService\PromotionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PromotionService\PromotionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PromotionService\PromotionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PromotionService\PromotionService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PromotionService\PromotionService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\PromotionService\PromotionService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\EC.Entities.Entities.Promotion.datasource" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EC.Entities\EC.Entities.csproj">
@@ -74,6 +104,23 @@
       <Name>EC.Entities</Name>
     </ProjectReference>
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\PromotionService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PromotionService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PromotionService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\PromotionService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
