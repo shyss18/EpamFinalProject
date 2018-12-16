@@ -61,10 +61,12 @@
     <Compile Include="Services\Implementation\PhoneService.cs" />
     <Compile Include="Services\Implementation\PreparationService.cs" />
     <Compile Include="Services\Implementation\ProcedureService.cs" />
+    <Compile Include="Services\Implementation\PromotionService.cs" />
     <Compile Include="Services\Implementation\RoleService.cs" />
     <Compile Include="Services\Interfaces\IPhoneService.cs" />
     <Compile Include="Services\Interfaces\IPreparationService.cs" />
     <Compile Include="Services\Interfaces\IProcedureService.cs" />
+    <Compile Include="Services\Interfaces\IPromotionService.cs" />
     <Compile Include="Services\Interfaces\IRoleService.cs" />
   </ItemGroup>
   <ItemGroup>

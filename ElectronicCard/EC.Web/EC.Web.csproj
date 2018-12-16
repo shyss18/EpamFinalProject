@@ -120,6 +120,7 @@
     <Compile Include="Controllers\PhoneController.cs" />
     <Compile Include="Controllers\PreparationController.cs" />
     <Compile Include="Controllers\ProcedureController.cs" />
+    <Compile Include="Controllers\PromotionController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
@@ -138,6 +139,7 @@
     <Content Include="Views\Phone\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\AboutPartial.cshtml" />
+    <Content Include="Views\Promotion\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

@@ -8,12 +8,17 @@ EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.BusinessLogic", "EC.BusinessLogic\EC.BusinessLogic.csproj", "{3CAC8F00-63C3-434C-896E-C2A8BE6A3F2E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.DataAccess", "EC.DataAccess\EC.DataAccess.csproj", "{DEC06134-8B60-46B9-AD12-B2E5AF37DED5}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6DDD4427-6FBD-478C-85AF-E1713E623C40} = {6DDD4427-6FBD-478C-85AF-E1713E623C40}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.Common", "EC.Common\EC.Common.csproj", "{7B5ED5B4-25E5-4F5B-A30E-87C72DEC2583}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.Entities", "EC.Entities\EC.Entities.csproj", "{3C567A87-874D-4919-AAAD-EC90E5827AC6}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.Dependency", "EC.Dependency\EC.Dependency.csproj", "{F3BC4953-C1B5-4C6B-93C1-D72A0A46345C}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.PromotionService", "EC.PromotionService\EC.PromotionService.csproj", "{6DDD4427-6FBD-478C-85AF-E1713E623C40}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -45,6 +50,10 @@ Global
 		{F3BC4953-C1B5-4C6B-93C1-D72A0A46345C}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{F3BC4953-C1B5-4C6B-93C1-D72A0A46345C}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{F3BC4953-C1B5-4C6B-93C1-D72A0A46345C}.Release|Any CPU.Build.0 = Release|Any CPU
+		{6DDD4427-6FBD-478C-85AF-E1713E623C40}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{6DDD4427-6FBD-478C-85AF-E1713E623C40}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{6DDD4427-6FBD-478C-85AF-E1713E623C40}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{6DDD4427-6FBD-478C-85AF-E1713E623C40}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
