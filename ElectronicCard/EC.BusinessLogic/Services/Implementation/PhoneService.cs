@@ -13,10 +13,5 @@ namespace EC.BusinessLogic.Services.Implementation
         {
             _phoneRepository = phoneRepository;
         }
-
-        public IEnumerable<Phone> GetPhones()
-        {
-            return _phoneRepository.GetPhones();
-        }
     }
 }

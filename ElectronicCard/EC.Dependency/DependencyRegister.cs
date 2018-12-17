@@ -1,4 +1,5 @@
 ﻿using EC.BusinessLogic.Dependency;
+using EC.Common.Dependency;
 using EC.DataAccess.Dependency;
 using StructureMap;
 
@@ -8,13 +9,13 @@ namespace EC.Dependency
     {
         public DependencyRegister()
         {
-            Scan(d =>
+            Scan(scan =>
             {
-                d.AssemblyContainingType<DataRegistry>();
-                d.AssemblyContainingType<ServiceRegistry>();
+                scan.AssemblyContainingType<DataRegistry>();
+                scan.AssemblyContainingType<ServiceRegistry>();
+                scan.AssemblyContainingType<CommonRegistry>();
 
-                d.WithDefaultConventions();
-                d.LookForRegistries();
+                scan.LookForRegistries();
             });
         }
     }

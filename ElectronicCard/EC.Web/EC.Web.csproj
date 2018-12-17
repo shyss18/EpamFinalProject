@@ -117,10 +117,15 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AuthController.cs" />
+    <Compile Include="Controllers\DiagnosisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
+    <Compile Include="Controllers\PreparationController.cs" />
+    <Compile Include="Controllers\ProcedureController.cs" />
+    <Compile Include="Controllers\PromotionController.cs" />
+    <Compile Include="Controllers\RoleController.cs" />
+    <Compile Include="Controllers\SickLeaveController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
-    <Compile Include="DependencyResolution\DefaultRegistry.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
     <Compile Include="DependencyResolution\StructureMapScopeModule.cs" />
@@ -139,6 +144,7 @@
     <Content Include="Views\Shared\AboutPartial.cshtml" />
     <Content Include="Views\Auth\SignIn.cshtml" />
     <Content Include="Views\Auth\SignUp.cshtml" />
+    <Content Include="Views\Promotion\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -147,14 +153,21 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="App_Data\" />
     <Folder Include="Models\" />
-    <Folder Include="Views\NewFolder1\" />
+    <Folder Include="Views\Diagnosis\" />
+    <Folder Include="Views\Preparation\" />
+    <Folder Include="Views\Procedure\" />
+    <Folder Include="Views\Role\" />
+    <Folder Include="Views\SickLeave\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EC.BusinessLogic\EC.BusinessLogic.csproj">
       <Project>{3cac8f00-63c3-434c-896e-c2a8be6a3f2e}</Project>
       <Name>EC.BusinessLogic</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\EC.Common\EC.Common.csproj">
+      <Project>{7b5ed5b4-25e5-4f5b-a30e-87c72dec2583}</Project>
+      <Name>EC.Common</Name>
     </ProjectReference>
     <ProjectReference Include="..\EC.Dependency\EC.Dependency.csproj">
       <Project>{f3bc4953-c1b5-4c6b-93c1-d72a0a46345c}</Project>
@@ -182,9 +195,9 @@
         <WebProjectProperties>
           <UseIIS>True</UseIIS>
           <AutoAssignPort>True</AutoAssignPort>
-          <DevelopmentServerPort>52701</DevelopmentServerPort>
+          <DevelopmentServerPort>0</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:52701/</IISUrl>
+          <IISUrl>http://localhost:53190/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>

@@ -1,4 +1,6 @@
-﻿namespace EC.Entities.Entities
+﻿using System.Collections.Generic;
+
+namespace EC.Entities.Entities
 {
     public class Procedure
     {
@@ -9,5 +11,7 @@
         public string Description { get; set; }
 
         public int TimeUse { get; set; }
+
+        public virtual IReadOnlyCollection<Record> Records { get; set; }
     }
 }

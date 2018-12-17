@@ -6,29 +6,34 @@ namespace EC.DataAccess.Repositories.Implementation
 {
     public class PhoneRepository : IPhoneRepository
     {
-        private readonly List<Phone> _phones;
-
         public PhoneRepository()
         {
-            _phones = new List<Phone>
-            {
-                new Phone
-                {
-                    Id = 1,
-                    PhoneNumber = "123456"
-                },
 
-                new Phone
-                {
-                    Id = 2,
-                    PhoneNumber = "23456"
-                }
-            };
         }
 
-        public IEnumerable<Phone> GetPhones()
+        public void Create(Phone item)
         {
-            return _phones;
+            throw new System.NotImplementedException();
+        }
+
+        public void Update(Phone item)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public void Delete(int? id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public Phone GetById(int? id)
+        {
+            throw new System.NotImplementedException();
+        }
+
+        public IReadOnlyCollection<Phone> GetAll()
+        {
+            throw new System.NotImplementedException();
         }
     }
 }
