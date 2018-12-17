@@ -56,6 +56,7 @@
     <Compile Include="Helpers\Interface\ISqlFactory.cs" />
     <Compile Include="Dependency\DataRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repositories\Implementation\DiagnosisRepository.cs" />
     <Compile Include="Repositories\Implementation\PhoneRepository.cs" />
     <Compile Include="Repositories\Implementation\PreparationRepository.cs" />
     <Compile Include="Repositories\Implementation\ProcedureRepository.cs" />
