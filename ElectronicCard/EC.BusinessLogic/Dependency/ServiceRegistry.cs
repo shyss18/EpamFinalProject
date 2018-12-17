@@ -13,6 +13,8 @@ namespace EC.BusinessLogic.Dependency
             For<IPreparationService>().Use<PreparationService>();
             For<IProcedureService>().Use<ProcedureService>();
             For<IPromotionService>().Use<PromotionService>();
+            For<ISickLeaveService>().Use<SickLeaveService>();
+            For<IDiagnosisService>().Use<DiagnosisService>();
         }
     }
 }
