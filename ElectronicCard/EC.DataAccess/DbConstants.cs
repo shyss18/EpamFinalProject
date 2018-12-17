@@ -1,8 +1,8 @@
 ﻿using System.Configuration;
 
-namespace EC.DataAccess.StoredProcedure
+namespace EC.DataAccess
 {
-    public static class StoredProcedure
+    public static class DbConstants
     {
         #region Diagnosis
 
@@ -58,6 +58,7 @@ namespace EC.DataAccess.StoredProcedure
         public const string DELETE_ROLE = "DeleteRole";
         public const string UPDATE_ROLE = "UpdateRole";
         public const string GET_ALL_ROLES = "GetAllRole";
+        public const string GET_ROLE_BY_ID = "GetRoleById";
 
         #endregion
 
@@ -68,16 +69,6 @@ namespace EC.DataAccess.StoredProcedure
         public const string GET_ALL_SICKLEAVES = "GetAllSickLeaves";
         public const string GET_SICKLEAVE_BY_ID = "GetSickLeaveById";
         public const string UPDATE_SICKLEAVE = "UpdateSickLeave";
-
-        #endregion
-
-        #region Therapy
-
-        public const string CREATE_THERAPY = "CreateTherapy";
-        public const string DELETE_THERAPY = "DeleteTherapy";
-        public const string GET_ALL_THERAPIES = "GetAllTherapies";
-        public const string GET_THERAPY_BY_ID = "GetTherById";
-        public const string UPDATE_THERAPY = "UpdateTherapy";
 
         #endregion
 

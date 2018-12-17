@@ -6,12 +6,11 @@ CREATE PROC dbo.UpdateRecord
 	 @dateRecord DATE,
 	 @patinentId INT,
 	 @diagnosisId INT,
-	 @therapyId INT,
 	 @doctorId INT,
 	 @sickLeaveId INT
 AS
 BEGIN
 UPDATE dbo.Records
-SET DateRecord = @dateRecord, PatientId = @patinentId, DiagnosisId = @diagnosisId, TherapyId = @therapyId, DoctorId = @doctorId, SickLeaveId = @sickLeaveId
+SET DateRecord = @dateRecord, PatientId = @patinentId, DiagnosisId = @diagnosisId, DoctorId = @doctorId, SickLeaveId = @sickLeaveId
 WHERE Id = @id
 END

@@ -6,6 +6,6 @@ RETURNS table
 AS RETURN
 (
     SELECT * FROM Diagnosis
-	WHERE Id = @id
+	WHERE DiagnosisId = @id
 )
 GO

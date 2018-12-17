@@ -6,6 +6,6 @@ CREATE PROC DeleteSickLeave
 AS
 BEGIN
   DELETE SickLeaves
-  WHERE Id = @id
+  WHERE SickLeaveId = @id
 END
 GO

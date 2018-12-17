@@ -30,5 +30,10 @@ namespace EC.DataAccess.Repositories.Implementation
         {
             throw new System.NotImplementedException();
         }
+
+        public IReadOnlyCollection<Phone> GetAll()
+        {
+            throw new System.NotImplementedException();
+        }
     }
 }

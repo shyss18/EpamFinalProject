@@ -47,11 +47,11 @@
     <Compile Include="Entities\Phone.cs" />
     <Compile Include="Entities\Preparation.cs" />
     <Compile Include="Entities\Procedure.cs" />
+    <Compile Include="Entities\Promotion.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Record.cs" />
     <Compile Include="Entities\Role.cs" />
     <Compile Include="Entities\SickLeave.cs" />
-    <Compile Include="Entities\Therapy.cs" />
     <Compile Include="Entities\User.cs" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
