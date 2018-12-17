@@ -1,9 +1,11 @@
 ﻿using System.Collections.Generic;
+using System.Web.Mvc;
 
 namespace EC.Entities.Entities
 {
     public class Procedure
     {
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         public string Title { get; set; }
