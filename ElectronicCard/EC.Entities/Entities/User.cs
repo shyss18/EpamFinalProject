@@ -12,6 +12,8 @@ namespace EC.Entities.Entities
 
         public string Password { get; set; }
 
+        public string ConfirmPassword { get; set; }
+
         public bool IsDoctor { get; set; }
 
         public virtual IReadOnlyCollection<Phone> PhoneNumbers { get; set; }

@@ -116,6 +116,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
+    <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
@@ -141,6 +142,8 @@
     <Content Include="Views\Phone\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\AboutPartial.cshtml" />
+    <Content Include="Views\Auth\SignIn.cshtml" />
+    <Content Include="Views\Auth\SignUp.cshtml" />
     <Content Include="Views\Promotion\Test.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>

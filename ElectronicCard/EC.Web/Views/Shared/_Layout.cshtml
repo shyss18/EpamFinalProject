@@ -5,10 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>@ViewBag.Title</title>
     <link href="~/Content/bootstrap.min.css" rel="stylesheet" />
-    <link href="~/Content/styles.css" rel="stylesheet" />
+    <link href="~/Content/style.css" rel="stylesheet" />
 </head>
 <body>
-    <nav class="navbar navbar-expand-md navbar-light bg-light fixed-top">
+    <nav class="navbar navbar-expand-md navbar-light navBack fixed-top">
         <a class="navbar-brand" href="#">Электронная карта</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
@@ -28,10 +28,10 @@
             </ul>
             <ul class="nav navbar-nav navbar-right">
                 <li class="nav-item">
-                    <a class="btn btn-outline-primary mr-sm-2" href="#">Войти</a>
+                    @Html.ActionLink("Войти", "SignIn", "Auth", null, new { @class = "btn btn-outline-primary mr-sm-2" })
                 </li>
                 <li class="nav-item">
-                    <a class="btn btn-outline-success my-2 my-sm-0" href="#">Регистрация</a>
+                    @Html.ActionLink("Регистрация", "SignUp", "Auth", null, new { @class = "btn btn-outline-success my-2 my-sm-0" })
                 </li>
             </ul>
         </div>
