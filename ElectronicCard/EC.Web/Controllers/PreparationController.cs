@@ -31,6 +31,19 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        public ActionResult PreparationDetails(int? id)
+        {
+            var preparation = _preparationService.GetById(id);
+
+            if (preparation == null)
+            {
+                return HttpNotFound();
+            }
+
+            return View(preparation);
+        }
+
+        [HttpGet]
         public ActionResult UpdatePreparation(int? id)
         {
             var preparation = _preparationService.GetById(id);

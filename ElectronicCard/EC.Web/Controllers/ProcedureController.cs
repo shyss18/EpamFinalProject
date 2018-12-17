@@ -16,7 +16,7 @@ namespace EC.Web.Controllers
         [HttpGet]
         public ActionResult CreateProcedure()
         {
-            return View();
+           return View();
         }
         
         [HttpPost]
@@ -25,6 +25,19 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _procedureService.CreateProcedure(procedure);
+            }
+
+            return View(procedure);
+        }
+
+        [HttpGet]
+        public ActionResult ProcedureDetails(int? id)
+        {
+            var procedure = _procedureService.GetById(id);
+
+            if (procedure == null)
+            {
+                return HttpNotFound();
             }
 
             return View(procedure);
@@ -57,7 +70,7 @@ namespace EC.Web.Controllers
         [HttpPost]
         public ActionResult DeleteProcedure(int? id)
         {
-            _procedureService.DeleteProcedure(id);
+            _procedureService.DeleteProcedure(1);
 
             return View();
 

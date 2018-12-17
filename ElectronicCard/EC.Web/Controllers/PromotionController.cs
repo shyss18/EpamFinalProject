@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
 using EC.BusinessLogic.Services.Interfaces;
 
 namespace EC.Web.Controllers
@@ -22,6 +18,5 @@ namespace EC.Web.Controllers
 
             return result;
         }
-
     }
 }
