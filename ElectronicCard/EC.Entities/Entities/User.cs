@@ -16,9 +16,15 @@ namespace EC.Entities.Entities
 
         public virtual IReadOnlyCollection<Phone> PhoneNumbers { get; set; }
 
+        public int RoleId { get; set; }
+
         public Role Roles { get; set; }
 
+        public virtual int PatientId { get; set; }
+
         public virtual Patient Patient { get; set; }
+
+        public virtual int DoctorId { get; set; }
 
         public virtual Doctor Doctor { get; set; }
     }
