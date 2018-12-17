@@ -150,6 +150,10 @@
       <Project>{3cac8f00-63c3-434c-896e-c2a8be6a3f2e}</Project>
       <Name>EC.BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EC.Common\EC.Common.csproj">
+      <Project>{7b5ed5b4-25e5-4f5b-a30e-87c72dec2583}</Project>
+      <Name>EC.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EC.Dependency\EC.Dependency.csproj">
       <Project>{f3bc4953-c1b5-4c6b-93c1-d72a0a46345c}</Project>
       <Name>EC.Dependency</Name>
