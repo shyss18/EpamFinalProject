@@ -1,0 +1,30 @@
+﻿@model EC.Entities.Entities.Procedure
+
+@{
+    ViewBag.Title = "Подробнее о процедуре " + Model.Title;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container row">
+    <div class="col-md-6">
+        <h4 class="text-info">Информация о процедуре:</h4>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Title, "Название процедуры:", new { @class = "col-sm-4 col-form-label" })
+            <div class="col-sm-3 col-form-label">
+                @Html.DisplayTextFor(m => m.Title)
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Description, "Описание процедуры:", new { @class = "col-sm-4 col-form-label" })
+            <div class="col-sm-3 col-form-label">
+                @Html.DisplayTextFor(m => m.Description)
+            </div>
+        </div>
+        <div class="form-group row">
+            @Html.LabelFor(m => m.TimeUse, "Длительность прохождения процедуры:", new { @class = "col-sm-4 col-form-label" })
+            <div class="col-sm-3 col-form-label">
+                @Html.DisplayTextFor(m => m.TimeUse)
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,36 @@
+﻿@model IEnumerable<EC.Entities.Entities.Procedure>
+
+@{
+    ViewBag.Title = "Все процедуры";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h4 class="text-center text-info">Процедуры</h4>
+    @foreach (var procedure in Model)
+    {
+        <div class="form-group">
+            <div class="lead">
+                @procedure.Title
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    Описание процедуры:
+                </div>
+                <div class="col-md-2">
+                    @procedure.Description
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-sm-2">
+                    Продолжительность лечения:
+                </div>
+                <div class="col-sm-3">
+                    @procedure.TimeUse
+                </div>
+            </div>
+            <br />
+            @Html.ActionLink("Подробнее", "ProcedureDetails", "Procedure", new { id = procedure.Id }, null)
+        </div>
+    }
+</div>
