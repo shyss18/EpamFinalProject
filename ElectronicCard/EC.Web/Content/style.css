@@ -9,33 +9,7 @@ body {
 }
 
 .navBack a{
-    color: #fff !important;
-}
-
-#navbarCollapse > ul li{
-    -webkit-transition: all 0.3s ease;;
-    -moz-transition: all 0.3s ease;;
-    -o-transition: all 0.3s ease;;
-    transition: all 0.3s ease;
-}
-
-#navbarCollapse ul li:hover{
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2);
-}
-
-#navbarCollapse > ul li a i{
-    -webkit-transition: all 0.3s ease;;
-    -moz-transition: all 0.3s ease;;
-    -o-transition: all 0.3s ease;;
-    transition: all 0.3s ease;
-}
-
-#navbarCollapse ul li:hover a i{
-    -webkit-transform: scale(1.2);
-    -ms-transform: scale(1.2);
-    transform: scale(1.2);
+    color:white !important;
 }
 
 .wrapper {
