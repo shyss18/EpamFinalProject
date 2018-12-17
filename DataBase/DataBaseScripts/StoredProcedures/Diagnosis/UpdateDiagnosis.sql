@@ -1,7 +1,7 @@
 USE ElectronicCardDB;
 GO
 
-CREATE PROC UpdateDiagonsis
+CREATE PROC UpdateDiagnosis
         @id INT,
 	  @title NVARCHAR(20)
 AS
