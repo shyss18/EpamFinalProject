@@ -55,6 +55,10 @@
       <Project>{3cac8f00-63c3-434c-896e-c2a8be6a3f2e}</Project>
       <Name>EC.BusinessLogic</Name>
     </ProjectReference>
+    <ProjectReference Include="..\EC.Common\EC.Common.csproj">
+      <Project>{7b5ed5b4-25e5-4f5b-a30e-87c72dec2583}</Project>
+      <Name>EC.Common</Name>
+    </ProjectReference>
     <ProjectReference Include="..\EC.DataAccess\EC.DataAccess.csproj">
       <Project>{dec06134-8b60-46b9-ad12-b2e5af37ded5}</Project>
       <Name>EC.DataAccess</Name>
