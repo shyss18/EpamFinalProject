@@ -1,7 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Data;
 
-namespace EC.DataAccess.Helpers.Interface
+namespace EC.Common.Helpers.Interface
 {
     public interface ISqlFactory
     {

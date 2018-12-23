@@ -1,6 +1,6 @@
 ﻿namespace EC.BusinessLogic.Services.Interfaces
 {
-    public interface IPromotionService
+    public interface IAdvertisingService
     {
         string TestConnection();
     }

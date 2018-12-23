@@ -1,9 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using EC.Common.Helpers.Interface;
+using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
-using EC.DataAccess.Helpers.Interface;
 
-namespace EC.DataAccess.Helpers.Implementation
+namespace EC.Common.Helpers.Implementation
 {
     public class SqlFactory : ISqlFactory
     {

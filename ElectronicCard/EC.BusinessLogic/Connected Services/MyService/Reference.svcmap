@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ReferenceGroup xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" ID="e688af3c-6f30-4cc8-817f-755142d73696" xmlns="urn:schemas-microsoft-com:xml-wcfservicemap">
+  <ClientOptions>
+    <GenerateAsynchronousMethods>false</GenerateAsynchronousMethods>
+    <GenerateTaskBasedAsynchronousMethod>true</GenerateTaskBasedAsynchronousMethod>
+    <EnableDataBinding>true</EnableDataBinding>
+    <ExcludedTypes />
+    <ImportXmlTypes>false</ImportXmlTypes>
+    <GenerateInternalTypes>false</GenerateInternalTypes>
+    <GenerateMessageContracts>false</GenerateMessageContracts>
+    <NamespaceMappings />
+    <CollectionMappings />
+    <GenerateSerializableTypes>true</GenerateSerializableTypes>
+    <Serializer>Auto</Serializer>
+    <UseSerializerForFaults>true</UseSerializerForFaults>
+    <ReferenceAllAssemblies>true</ReferenceAllAssemblies>
+    <ReferencedAssemblies />
+    <ReferencedDataContractTypes />
+    <ServiceContractMappings />
+  </ClientOptions>
+  <MetadataSources>
+    <MetadataSource Address="http://localhost/EC.PromotionService/PromotionService.svc" Protocol="http" SourceId="1" />
+  </MetadataSources>
+  <Metadata>
+    <MetadataFile FileName="PromotionService.xsd" MetadataType="Schema" ID="d012d14b-fc69-46a8-82e9-cce9ed5a5280" SourceId="1" SourceUrl="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd4" />
+    <MetadataFile FileName="PromotionService.disco" MetadataType="Disco" ID="ab0e45fc-bbef-4e42-94dc-7693f8c7f231" SourceId="1" SourceUrl="http://localhost/EC.PromotionService/PromotionService.svc?disco" />
+    <MetadataFile FileName="PromotionService.wsdl" MetadataType="Wsdl" ID="73d5e7c5-cf1d-420a-a4ab-692da0c70dbd" SourceId="1" SourceUrl="http://localhost/EC.PromotionService/PromotionService.svc?wsdl" />
+    <MetadataFile FileName="PromotionService1.xsd" MetadataType="Schema" ID="38d05996-7e1b-4dc8-8bde-ed86be159956" SourceId="1" SourceUrl="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd5" />
+    <MetadataFile FileName="PromotionService2.xsd" MetadataType="Schema" ID="49bad8ea-52e0-40ca-894a-295823a1a700" SourceId="1" SourceUrl="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd0" />
+    <MetadataFile FileName="PromotionService3.xsd" MetadataType="Schema" ID="f942b0de-d5e7-4428-9b95-3d028a6d060e" SourceId="1" SourceUrl="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd1" />
+    <MetadataFile FileName="PromotionService4.xsd" MetadataType="Schema" ID="2906aeba-a919-4660-96d6-489d0c82ba7b" SourceId="1" SourceUrl="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd2" />
+    <MetadataFile FileName="PromotionService5.xsd" MetadataType="Schema" ID="057f71ab-5c9a-4c8b-850e-86947acc619c" SourceId="1" SourceUrl="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd3" />
+  </Metadata>
+  <Extensions>
+    <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />
+    <ExtensionFile FileName="configuration.svcinfo" Name="configuration.svcinfo" />
+  </Extensions>
+</ReferenceGroup>

@@ -1,4 +1,5 @@
-﻿using EC.DataAccess.Helpers.Interface;
+﻿using EC.Common.Helpers;
+using EC.Common.Helpers.Interface;
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
 using System.Collections.Generic;

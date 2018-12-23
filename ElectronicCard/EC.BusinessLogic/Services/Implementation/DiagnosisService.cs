@@ -1,7 +1,7 @@
-﻿using System.Collections.Generic;
-using EC.BusinessLogic.Services.Interfaces;
+﻿using EC.BusinessLogic.Services.Interfaces;
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
+using System.Collections.Generic;
 
 namespace EC.BusinessLogic.Services.Implementation
 {
