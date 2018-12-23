@@ -45,6 +45,8 @@
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceModel" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -56,27 +58,54 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Connected Services\MyService\Reference.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </Compile>
     <Compile Include="Dependency\ServiceRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementation\DiagnosisService.cs" />
     <Compile Include="Services\Implementation\PhoneService.cs" />
     <Compile Include="Services\Implementation\PreparationService.cs" />
     <Compile Include="Services\Implementation\ProcedureService.cs" />
-    <Compile Include="Services\Implementation\PromotionService.cs" />
+    <Compile Include="Services\Implementation\AdvertisingService.cs" />
     <Compile Include="Services\Implementation\RoleService.cs" />
     <Compile Include="Services\Implementation\SickLeaveService.cs" />
     <Compile Include="Services\Interfaces\IDiagnosisService.cs" />
     <Compile Include="Services\Interfaces\IPhoneService.cs" />
     <Compile Include="Services\Interfaces\IPreparationService.cs" />
     <Compile Include="Services\Interfaces\IProcedureService.cs" />
-    <Compile Include="Services\Interfaces\IPromotionService.cs" />
+    <Compile Include="Services\Interfaces\IAdvertisingService.cs" />
     <Compile Include="Services\Interfaces\IRoleService.cs" />
     <Compile Include="Services\Interfaces\ISickLeaveService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="Connected Services\MyService\PromotionService.wsdl" />
+    <None Include="Connected Services\MyService\PromotionService.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\PromotionService1.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\PromotionService2.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\PromotionService3.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\PromotionService4.xsd">
+      <SubType>Designer</SubType>
+    </None>
+    <None Include="Connected Services\MyService\PromotionService5.xsd">
+      <SubType>Designer</SubType>
+    </None>
     <None Include="packages.config" />
+    <None Include="Properties\DataSources\EC.Entities.Entities.Promotion.datasource" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <WCFMetadata Include="Connected Services\" />
+  </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EC.DataAccess\EC.DataAccess.csproj">
       <Project>{dec06134-8b60-46b9-ad12-b2e5af37ded5}</Project>
@@ -86,6 +115,24 @@
       <Project>{3c567a87-874d-4919-aaad-ec90e5827ac6}</Project>
       <Name>EC.Entities</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <WCFMetadataStorage Include="Connected Services\MyService\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\PromotionService.disco" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\configuration91.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\configuration.svcinfo" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="Connected Services\MyService\Reference.svcmap">
+      <Generator>WCF Proxy Generator</Generator>
+      <LastGenOutput>Reference.cs</LastGenOutput>
+    </None>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
 </Project>
