@@ -1,0 +1,16 @@
+USE ElectronicCardDB;
+GO
+
+CREATE TABLE Records
+(
+    Id INT PRIMARY KEY IDENTITY,
+	DateRecord DATE NOT NULL,
+	PatientId INT NOT NULL
+	FOREIGN KEY REFERENCES Patients(UserId),
+	DiagnosisId INT NULL
+	FOREIGN KEY REFERENCES Diagnosis(DiagnosisId),
+	DoctorId INT NULL
+	FOREIGN KEY REFERENCES Doctors(UserId),
+	SickLeaveId INT NULL
+	FOREIGN KEY REFERENCES SickLeaves(SickLeaveId)
+)

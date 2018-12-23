@@ -1,0 +1,8 @@
+USE ElectronicCardDB;
+GO
+
+CREATE PROC GetAllRole
+AS
+BEGIN
+SELECT * FROM dbo.Roles
+END

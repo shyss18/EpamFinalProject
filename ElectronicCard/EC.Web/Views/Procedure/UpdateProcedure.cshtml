@@ -1,0 +1,44 @@
+﻿@model EC.Entities.Entities.Procedure
+
+@{
+    ViewBag.Title = "Изменение процедуры";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" align="center">
+    <div class="col-md-5">
+        <h4 class="text-center text-warning" style="padding-top: 10%">Изменение процедуры</h4>
+        @using (Html.BeginForm("UpdateProcedure", "Procedure", FormMethod.Post, new { @class = "form-group" }))
+        {
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Title, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Title),
+                })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group row">
+                @Html.TextAreaFor(model => model.Description, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Description),
+                })
+                @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.TimeUse, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.TimeUse),
+                })
+                @Html.ValidationMessageFor(model => model.TimeUse, "", new { @class = "text-danger" })
+            </div>
+            <div class="container">
+                <input type="submit" class="btn btn-outline-warning" value="Изменить" />
+                @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+

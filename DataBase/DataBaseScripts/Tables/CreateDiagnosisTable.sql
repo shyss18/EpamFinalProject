@@ -1,0 +1,8 @@
+USE ElectronicCardDB;
+GO
+
+CREATE TABLE Diagnosis
+(
+    DiagnosisId INT PRIMARY KEY IDENTITY,
+	Title NVARCHAR(20) NOT NULL
+)
