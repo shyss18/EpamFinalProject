@@ -6,6 +6,9 @@ MinimumVisualStudioVersion = 10.0.40219.1
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.Web", "EC.Web\EC.Web.csproj", "{2B247F03-C958-4514-B8C6-55A731BD9539}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.BusinessLogic", "EC.BusinessLogic\EC.BusinessLogic.csproj", "{3CAC8F00-63C3-434C-896E-C2A8BE6A3F2E}"
+	ProjectSection(ProjectDependencies) = postProject
+		{6DDD4427-6FBD-478C-85AF-E1713E623C40} = {6DDD4427-6FBD-478C-85AF-E1713E623C40}
+	EndProjectSection
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EC.DataAccess", "EC.DataAccess\EC.DataAccess.csproj", "{DEC06134-8B60-46B9-AD12-B2E5AF37DED5}"
 	ProjectSection(ProjectDependencies) = postProject
