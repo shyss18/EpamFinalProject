@@ -38,6 +38,7 @@
       <HintPath>..\packages\StructureMap.4.7.0\lib\net45\StructureMap.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
@@ -48,6 +49,9 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Dependency\CommonRegistry.cs" />
+    <Compile Include="Helpers\DbConstants.cs" />
+    <Compile Include="Helpers\Implementation\SqlFactory.cs" />
+    <Compile Include="Helpers\Interface\ISqlFactory.cs" />
     <Compile Include="Logger\ICustomLogger.cs" />
     <Compile Include="Logger\CustomLogger.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />

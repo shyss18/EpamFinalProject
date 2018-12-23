@@ -1,6 +1,6 @@
 ﻿using System.Configuration;
 
-namespace EC.DataAccess
+namespace EC.Common.Helpers
 {
     public static class DbConstants
     {
