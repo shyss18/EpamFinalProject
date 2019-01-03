@@ -89,5 +89,39 @@ namespace EC.DataAccess.Repositories.Implementation
 
             return allRoles;
         }
+
+        public void AddRoleToUser(int? userId, int? roleId)
+        {
+            var userParameter = _query.CreateParameter("userId", userId, DbType.Int32);
+            var roleParameter = _query.CreateParameter("roleId", roleId, DbType.Int32);
+
+            _query.CreateConnection()
+                .CreateCommand(DbConstants.ADD_ROLE_TO_USER)
+                .AddParameters(userParameter, roleParameter)
+                .ExecuteQuery();
+        }
+
+        public IReadOnlyCollection<Role> GetUserRoles(int? userId)
+        {
+            var userParameter = _query.CreateParameter("userId", userId, DbType.Int32);
+
+            var reader = _query.CreateConnection()
+                .CreateCommand(DbConstants.GET_USER_ROLES)
+                .AddParameters(userParameter)
+                .ExecuteReader();
+
+            var roles = new List<Role>();
+
+            foreach (var item in reader)
+            {
+                roles.Add(new Role
+                {
+                    Id = (int)item["Id"],
+                    Name = (string)item["Title"]
+                });
+            }
+
+            return roles;
+        }
     }
 }

@@ -97,5 +97,41 @@ namespace EC.DataAccess.Repositories.Implementation
 
             return allProcedures;
         }
+
+        public void AddProcedureToRecord(int? procedureId, int? recordId)
+        {
+            var procedureParameter = _query.CreateParameter("idProcedure", procedureId, DbType.Int32);
+            var recordParameter = _query.CreateParameter("idRecord", recordId, DbType.Int32);
+
+            _query.CreateConnection()
+                .CreateCommand(DbConstants.ADD_PROCEDURE_TO_RECORD)
+                .AddParameters(recordParameter, procedureParameter)
+                .ExecuteQuery();
+        }
+
+        public IReadOnlyCollection<Procedure> GetProceduresByRecordId(int? recordId)
+        {
+            var recordParameter = _query.CreateParameter("idRecord", recordId, DbType.Int32);
+
+            var reader = _query.CreateConnection()
+                .CreateCommand(DbConstants.GET_PROCEDURES_BY_RECORD)
+                .AddParameters(recordParameter)
+                .ExecuteReader();
+
+            var procedures = new List<Procedure>();
+
+            foreach (var item in reader)
+            {
+                procedures.Add(new Procedure
+                {
+                    Id = (int)item["Id"],
+                    Title = (string)item["Name"],
+                    TimeUse = (int)item["TimeUse"],
+                    Description = (string)item["Description"]
+                });
+            }
+
+            return procedures;
+        }
     }
 }
