@@ -4,6 +4,10 @@ namespace EC.Web.Controllers
 {
     public class AuthController : Controller
     {
+        public AuthController()
+        {
+        }
+
         [HttpGet]
         public ActionResult SignIn()
         {
@@ -11,7 +15,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
-        public ActionResult SignUp()
+        public ActionResult SignUpPatient()
         {
             return View();
         }
