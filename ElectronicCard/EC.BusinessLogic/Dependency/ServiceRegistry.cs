@@ -15,6 +15,9 @@ namespace EC.BusinessLogic.Dependency
             For<IAdvertisingService>().Use<AdvertisingService>();
             For<ISickLeaveService>().Use<SickLeaveService>();
             For<IDiagnosisService>().Use<DiagnosisService>();
+            For<IPatientService>().Use<PatientService>();
+            For<IDoctorService>().Use<DoctorService>();
+            For<IRecordService>().Use<RecordService>();
         }
     }
 }

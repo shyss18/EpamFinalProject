@@ -50,12 +50,17 @@
     <Compile Include="Dependency\DataRegistry.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repositories\Implementation\DiagnosisRepository.cs" />
+    <Compile Include="Repositories\Implementation\PhotoRepository.cs" />
+    <Compile Include="Repositories\Implementation\RecordRepository.cs" />
+    <Compile Include="Repositories\Implementation\UserRepository.cs" />
     <Compile Include="Repositories\Implementation\PhoneRepository.cs" />
     <Compile Include="Repositories\Implementation\PreparationRepository.cs" />
     <Compile Include="Repositories\Implementation\ProcedureRepository.cs" />
     <Compile Include="Repositories\Implementation\RoleRepository.cs" />
     <Compile Include="Repositories\Implementation\SickLeaveRepository.cs" />
     <Compile Include="Repositories\Interfaces\IDiagnosisRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IPhotoRepository.cs" />
+    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPhoneRepository.cs" />
     <Compile Include="Repositories\Interfaces\IPreparationRepository.cs" />
     <Compile Include="Repositories\Interfaces\IProcedureRepository.cs" />
@@ -63,7 +68,6 @@
     <Compile Include="Repositories\Interfaces\IRepository.cs" />
     <Compile Include="Repositories\Interfaces\IRoleRepository.cs" />
     <Compile Include="Repositories\Interfaces\ISickLeaveRepository.cs" />
-    <Compile Include="Repositories\Interfaces\IUserRepository.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="packages.config" />

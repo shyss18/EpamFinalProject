@@ -1,10 +1,9 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Security.Policy;
 
 namespace EC.Entities.Entities
 {
-    public class Patient
+    public class Patient : User
     {
         public int UserId { get; set; }
 
@@ -15,8 +14,6 @@ namespace EC.Entities.Entities
         public string LastName { get; set; }
 
         public string PlaceWork { get; set; }
-
-        public Url Photo { get; set; }
 
         public DateTime DateBirth { get; set; }
 

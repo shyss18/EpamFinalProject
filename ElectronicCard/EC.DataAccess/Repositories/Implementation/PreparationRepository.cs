@@ -97,5 +97,41 @@ namespace EC.DataAccess.Repositories.Implementation
 
             return allPreparations;
         }
+
+        public void AddPreparationToRecord(int? preparationId, int? recordId)
+        {
+            var preparationParameter = _query.CreateParameter("idPreparation", preparationId, DbType.Int32);
+            var recordParameter = _query.CreateParameter("idRecord", recordId, DbType.Int32);
+
+            _query.CreateConnection()
+                .CreateCommand(DbConstants.ADD_PREPARATION_TO_RECORD)
+                .AddParameters(recordParameter, preparationParameter)
+                .ExecuteQuery();
+        }
+
+        public IReadOnlyCollection<Preparation> GetPreparationsByRecordId(int? recordId)
+        {
+            var recordParameter = _query.CreateParameter("idRecord", recordId, DbType.Int32);
+
+            var reader = _query.CreateConnection()
+                .CreateCommand(DbConstants.GET_PREPARATIONS_BY_RECORD)
+                .AddParameters(recordParameter)
+                .ExecuteReader();
+
+            var preparations = new List<Preparation>();
+
+            foreach (var item in reader)
+            {
+                preparations.Add(new Preparation
+                {
+                    Id = (int)item["Id"],
+                    Title = (string)item["Title"],
+                    TimeUse = (int)item["TimeUse"],
+                    Description = (string)item["Description"]
+                });
+            }
+
+            return preparations;
+        }
     }
 }

@@ -1,9 +1,14 @@
-﻿using System.Collections.Generic;
-using EC.Entities.Entities;
+﻿using EC.Entities.Entities;
+using System.Collections.Generic;
 
 namespace EC.BusinessLogic.Services.Interfaces
 {
     public interface IPhoneService
     {
+        void CreatePhone(Phone phone);
+        void UpdatePhone(Phone phone);
+        void DeletePhone(int? id);
+        Phone GetById(int? id);
+        IReadOnlyCollection<Phone> GetUserPhones(int? userId);
     }
 }
