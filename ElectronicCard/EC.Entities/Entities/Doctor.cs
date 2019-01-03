@@ -1,10 +1,8 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Security.Policy;
+﻿using System.Collections.Generic;
 
 namespace EC.Entities.Entities
 {
-    public class Doctor
+    public class Doctor : User
     {
         public int UserId { get; set; }
 
@@ -15,10 +13,6 @@ namespace EC.Entities.Entities
         public string LastName { get; set; }
 
         public string Position { get; set; }
-
-        public Url Photo { get; set; }
-
-        public DateTime DateBirth { get; set; }
 
         public User User { get; set; }
 
