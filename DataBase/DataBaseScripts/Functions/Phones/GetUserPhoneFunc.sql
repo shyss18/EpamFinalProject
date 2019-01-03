@@ -6,6 +6,6 @@ RETURNS table
 RETURN
 (
    SELECT * FROM Phones
-   WHERE Phones.PhoneNumber = @userId
+   WHERE Phones.UserId = @userId
 )
 GO
