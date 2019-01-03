@@ -1,4 +1,5 @@
-﻿using EC.Common.Helpers.Interface;
+﻿using System;
+using EC.Common.Helpers.Interface;
 using System.Collections.Generic;
 using System.Data;
 using System.Data.SqlClient;
@@ -71,7 +72,7 @@ namespace EC.Common.Helpers.Implementation
             {
                 _sqlConnection.Open();
 
-                id = (int)_sqlCommand.ExecuteScalar();
+                id = Convert.ToInt32(_sqlCommand.ExecuteScalar());
             }
 
             return id;
