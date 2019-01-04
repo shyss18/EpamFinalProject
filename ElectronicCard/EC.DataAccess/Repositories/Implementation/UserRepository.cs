@@ -39,12 +39,10 @@ namespace EC.DataAccess.Repositories.Implementation
                         var lastNameParameter = _factory.CreateParameter("lastName", patient.LastName, DbType.String);
                         var dateBirthParameter = _factory.CreateParameter("dateBirth", patient.DateBirth, DbType.Date);
                         var workParameter = _factory.CreateParameter("work", patient.PlaceWork, DbType.String);
-                        var photoPathParameter = _factory.CreateParameter("photoPath", patient.Photo.Path, DbType.String);
 
                         var id = _factory.CreateConnection()
                             .CreateCommand(DbConstants.CREATE_USER)
-                            .AddParameters(loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, dateBirthParameter, workParameter,
-                                photoPathParameter)
+                            .AddParameters(loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, dateBirthParameter, workParameter)
                             .ExecuteScalar();
 
                         foreach (var phoneNumber in patient.PhoneNumbers)
@@ -58,9 +56,12 @@ namespace EC.DataAccess.Repositories.Implementation
                             _roleRepository.AddRoleToUser(id, role.Id);
                         }
 
-                        patient.Photo.UserId = id;
-                        _photoRepository.Create(patient.Photo);
-
+                        if (patient.Photo != null)
+                        {
+                            patient.Photo.UserId = id;
+                            _photoRepository.Create(patient.Photo);
+                        }
+                        
                         break;
                     }
                 case Doctor doctor:
@@ -69,12 +70,10 @@ namespace EC.DataAccess.Repositories.Implementation
                         var middleNameParameter = _factory.CreateParameter("middleName", doctor.MiddleName, DbType.String);
                         var lastNameParameter = _factory.CreateParameter("lastName", doctor.LastName, DbType.String);
                         var workParameter = _factory.CreateParameter("work", doctor.Position, DbType.String);
-                        var photoPathParameter = _factory.CreateParameter("photoPath", doctor.Photo.Path, DbType.String);
 
                         var id = _factory.CreateConnection()
                             .CreateCommand(DbConstants.CREATE_USER)
-                            .AddParameters(loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, workParameter,
-                                photoPathParameter)
+                            .AddParameters(loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, workParameter)
                             .ExecuteScalar();
 
                         foreach (var phoneNumber in doctor.PhoneNumbers)
@@ -88,9 +87,12 @@ namespace EC.DataAccess.Repositories.Implementation
                             _roleRepository.AddRoleToUser(id, role.Id);
                         }
 
-                        doctor.Photo.UserId = id;
-                        _photoRepository.Create(doctor.Photo);
-
+                        if (doctor.Photo != null)
+                        {
+                            doctor.Photo.UserId = id;
+                            _photoRepository.Create(doctor.Photo);
+                        }
+                        
                         break;
                     }
                 default:
@@ -115,18 +117,18 @@ namespace EC.DataAccess.Repositories.Implementation
                     var lastNameParameter = _factory.CreateParameter("lastName", patient.LastName, DbType.String);
                     var dateBirthParameter = _factory.CreateParameter("dateBirth", patient.DateBirth, DbType.Date);
                     var workParameter = _factory.CreateParameter("work", patient.PlaceWork, DbType.String);
-                    var photoPathParameter = _factory.CreateParameter("photoPath", patient.Photo, DbType.String);
 
                     _factory.CreateConnection()
                         .CreateCommand(DbConstants.UPDATE_USER)
-                        .AddParameters(idParameter, loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, dateBirthParameter, workParameter,
-                            photoPathParameter)
+                        .AddParameters(idParameter, loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, dateBirthParameter, workParameter)
                         .ExecuteQuery();
 
                     foreach (var phoneNumber in patient.PhoneNumbers)
                     {
                         _phoneRepository.Update(phoneNumber);
                     }
+
+                    _photoRepository.Update(patient.Photo);
 
                     break;
                 }
@@ -136,18 +138,18 @@ namespace EC.DataAccess.Repositories.Implementation
                     var middleNameParameter = _factory.CreateParameter("middleName", doctor.MiddleName, DbType.String);
                     var lastNameParameter = _factory.CreateParameter("lastName", doctor.LastName, DbType.String);
                     var workParameter = _factory.CreateParameter("work", doctor.Position, DbType.String);
-                    var photoPathParameter = _factory.CreateParameter("photoPath", doctor.Photo, DbType.String);
 
                     _factory.CreateConnection()
                         .CreateCommand(DbConstants.UPDATE_USER)
-                        .AddParameters(idParameter, loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, workParameter,
-                            photoPathParameter)
+                        .AddParameters(idParameter, loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, workParameter)
                         .ExecuteQuery();
 
                     foreach (var phoneNumber in doctor.PhoneNumbers)
                     {
                         _phoneRepository.Update(phoneNumber);
                     }
+
+                    _photoRepository.Update(doctor.Photo);
 
                     break;
                 }
@@ -174,6 +176,64 @@ namespace EC.DataAccess.Repositories.Implementation
             var reader = _factory.CreateConnection()
                 .CreateCommand(DbConstants.GET_USER_BY_ID)
                 .AddParameters(idParameter)
+                .ExecuteReader();
+
+            User user = null;
+
+            foreach (var item in reader)
+            {
+                user = new User
+                {
+                    Id = (int)item["Id"],
+                    Login = (string)item["Login"],
+                    Email = (string)item["Email"],
+                    Password = (string)item["Password"],
+                    IsDoctor = (bool)item["IsDoctor"],
+                };
+
+                user.Roles = _roleRepository.GetUserRoles(user.Id);
+                user.PhoneNumbers = _phoneRepository.GetUserPhones(user.Id);
+                user.Photo = _photoRepository.GetUserPhoto(user.Id);
+
+                if (user.IsDoctor)
+                {
+                    user.DoctorId = (int)item["UserId"];
+
+                    user.Doctor = new Doctor
+                    {
+                        Id = (int)item["UserId"],
+                        FirstName = (string)item["FirstName"],
+                        MiddleName = (string)item["MiddleName"],
+                        LastName = (string)item["LastName"],
+                        Position = (string)item["Position"]
+                    };
+                }
+                else
+                {
+                    user.PatientId = (int)item["UserId"];
+
+                    user.Patient = new Patient
+                    {
+                        UserId = (int)item["UserId"],
+                        FirstName = (string)item["FirstName"],
+                        MiddleName = (string)item["MiddleName"],
+                        LastName = (string)item["LastName"],
+                        DateBirth = (DateTime)item["DateBirth"],
+                        PlaceWork = (string)item["PlaceWork"]
+                    };
+                }
+            }
+
+            return user;
+        }
+
+        public User GetUserByEmail(string email)
+        {
+            var emailParameter = _factory.CreateParameter("email", email, DbType.String);
+
+            var reader = _factory.CreateConnection()
+                .CreateCommand(DbConstants.GET_USER_BY_EMAIL)
+                .AddParameters(emailParameter)
                 .ExecuteReader();
 
             User user = null;
