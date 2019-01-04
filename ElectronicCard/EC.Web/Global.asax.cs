@@ -1,8 +1,13 @@
-﻿using System;
+﻿using EC.BusinessLogic.Auth;
+using EC.Common.Logger;
+using EC.Entities.Entities;
+using EC.Web.DependencyResolution;
+using Newtonsoft.Json;
+using System;
+using System.Web;
 using System.Web.Mvc;
 using System.Web.Routing;
-using EC.Common.Logger;
-using EC.Web.DependencyResolution;
+using System.Web.Security;
 
 namespace EC.Web
 {
@@ -12,6 +17,22 @@ namespace EC.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+        }
+
+        protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
+        {
+            var cookie = HttpContext.Current.Request.Cookies.Get(FormsAuthentication.FormsCookieName);
+
+            if (cookie != null)
+            {
+                var decryptCookie = FormsAuthentication.Decrypt(cookie.Value);
+
+                var user = JsonConvert.DeserializeObject<User>(decryptCookie.UserData);
+
+                var principal = new UserPrincipal(user);
+
+                HttpContext.Current.User = principal;
+            }
         }
 
         protected void Application_Error(object sender, EventArgs e)

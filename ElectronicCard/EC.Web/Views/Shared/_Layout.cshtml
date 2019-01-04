@@ -31,7 +31,7 @@
                     @Html.ActionLink("Войти", "SignIn", "Auth", null, new { @class = "btn btn-outline-primary mr-sm-2" })
                 </li>
                 <li class="nav-item">
-                    @Html.ActionLink("Регистрация", "SignUp", "Auth", null, new { @class = "btn btn-outline-success my-2 my-sm-0" })
+                    <a class="btn btn-outline-success my-2 my-sm-0" href="#" data-toggle="modal" data-target="#checkDoctor">Регистрация</a>
                 </li>
             </ul>
         </div>
@@ -39,6 +39,7 @@
 
     <div class="container-fluid wrapper body-content">
         @{ Html.RenderPartial("AboutPartial");}
+        @{ Html.RenderPartial("CheckForDoctor");}
         <div class="content">
             @RenderBody()
         </div>
