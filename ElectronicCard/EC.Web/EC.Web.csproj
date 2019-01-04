@@ -106,6 +106,7 @@
     <Content Include="Content\bootstrap.min.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Global.asax" />
+    <Content Include="Scripts\addPhone.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
@@ -135,6 +136,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -151,6 +153,7 @@
     <Content Include="Views\Procedure\UpdateProcedure.cshtml" />
     <Content Include="Views\Procedure\ProcedureDetails.cshtml" />
     <Content Include="Views\Procedure\GetAllProcedure.cshtml" />
+    <Content Include="Views\Shared\CheckForDoctor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -159,7 +162,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Models\" />
     <Folder Include="Views\Diagnosis\" />
     <Folder Include="Views\Doctor\" />
     <Folder Include="Views\Patient\" />

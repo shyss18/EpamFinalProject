@@ -1,4 +1,4 @@
-﻿@model EC.Entities.Entities.User
+﻿@model EC.Web.Models.RegistrationModel
 
 @{
     Layout = null;
@@ -22,13 +22,53 @@
             <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
         </div>
         <div>
+            @Html.TextBoxFor(user=>user.Login, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.Login),
+                @type= "text",
+                @required = true,
+                @autofocus = true
+            })
+        </div>
+
+        <div>
+            @Html.TextBoxFor(user=>user.Email, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.Email),
+                @type= "text",
+                @required = true
+            })
+        </div>
+
+        <div>
+            @Html.TextBoxFor(user=>user.Password, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.Password),
+                @type= "password",
+                @required = true
+            })
+        </div>
+
+        <div>
+            @Html.TextBoxFor(user=>user.ConfirmPassword, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.ConfirmPassword),
+                @type= "password",
+                @required = true
+            })
+        </div>
+
+        <div>
             @Html.TextBoxFor(user=>user.FirstName, new
             {
                 @class="form-control",
                 @placeholder = @Html.DisplayNameFor(user => user.FirstName),
                 @type= "text",
-                @required = true,
-                @autofocus = true
+                @required = true
             })
         </div>
 
@@ -52,58 +92,67 @@
             })
         </div>
 
-        <div>
-            @Html.TextBoxFor(user=>user.DateBirth, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.DateBirth),
-                @type= "text",
-                @required = true
-            })
+        if ((bool)ViewBag.IsDoctor == false)
+        {
+            @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "false" })
+
+            <div>
+                @Html.TextBoxFor(user=>user.PlaceWork, new
+                {
+                    @class="form-control",
+                    @placeholder = @Html.DisplayNameFor(user => user.PlaceWork),
+                    @type= "text",
+                    @required = true
+                })
+            </div>
+
+            <div>
+                @Html.TextBoxFor(user=>user.DateBirth, new
+                {
+                    @class="form-control",
+                    @placeholder = @Html.DisplayNameFor(user => user.DateBirth),
+                    @type= "date",
+                    @required = true
+                })
+            </div>
+        }
+        else
+        {
+            @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "true" })
+
+            <div>
+                @Html.TextBoxFor(user=>user.Position, new
+                {
+                    @class="form-control",
+                    @placeholder = @Html.DisplayNameFor(user => user.Position),
+                    @type= "text",
+                    @required = true
+                })
+            </div>
+        }
+
+        <div id="ExtraPhonesContainer">
+            <div class="ExtraPhones">
+                @Html.TextBox("Phones[0].PhoneNumber", null, new
+                {
+                    @class = "form-control",
+                    @placeholder = @Html.DisplayNameFor(user => user.Phones),
+                    @type = "text",
+                    @required = true
+                })
+            </div>
         </div>
 
-        <div>
-            @Html.TextBoxFor(user=>user.Login, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.Login),
-                @type= "text",
-                @required = true
-            })
+        <br />
+
+        <div id="addPhoneDynamic">
+            @Html.TextBox("extraFieldAdd", "Добавить телефон", new { @class = "btn btn-lg btn-info col-sm-8", @type = "button" })
         </div>
 
-        <div>
-            @Html.TextBoxFor(user=>user.Email, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.Email),
-                @type= "email",
-                @required = true
-            })
-        </div>
+        <br />
 
-        <div>
-            @Html.TextBoxFor(user=>user.Password, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.Password),
-                @type="password",
-                @required = true
-            })
-        </div>
-
-        <div>
-            @Html.TextBoxFor(user=>user.ConfirmPassword, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.ConfirmPassword),
-                @type="password",
-                @required = true
-            })
-        </div>
-
-        <div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+        <div class="container">
+            <button class="btn btn-lg btn-success btn-block" type="submit">Зарегистрироваться</button>
             @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-lg btn-secondary btn-block" })
             @Html.ActionLink("Уже есть аккаунт? Войдите", "SignIn", "Auth")
             <p class="mt-5 mb-3 text-muted text-center">&copy; @DateTime.Now.Year</p>
@@ -111,6 +160,6 @@
     }
     <script src="~/Scripts/jquery-3.0.0.js"></script>
     <script src="~/Scripts/bootstrap.js"></script>
+    <script src="~/Scripts/addPhone.js"></script>
 </body>
-
 </html>
