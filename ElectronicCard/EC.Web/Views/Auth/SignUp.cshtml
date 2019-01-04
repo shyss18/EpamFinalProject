@@ -16,7 +16,7 @@
 </head>
 
 <body class="text-center">
-    @using (Html.BeginForm("SignUp", "Auth", FormMethod.Post, new { @class = "form-signin", @novalidate = true }))
+    @using (Html.BeginForm("SignUp", "Auth", FormMethod.Post, new { @class = "form-signin", @novalidate = true, enctype = "multipart/form-data" }))
     {
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
@@ -147,6 +147,19 @@
 
         <div id="addPhoneDynamic">
             @Html.TextBox("extraFieldAdd", "Добавить телефон", new { @class = "btn btn-lg btn-info col-sm-8", @type = "button" })
+        </div>
+
+        <br />
+
+        <div class="text-left">
+            <div class="form-group">
+                @Html.Label("", "Выберите фото", new { @for = "Photo" })
+                @Html.TextBoxFor(user => user.Photo, new
+                {
+                    @class = "form-control-file",
+                    @type = "file"
+                })
+            </div>
         </div>
 
         <br />

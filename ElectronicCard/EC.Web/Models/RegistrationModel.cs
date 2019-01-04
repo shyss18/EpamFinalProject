@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Web;
 
 namespace EC.Web.Models
 {
@@ -22,7 +23,7 @@ namespace EC.Web.Models
         public bool IsDoctor { get; set; }
 
         [DisplayName("Фотография")]
-        public string PhotoPath { get; set; }
+        public HttpPostedFileBase Photo { get; set; }
 
         [DisplayName("Имя")]
         public string FirstName { get; set; }
