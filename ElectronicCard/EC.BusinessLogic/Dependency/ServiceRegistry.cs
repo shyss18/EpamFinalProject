@@ -18,6 +18,8 @@ namespace EC.BusinessLogic.Dependency
             For<IPatientService>().Use<PatientService>();
             For<IDoctorService>().Use<DoctorService>();
             For<IRecordService>().Use<RecordService>();
+            For<IPhotoService>().Use<PhotoService>();
+            For<IAuthService>().Use<AuthService>();
         }
     }
 }
