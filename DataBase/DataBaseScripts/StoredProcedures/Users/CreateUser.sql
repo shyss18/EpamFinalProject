@@ -10,7 +10,6 @@ CREATE PROC CreateUser
 	@middleName NVARCHAR(20),
 	@lastName NVARCHAR(20),
 	@work NVARCHAR(40),
-	@photoPath NVARCHAR(50),
     @dateBirth DATE = '0001-01-01'
 AS
 BEGIN
@@ -21,9 +20,9 @@ DECLARE @userId INT;
 SET @userId = (SELECT SCOPE_IDENTITY());
 
 IF @isDoctor != 0
-INSERT Doctors(FirstName, MiddleName, LastName, Position, PhotoPath, UserId)
-VALUES(@firstName, @middleName, @lastName, @work, @photoPath, @userId)
+INSERT Doctors(FirstName, MiddleName, LastName, Position, UserId)
+VALUES(@firstName, @middleName, @lastName, @work, @userId)
 ELSE
-INSERT Patients(FirstName, MiddleName, LastName, DateBirth, PlaceWork, PhotoPath, UserId)
-VALUES(@firstName, @middleName, @lastName, @dateBirth, @work, @photoPath, @userId)
+INSERT Patients(FirstName, MiddleName, LastName, DateBirth, PlaceWork, UserId)
+VALUES(@firstName, @middleName, @lastName, @dateBirth, @work, @userId)
 END;

@@ -11,7 +11,6 @@ CREATE PROC UpdateUser
 	@middleName NVARCHAR(20),
 	@lastName NVARCHAR(20),
 	@work NVARCHAR(40),
-	@photoPath NVARCHAR(50),
     @dateBirth DATE = '0001-01-01'
 AS
 BEGIN
@@ -21,10 +20,10 @@ WHERE Id = @id
 
 IF @isDoctor != 0
 UPDATE Doctors
-SET FirstName = @firstName, MiddleName = @middleName, LastName = @lastName, Position = @work, PhotoPath = @photoPath
+SET FirstName = @firstName, MiddleName = @middleName, LastName = @lastName, Position = @work
 WHERE UserId = @id
 ELSE
 UPDATE Patients
-SET FirstName = @firstName, MiddleName = @middleName, LastName = @lastName, DateBirth = @dateBirth, PlaceWork = @work, PhotoPath = @photoPath
+SET FirstName = @firstName, MiddleName = @middleName, LastName = @lastName, DateBirth = @dateBirth, PlaceWork = @work
 WHERE UserId = @id
 END
