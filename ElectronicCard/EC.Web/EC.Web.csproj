@@ -157,9 +157,10 @@
     <Content Include="Views\Procedure\CreateProcedure.cshtml" />
     <Content Include="Views\Procedure\UpdateProcedure.cshtml" />
     <Content Include="Views\Procedure\ProcedureDetails.cshtml" />
-    <Content Include="Views\Procedure\GetAllProcedure.cshtml" />
+    <Content Include="Views\Procedure\GetAllProcedures.cshtml" />
     <Content Include="Views\Shared\CheckForDoctor.cshtml" />
     <Content Include="Views\Auth\SuccessRegister.cshtml" />
+    <Content Include="Views\Procedure\DeleteProcedure.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

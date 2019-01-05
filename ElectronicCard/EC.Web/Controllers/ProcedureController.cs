@@ -16,15 +16,17 @@ namespace EC.Web.Controllers
         [HttpGet]
         public ActionResult CreateProcedure()
         {
-           return View();
+            return View();
         }
-        
+
         [HttpPost]
         public ActionResult CreateProcedure(Procedure procedure)
         {
             if (ModelState.IsValid)
             {
                 _procedureService.CreateProcedure(procedure);
+
+                return RedirectToAction("GetAllProcedures");
             }
 
             return View(procedure);
@@ -62,6 +64,8 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _procedureService.UpdateProcedure(procedure);
+
+                return RedirectToAction("ProcedureDetails", procedure.Id);
             }
 
             return View(procedure);
@@ -70,14 +74,13 @@ namespace EC.Web.Controllers
         [HttpPost]
         public ActionResult DeleteProcedure(int? id)
         {
-            _procedureService.DeleteProcedure(1);
+            _procedureService.DeleteProcedure(id);
 
-            return View();
-
+            return RedirectToAction("GetAllProcedures");
         }
 
         [HttpGet]
-        public ActionResult GetAllProcedure()
+        public ActionResult GetAllProcedures()
         {
             var procedures = _procedureService.GetAll();
 
