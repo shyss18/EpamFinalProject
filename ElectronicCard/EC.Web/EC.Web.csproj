@@ -161,6 +161,11 @@
     <Content Include="Views\Shared\CheckForDoctor.cshtml" />
     <Content Include="Views\Auth\SuccessRegister.cshtml" />
     <Content Include="Views\Procedure\DeleteProcedure.cshtml" />
+    <Content Include="Views\Preparation\CreatePreparation.cshtml" />
+    <Content Include="Views\Preparation\PreparationDetails.cshtml" />
+    <Content Include="Views\Preparation\UpdatePreparation.cshtml" />
+    <Content Include="Views\Preparation\GetAllPreparations.cshtml" />
+    <Content Include="Views\Preparation\DeletePreparation.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -173,7 +178,6 @@
     <Folder Include="Views\Doctor\" />
     <Folder Include="Views\Patient\" />
     <Folder Include="Views\Photo\" />
-    <Folder Include="Views\Preparation\" />
     <Folder Include="Views\Record\" />
     <Folder Include="Views\Role\" />
     <Folder Include="Views\SickLeave\" />
