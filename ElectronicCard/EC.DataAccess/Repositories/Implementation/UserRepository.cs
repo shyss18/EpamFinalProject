@@ -61,7 +61,15 @@ namespace EC.DataAccess.Repositories.Implementation
                             patient.Photo.UserId = id;
                             _photoRepository.Create(patient.Photo);
                         }
-                        
+
+                        if (patient.Doctors != null)
+                        {
+                            foreach (var doctors in patient.Doctors)
+                            {
+                                AddPatientToDoctor(id, doctors.UserId);
+                            }
+                        }
+
                         break;
                     }
                 case Doctor doctor:
@@ -91,6 +99,14 @@ namespace EC.DataAccess.Repositories.Implementation
                         {
                             doctor.Photo.UserId = id;
                             _photoRepository.Create(doctor.Photo);
+                        }
+
+                        if (doctor.Patients != null)
+                        {
+                            foreach (var patient in doctor.Patients)
+                            {
+                                AddPatientToDoctor(id, patient.UserId);
+                            }
                         }
                         
                         break;
@@ -169,6 +185,17 @@ namespace EC.DataAccess.Repositories.Implementation
                 .ExecuteQuery();
         }
 
+        public void AddPatientToDoctor(int? patientId, int? doctorId)
+        {
+            var patientParameter = _factory.CreateParameter("patientId", patientId, DbType.Int32);
+            var doctorParameter = _factory.CreateParameter("doctorId", doctorId, DbType.Int32);
+
+            _factory.CreateConnection()
+                .CreateCommand(DbConstants.ADD_PATIENT_TO_DOCTOR)
+                .AddParameters(patientParameter, doctorParameter)
+                .ExecuteQuery();
+        }
+
         public User GetById(int? id)
         {
             var idParameter = _factory.CreateParameter("id", id, DbType.Int32);
@@ -227,13 +254,13 @@ namespace EC.DataAccess.Repositories.Implementation
             return user;
         }
 
-        public User GetUserByEmail(string email)
+        public User GetUserByLogin(string login)
         {
-            var emailParameter = _factory.CreateParameter("email", email, DbType.String);
+            var loginParameter = _factory.CreateParameter("login", login, DbType.String);
 
             var reader = _factory.CreateConnection()
-                .CreateCommand(DbConstants.GET_USER_BY_EMAIL)
-                .AddParameters(emailParameter)
+                .CreateCommand(DbConstants.GET_USER_BY_LOGIN)
+                .AddParameters(loginParameter)
                 .ExecuteReader();
 
             User user = null;
