@@ -5,33 +5,43 @@ using System.Collections.Generic;
 
 namespace EC.BusinessLogic.Services.Implementation
 {
-    public class DoctorService : IDoctorService
+    public class UserService : IUserService
     {
         private readonly IUserRepository _userRepository;
 
-        public DoctorService(IUserRepository userRepository)
+        public UserService(IUserRepository userRepository)
         {
             _userRepository = userRepository;
         }
 
-        public void CreateDoctor(Doctor doctor)
+        public void CreateUser(User user)
         {
-            _userRepository.Create(doctor);
+            _userRepository.Create(user);
         }
 
-        public void UpdateDoctor(Doctor doctor)
+        public void UpdateUser(User user)
         {
-            _userRepository.Update(doctor);
+            _userRepository.Update(user);
         }
 
-        public void DeleteDoctor(int? id)
+        public void DeleteUser(int? id)
         {
             _userRepository.Delete(id);
         }
 
-        public User GetDoctorById(int? id)
+        public User GetUserById(int? id)
         {
             return id == null ? null : _userRepository.GetById(id);
+        }
+
+        public IReadOnlyCollection<User> GetAllUsers()
+        {
+            return _userRepository.GetAll();
+        }
+
+        public IReadOnlyCollection<Patient> GetAllPatients()
+        {
+            return _userRepository.GetAllPatients();
         }
 
         public IReadOnlyCollection<Doctor> GetAllDoctors()
