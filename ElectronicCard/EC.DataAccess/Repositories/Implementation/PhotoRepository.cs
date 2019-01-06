@@ -19,7 +19,7 @@ namespace EC.DataAccess.Repositories.Implementation
 
         public void Create(Photo item)
         {
-            var pathParameter = _factory.CreateParameter("path", item.Path, DbType.String);
+            var pathParameter = _factory.CreateParameter("path", item.Path, DbType.AnsiString);
             var userParameter = _factory.CreateParameter("userId", item.UserId, DbType.Int32);
 
             _factory.CreateConnection()
