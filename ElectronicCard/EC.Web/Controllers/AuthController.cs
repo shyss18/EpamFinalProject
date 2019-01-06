@@ -29,7 +29,7 @@ namespace EC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var response = _authService.SignIn(signIn.Email, signIn.Password);
+                var response = _authService.SignIn(signIn.Login, signIn.Password);
 
                 if (response)
                 {
@@ -99,7 +99,7 @@ namespace EC.Web.Controllers
 
                     user.Photo = new Photo
                     {
-                        Path =  Path.GetFullPath(Server.MapPath("~/Photos/" + fileName))
+                        Path = Path.GetFullPath(Server.MapPath("~/Photos/" + fileName))
                     };
                 }
 
@@ -109,6 +109,27 @@ namespace EC.Web.Controllers
             }
 
             return View(registration);
+        }
+
+        [HttpGet]
+        public ActionResult SignOut()
+        {
+            _authService.SignOut();
+
+            return RedirectToAction("Index", "Home");
+        }
+
+        [HttpGet]
+        public ActionResult Account(string login)
+        {
+            var user = _authService.GetUserByLogin(login);
+
+            if (user == null)
+            {
+                return View("NotFound");
+            }
+
+            return View(user);
         }
 
         [HttpPost]
