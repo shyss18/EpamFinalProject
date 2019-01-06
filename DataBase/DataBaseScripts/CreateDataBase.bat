@@ -91,8 +91,9 @@ sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetAllUsers.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserStatus.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserById.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Users/UpdateUser.sql
-sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserStatusByEmail.sql
-sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserByEmail.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserStatusByLogin.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserByLogin.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Users/AddPatientToDoctor.sql
 
 sqlcmd -S %sqlServer% -i StoredProcedures/Photo/CreatePhoto.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Photo/UpdatePhoto.sql
