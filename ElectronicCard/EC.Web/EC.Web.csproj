@@ -107,14 +107,19 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\css\select2.css" />
+    <Content Include="Content\css\select2.min.css" />
+    <Content Include="Content\dashboard.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\addPhone.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Scripts\checkUser.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\select2.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
@@ -122,9 +127,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
-    <Compile Include="Controllers\DoctorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
-    <Compile Include="Controllers\PatientController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PreparationController.cs" />
@@ -133,6 +136,7 @@
     <Compile Include="Controllers\RecordController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SickLeaveController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
@@ -140,6 +144,7 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -166,6 +171,17 @@
     <Content Include="Views\Preparation\UpdatePreparation.cshtml" />
     <Content Include="Views\Preparation\GetAllPreparations.cshtml" />
     <Content Include="Views\Preparation\DeletePreparation.cshtml" />
+    <Content Include="Views\Diagnosis\CreateDiagnosis.cshtml" />
+    <Content Include="Views\Diagnosis\DiagnosisDetails.cshtml" />
+    <Content Include="Views\Diagnosis\UpdateDiagnosis.cshtml" />
+    <Content Include="Views\Diagnosis\DeleteDiagnosis.cshtml" />
+    <Content Include="Views\Diagnosis\GetAllDiagnoses.cshtml" />
+    <Content Include="Views\Auth\Account.cshtml" />
+    <Content Include="Views\Shared\AdminPanel.cshtml" />
+    <Content Include="Views\User\CreateUser.cshtml" />
+    <Content Include="Views\Role\GetRolesForSelect.cshtml" />
+    <Content Include="Views\User\GetListPatient.cshtml" />
+    <Content Include="Views\User\GetListDoctors.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -174,12 +190,10 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Diagnosis\" />
     <Folder Include="Views\Doctor\" />
     <Folder Include="Views\Patient\" />
     <Folder Include="Views\Photo\" />
     <Folder Include="Views\Record\" />
-    <Folder Include="Views\Role\" />
     <Folder Include="Views\SickLeave\" />
   </ItemGroup>
   <ItemGroup>

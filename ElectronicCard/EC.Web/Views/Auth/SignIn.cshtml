@@ -22,10 +22,10 @@
             <h1 class="h3 mb-3 font-weight-normal">Вход</h1>
         </div>
         <div>
-            @Html.TextBoxFor(user=>user.Email, new
+            @Html.TextBoxFor(user=>user.Login, new
             {
             @class="form-control",
-            @placeholder = @Html.DisplayNameFor(user => user.Email),
+            @placeholder = @Html.DisplayNameFor(user => user.Login),
             @type= "email",
             @required = true,
             @autofocus = true

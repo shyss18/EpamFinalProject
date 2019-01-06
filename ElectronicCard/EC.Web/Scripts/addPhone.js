@@ -31,7 +31,8 @@ function addNewPhoneField() {
             'class': 'btn btn-sm btn-danger col-sm-5'
         }).appendTo(div);
 
-    var br = $('<br/>').insertAfter(div);
+    $('<br/>').insertAfter(input);
+    $('<br/>').insertAfter(div);
 
     extra.click(function () {
         $(this).parent().remove();
