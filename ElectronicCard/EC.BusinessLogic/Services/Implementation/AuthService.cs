@@ -18,20 +18,20 @@ namespace EC.BusinessLogic.Services.Implementation
             _userRepository = userRepository;
         }
 
-        public bool SignIn(string email, string password)
+        public bool SignIn(string login, string password)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             {
                 return false;
             }
 
-            if (IsValidUser(email, password))
+            if (IsValidUser(login, password))
             {
-                var user = _userRepository.GetUserByEmail(email);
+                var user = _userRepository.GetUserByLogin(login);
 
                 var data = JsonConvert.SerializeObject(user);
 
-                var ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(10),
+                var ticket = new FormsAuthenticationTicket(1, user.Login, DateTime.Now, DateTime.Now.AddMinutes(10),
                     false, data);
 
                 var encryptTicket = FormsAuthentication.Encrypt(ticket);
@@ -46,6 +46,13 @@ namespace EC.BusinessLogic.Services.Implementation
             return false;
         }
 
+        private bool IsValidUser(string login, string password)
+        {
+            var user = _userRepository.GetUserByLogin(login);
+
+            return user != null && user.Password == password;
+        }
+        
         public void SignUp(User user)
         {
             if (user.IsDoctor)
@@ -71,11 +78,61 @@ namespace EC.BusinessLogic.Services.Implementation
             FormsAuthentication.SignOut();
         }
 
-        private bool IsValidUser(string email, string password)
+        public User GetUserByLogin(string login)
         {
-            var user = _userRepository.GetUserByEmail(email);
+            return login == null ? null : _userRepository.GetUserByLogin(login);
+        }
 
-            return user != null && user.Password == password;
+        public void UpdateUser(User user)
+        {
+            if (user == null)
+            {
+                return;
+            }
+
+            if (user.IsDoctor)
+            {
+                var doctor = new Doctor
+                {
+                    UserId = user.Id,
+                    Login = user.Login,
+                    Email = user.Email,
+                    Password = user.Password,
+                    FirstName = user.Doctor.FirstName,
+                    MiddleName = user.Doctor.MiddleName,
+                    LastName = user.Doctor.LastName,
+                    Position = user.Doctor.Position,
+                    Roles = user.Roles,
+                    Records = user.Records,
+                    PhoneNumbers = user.PhoneNumbers,
+                    Patients = user.Doctor.Patients,
+                    Photo = user.Photo
+                };
+
+                _userRepository.Update(doctor);
+            }
+            else
+            {
+                var patient = new Patient
+                {
+                    UserId = user.Id,
+                    Login = user.Login,
+                    Email = user.Email,
+                    Password = user.Password,
+                    FirstName = user.Patient.FirstName,
+                    MiddleName = user.Patient.MiddleName,
+                    LastName = user.Patient.LastName,
+                    PlaceWork = user.Patient.PlaceWork,
+                    DateBirth = user.Patient.DateBirth,
+                    Roles = user.Roles,
+                    Records = user.Records,
+                    PhoneNumbers = user.PhoneNumbers,
+                    Doctors = user.Patient.Doctors,
+                    Photo = user.Photo
+                };
+
+                _userRepository.Update(patient);
+            }
         }
     }
 }
