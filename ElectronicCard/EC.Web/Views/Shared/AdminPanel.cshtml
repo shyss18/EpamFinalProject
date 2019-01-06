@@ -1,0 +1,127 @@
+﻿<div class="container-fluid">
+    <div class="row">
+        <nav class="col-md-2 d-none d-md-block bg-light sidebar">
+            <div class="sidebar-sticky">
+                @if (User.IsInRole("Admin"))
+                {
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Пользователи</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CreateUser", "User")">
+                                <span data-feather="plus-circle"></span>
+                                Добавить пользователя
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("GetAllUsers", "User")">
+                                <span data-feather="users"></span>
+                                Все пользователи
+                            </a>
+                        </li>
+                    </ul>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("", "User")">
+                                <span data-feather="plus-circle"></span>
+                                Назначить врача
+                            </a>
+                        </li>
+                    </ul>
+                }
+                @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+                {
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Процедуры</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CreateProcedure", "Procedure")">
+                                <span data-feather="plus-circle"></span>
+                                Добавить процедуру
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("GetAllProcedures", "Procedure")">
+                                <span data-feather="file"></span>
+                                Список процедур
+                            </a>
+                        </li>
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Препараты</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CreatePreparation", "Preparation")">
+                                <span data-feather="plus-circle"></span>
+                                Добавить препарат
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("GetAllPreparations", "Preparation")">
+                                <span data-feather="file"></span>
+                                Список препаратов
+                            </a>
+                        </li>
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Диагнозы</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CreateDiagnosis", "Diagnosis")">
+                                <span data-feather="plus-circle"></span>
+                                Добавить диагноз
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("GetAllDiagnoses", "Diagnosis")">
+                                <span data-feather="file"></span>
+                                Список диагнозов
+                            </a>
+                        </li>
+                    </ul>
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Записи</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CreateRecord", "Record")">
+                                <span data-feather="plus-circle"></span>
+                                Добавить запись
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("GetAllRecords", "Record")">
+                                <span data-feather="trello"></span>
+                                Список записей
+                            </a>
+                        </li>
+                    </ul>
+                }
+                @if (User.IsInRole("Doctor") || User.IsInRole("Editor") || User.IsInRole("Admin"))
+                {
+                    <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
+                        <span>Пациенты</span>
+                    </h6>
+                    <ul class="nav flex-column">
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("CreateRecord", "Record")">
+                                <span data-feather="plus-circle"></span>
+                                Сделать записть
+                            </a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="@Url.Action("", "Users")">
+                                <span data-feather="users"></span>
+                                Пациенты
+                            </a>
+                        </li>
+                    </ul>
+                }
+            </div>
+        </nav>
+    </div>
+</div>
