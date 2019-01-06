@@ -1,0 +1,143 @@
+﻿@model EC.Entities.Entities.User
+
+@{
+    ViewBag.Title = "Личный кабинет";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div>
+        @if (Model.Photo == null)
+        {
+            <img src="" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
+        }
+        else
+        {
+            <img src="@Model.Photo.Path" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
+        }
+    </div>
+    <br />
+    <div class="row col-md-12">
+        <div class="col-md-3">
+            <div class="form-group row">
+                @Html.LabelFor(user => user.Login, new { @class = "col-sm-3 col-form-label h3" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(user => user.Login)
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.LabelFor(user => user.Email, new { @class = "col-sm-3 col-form-label h3" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(user => user.Email)
+                </div>
+            </div>
+        </div>
+        @if (Model.IsDoctor)
+        {
+            <div class="col-md-3">
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Doctor.FirstName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Doctor.FirstName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Doctor.MiddleName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Doctor.MiddleName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Doctor.LastName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Doctor.LastName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Doctor.Position, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Doctor.Position)
+                    </div>
+                </div>
+            </div>
+        }
+        else
+        {
+            <div class="col-md-3">
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.FirstName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.FirstName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.MiddleName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.MiddleName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.LastName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.LastName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.DateBirth, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.DateBirth)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.PlaceWork, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.PlaceWork)
+                    </div>
+                </div>
+            </div>
+        }
+        <div class="col-md-3">
+            <div class="col-sm-12 col-form-label h3">
+                Контакты
+            </div>
+            <div>
+                @if (Model.PhoneNumbers.Count == 0)
+                {
+                    <div class="col-sm-12 col-form-label">
+                        Добавьте ваш контактный номер
+                    </div>
+                }
+
+                @foreach (var phone in Model.PhoneNumbers)
+                {
+                    <div class="col-sm-6 col-form-label">
+                        @phone.PhoneNumber
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="col-sm-12 col-form-label h3">
+                Редактирование аккаунта
+            </div>
+            <div>
+                @Html.ActionLink("Изменить аккаунт", "UpdateUser", "User", new { login = User.Identity.Name }, new { @class = "btn btn-outline-warning" })
+            </div>
+            <br />
+            <div>
+                @Html.ActionLink("Изменить контакты", "UpdateContacts", "User", new { login = User.Identity.Name }, new { @class = "btn btn-outline-info" })
+            </div>
+            <br />
+            <div>
+                @Html.ActionLink("Изменить фото", "UpdatePhoto", "Photo", new { login = User.Identity.Name }, new { @class = "btn btn-outline-primary" })
+            </div>
+            <br />
+            <div>
+                @Html.ActionLink("Изменить пароль", "UpdatePassword", "User", new { login = User.Identity.Name }, new { @class = "btn btn-outline-primary" })
+            </div>
+            <br />
+        </div>
+
+    </div>
+</div>
+
