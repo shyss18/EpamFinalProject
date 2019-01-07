@@ -71,6 +71,7 @@
     <Compile Include="Entities\Preparation.cs" />
     <Compile Include="Entities\Procedure.cs" />
     <Compile Include="Entities\Promotion.cs" />
+    <Compile Include="Entities\SerializeModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Entities\Record.cs" />
     <Compile Include="Entities\Role.cs" />
