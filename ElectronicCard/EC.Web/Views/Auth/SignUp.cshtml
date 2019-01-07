@@ -154,7 +154,7 @@
         <div class="text-left">
             <div class="form-group">
                 @Html.Label("", "Выберите фото", new { @for = "Photo" })
-                @Html.TextBoxFor(user => user.Photo, new
+                @Html.TextBoxFor(model => model.Photo, new
                 {
                     @class = "form-control-file",
                     @type = "file"

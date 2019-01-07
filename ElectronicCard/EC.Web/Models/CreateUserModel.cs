@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.ComponentModel;
+using System.Web;
 
 namespace EC.Web.Models
 {
@@ -35,16 +36,19 @@ namespace EC.Web.Models
 
         public bool IsDoctor { get; set; }
 
+        [DisplayName("Фотография")]
+        public HttpPostedFileBase Photo { get; set; }
+
         [DisplayName("Роль")]
-        public IReadOnlyCollection<Role> Roles { get; set; }
+        public int[] Roles { get; set; }
 
         [DisplayName("Номер телефона")]
-        public virtual IReadOnlyCollection<Phone> Phones { get; set; }
+        public virtual ICollection<Phone> Phones { get; set; }
 
         [DisplayName("Пациенты")]
-        public virtual IReadOnlyCollection<Patient> Patients { get; set; }
+        public int[] Patients { get; set; }
 
         [DisplayName("Врачи")]
-        public virtual IReadOnlyCollection<Doctor> Doctors { get; set; }
+        public int[] Doctors { get; set; }
     }
 }
