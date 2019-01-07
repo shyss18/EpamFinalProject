@@ -8,10 +8,12 @@ namespace EC.BusinessLogic.Services.Implementation
     public class PhoneService : IPhoneService
     {
         private readonly IPhoneRepository _phoneRepository;
+        private readonly IUserRepository _userRepository;
 
-        public PhoneService(IPhoneRepository phoneRepository)
+        public PhoneService(IPhoneRepository phoneRepository, IUserRepository userRepository)
         {
             _phoneRepository = phoneRepository;
+            _userRepository = userRepository;
         }
 
         public void CreatePhone(Phone phone)
@@ -34,9 +36,18 @@ namespace EC.BusinessLogic.Services.Implementation
             return id == null ? null : _phoneRepository.GetById(id);
         }
 
-        public IReadOnlyCollection<Phone> GetUserPhones(int? userId)
+        public IReadOnlyCollection<Phone> GetUserContacts(string login)
         {
-            return userId == null ? null : _phoneRepository.GetUserPhones(userId);
+            if (login == null)
+            {
+                return null;
+            }
+
+            var user = _userRepository.GetUserByLogin(login);
+
+            var phones = _phoneRepository.GetUserPhones(user.Id);
+
+            return phones;
         }
     }
 }

@@ -7,7 +7,7 @@ namespace EC.BusinessLogic.Services.Interfaces
         bool SignIn(string login, string password);
         void SignUp(User user);
         void SignOut();
-        User GetUserByLogin(string email);
+        User GetUserByLogin(string login);
         void UpdateUser(User user);
     }
 }

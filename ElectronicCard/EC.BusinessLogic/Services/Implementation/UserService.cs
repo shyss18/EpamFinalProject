@@ -34,6 +34,11 @@ namespace EC.BusinessLogic.Services.Implementation
             return id == null ? null : _userRepository.GetById(id);
         }
 
+        public User GetUserByLogin(string login)
+        {
+            return login == null ? null : _userRepository.GetUserByLogin(login);
+        }
+
         public IReadOnlyCollection<User> GetAllUsers()
         {
             return _userRepository.GetAll();
