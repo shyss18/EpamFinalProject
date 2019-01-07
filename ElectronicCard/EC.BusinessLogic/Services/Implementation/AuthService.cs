@@ -29,16 +29,7 @@ namespace EC.BusinessLogic.Services.Implementation
             {
                 var user = _userRepository.GetUserByLogin(login);
 
-                var data = JsonConvert.SerializeObject(user);
-
-                var ticket = new FormsAuthenticationTicket(1, user.Login, DateTime.Now, DateTime.Now.AddMinutes(10),
-                    false, data);
-
-                var encryptTicket = FormsAuthentication.Encrypt(ticket);
-
-                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptTicket);
-
-                HttpContext.Current.Response.Cookies.Add(cookie);
+                CreateCookie(user);
 
                 return true;
             }
@@ -52,7 +43,7 @@ namespace EC.BusinessLogic.Services.Implementation
 
             return user != null && user.Password == password;
         }
-        
+
         public void SignUp(User user)
         {
             if (user.IsDoctor)
@@ -94,9 +85,10 @@ namespace EC.BusinessLogic.Services.Implementation
             {
                 var doctor = new Doctor
                 {
-                    UserId = user.Id,
+                    Id = user.Id,
                     Login = user.Login,
                     Email = user.Email,
+                    IsDoctor = user.IsDoctor,
                     Password = user.Password,
                     FirstName = user.Doctor.FirstName,
                     MiddleName = user.Doctor.MiddleName,
@@ -109,15 +101,19 @@ namespace EC.BusinessLogic.Services.Implementation
                     Photo = user.Photo
                 };
 
+                DeleteCookie();
+                CreateCookie(user);
+
                 _userRepository.Update(doctor);
             }
             else
             {
                 var patient = new Patient
                 {
-                    UserId = user.Id,
+                    Id = user.Id,
                     Login = user.Login,
                     Email = user.Email,
+                    IsDoctor = user.IsDoctor,
                     Password = user.Password,
                     FirstName = user.Patient.FirstName,
                     MiddleName = user.Patient.MiddleName,
@@ -131,8 +127,43 @@ namespace EC.BusinessLogic.Services.Implementation
                     Photo = user.Photo
                 };
 
+                DeleteCookie();
+                CreateCookie(user);
                 _userRepository.Update(patient);
             }
+        }
+
+        private static void DeleteCookie()
+        {
+            if (HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            {
+                var deleteCookie = new HttpCookie(FormsAuthentication.FormsCookieName)
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                };
+
+                HttpContext.Current.Response.Cookies.Add(deleteCookie);
+            }
+        }
+
+        private static void CreateCookie(User user)
+        {
+            var serialize = new SerializeModel
+            {
+                Login = user.Login,
+                Roles = user.Roles
+            };
+
+            var data = JsonConvert.SerializeObject(serialize);
+
+            var ticket = new FormsAuthenticationTicket(1, user.Login, DateTime.Now, DateTime.Now.AddMinutes(10),
+                false, data);
+
+            var encryptTicket = FormsAuthentication.Encrypt(ticket);
+
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptTicket);
+
+            HttpContext.Current.Response.Cookies.Add(cookie);
         }
     }
 }
