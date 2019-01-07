@@ -1,4 +1,4 @@
-﻿var i = 0;
+var i = 0;
 
 $('#extraFieldAdd').click(function (event) {
 
@@ -31,11 +31,12 @@ function addNewPhoneField() {
             'class': 'btn btn-sm btn-danger col-sm-5'
         }).appendTo(div);
 
-    $('<br/>').insertAfter(input);
-    $('<br/>').insertAfter(div);
+    var br = $('<br/>').insertAfter(input);
+    var br1 = $('<br/>').insertAfter(div);
 
     extra.click(function () {
         $(this).parent().remove();
         $(br).remove();
+        $(br1).remove();
     });
 };
