@@ -27,7 +27,13 @@ namespace EC.Web
             {
                 var decryptCookie = FormsAuthentication.Decrypt(cookie.Value);
 
-                var user = JsonConvert.DeserializeObject<User>(decryptCookie.UserData);
+                var deserialize = JsonConvert.DeserializeObject<SerializeModel>(decryptCookie.UserData);
+
+                var user = new User
+                {
+                    Login = deserialize.Login,
+                    Roles = deserialize.Roles
+                };
 
                 var principal = new UserPrincipal(user);
 
