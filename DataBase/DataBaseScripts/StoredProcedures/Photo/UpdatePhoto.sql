@@ -3,12 +3,13 @@ GO
 
 CREATE PROC dbo.UpdatePhoto
        @id INT,
-       @path NVARCHAR(50),
+       @image VARBINARY(MAX),
+       @imageType NVARCHAR(50),
        @userId INT
 AS
 BEGIN
 UPDATE dbo.Photo
-SET Path = @path, UserId = @userId
+SET Image = @image, ImageType = @imageType, UserId = @userId
 WHERE Id = @id
 END
 GO

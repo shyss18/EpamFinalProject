@@ -5,7 +5,7 @@ CREATE PROC dbo.GetUserPhoto
        @userId INT
 AS
 BEGIN
-SELECT Id, Path FROM dbo.Photo
+SELECT * FROM dbo.Photo
 WHERE UserId = @userId
 END
 GO
