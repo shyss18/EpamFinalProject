@@ -12,10 +12,12 @@ namespace EC.Web.Controllers
         private static bool _isDoctor;
 
         private readonly IAuthService _authService;
+        private readonly IPhoneService _phoneService;
 
-        public AuthController(IAuthService authService)
+        public AuthController(IAuthService authService, IPhoneService phoneService)
         {
             _authService = authService;
+            _phoneService = phoneService;
         }
 
         [HttpGet]
@@ -91,16 +93,13 @@ namespace EC.Web.Controllers
 
                 if (registration.Photo != null)
                 {
-                    var fileName = Path.GetFileName(registration.Photo.FileName);
-
-                    Directory.CreateDirectory(Server.MapPath("~/Photos/"));
-
-                    registration.Photo.SaveAs(Server.MapPath("~/Photos/" + fileName));
-
                     user.Photo = new Photo
                     {
-                        Path = Path.GetFullPath(Server.MapPath("~/Photos/" + fileName))
+                        Image = new byte[registration.Photo.ContentLength],
+                        ImageType = registration.Photo.ContentType
                     };
+
+                    registration.Photo.InputStream.Read(user.Photo.Image, 0, registration.Photo.ContentLength);
                 }
 
                 _authService.SignUp(user);
@@ -130,6 +129,114 @@ namespace EC.Web.Controllers
             }
 
             return View(user);
+        }
+
+        [HttpGet]
+        public ActionResult EditAccount(string login)
+        {
+            var user = _authService.GetUserByLogin(login);
+
+            if (user != null)
+            {
+                var model = new EditAccountModel
+                {
+                    Id = user.Id,
+                    Login = user.Login,
+                    Email = user.Email,
+                    IsDoctor = user.IsDoctor
+                };
+
+                if (model.IsDoctor)
+                {
+                    model.FirstName = user.Doctor.FirstName;
+                    model.MiddleName = user.Doctor.MiddleName;
+                    model.LastName = user.Doctor.LastName;
+                    model.Position = user.Doctor.Position;
+                }
+                else
+                {
+                    model.FirstName = user.Patient.FirstName;
+                    model.MiddleName = user.Patient.MiddleName;
+                    model.LastName = user.Patient.LastName;
+                    model.PlaceWork = user.Patient.PlaceWork;
+                    model.DateBirth = user.Patient.DateBirth;
+                }
+
+                return View(model);
+            }
+
+            return View("NotFound");
+        }
+
+        [HttpPost]
+        public ActionResult EditAccount(EditAccountModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _authService.GetUserByLogin(User.Identity.Name);
+
+                user.Login = model.Login;
+                user.Email = model.Email;
+                user.IsDoctor = model.IsDoctor;
+
+                if (user.IsDoctor)
+                {
+                    user.Doctor.FirstName = model.FirstName;
+                    user.Doctor.MiddleName = model.MiddleName;
+                    user.Doctor.LastName = model.LastName;
+                    user.Doctor.Position = model.Position;
+                }
+                else
+                {
+                    user.Patient.FirstName = model.FirstName;
+                    user.Patient.MiddleName = model.MiddleName;
+                    user.Patient.LastName = model.LastName;
+                    user.Patient.PlaceWork = model.PlaceWork;
+                    user.Patient.DateBirth = model.DateBirth;
+                }
+
+                _authService.UpdateUser(user);
+
+                return RedirectToAction("Account", "Auth", new { login = User.Identity.Name });
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult EditPassword(string login)
+        {
+            var user = _authService.GetUserByLogin(login);
+
+            if (user != null)
+            {
+                var edit = new EditPasswordModel
+                {
+                    OldPassword = user.Password
+                };
+
+                return View(edit);
+            }
+
+            return View("NotFound");
+        }
+
+
+        [HttpPost]
+        public ActionResult EditPassword(EditPasswordModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _authService.GetUserByLogin(User.Identity.Name);
+
+                user.Password = model.NewPassword;
+
+                _authService.UpdateUser(user);
+
+                return RedirectToAction("Account", "Auth", new { login = User.Identity.Name });
+            }
+
+            return View(model);
         }
 
         [HttpPost]

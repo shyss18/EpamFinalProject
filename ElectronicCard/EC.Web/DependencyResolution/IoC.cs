@@ -17,6 +17,7 @@
 
 
 using EC.Dependency;
+using EC.Web.Controllers;
 
 namespace EC.Web.DependencyResolution {
     using StructureMap;
@@ -26,6 +27,7 @@ namespace EC.Web.DependencyResolution {
             return new Container(c =>
             {
                 c.AddRegistry<DependencyRegister>();
+                c.For<UserController>().AlwaysUnique();
             });
         }
     }

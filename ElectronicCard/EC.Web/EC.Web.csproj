@@ -118,6 +118,8 @@
     <Content Include="Scripts\checkUser.js" />
     <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\select2.js" />
     <Content Include="Scripts\select2.min.js" />
     <Content Include="Web.config" />
@@ -145,8 +147,12 @@
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
     <Compile Include="Models\CreateUserModel.cs" />
+    <Compile Include="Models\EditAccountModel.cs" />
+    <Compile Include="Models\EditPasswordModel.cs" />
+    <Compile Include="Models\EditPhotoModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
+    <Compile Include="Models\UpdateUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -154,7 +160,6 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Phone\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\AboutPartial.cshtml" />
     <Content Include="Views\Auth\SignIn.cshtml" />
@@ -182,6 +187,16 @@
     <Content Include="Views\Role\GetRolesForSelect.cshtml" />
     <Content Include="Views\User\GetListPatient.cshtml" />
     <Content Include="Views\User\GetListDoctors.cshtml" />
+    <Content Include="Views\User\UpdateUser.cshtml" />
+    <Content Include="Views\Auth\EditAccount.cshtml" />
+    <Content Include="Views\Phone\EditUserContacts.cshtml" />
+    <Content Include="Views\Phone\CreatePhone.cshtml" />
+    <Content Include="Views\Phone\DeletePhone.cshtml" />
+    <Content Include="Views\Phone\UserPhones.cshtml" />
+    <Content Include="Views\Phone\UpdatePhone.cshtml" />
+    <Content Include="Views\Auth\EditPassword.cshtml" />
+    <Content Include="Views\Photo\EditPhoto.cshtml" />
+    <Content Include="Views\Photo\DeletePhoto.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -190,9 +205,6 @@
     </None>
   </ItemGroup>
   <ItemGroup>
-    <Folder Include="Views\Doctor\" />
-    <Folder Include="Views\Patient\" />
-    <Folder Include="Views\Photo\" />
     <Folder Include="Views\Record\" />
     <Folder Include="Views\SickLeave\" />
   </ItemGroup>

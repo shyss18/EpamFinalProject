@@ -70,7 +70,7 @@ namespace EC.Web.Controllers
             return View(roles);
         }
 
-        [HttpGet]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult GetRolesForSelect()
         {
             var roles = _roleService.GetAll();
