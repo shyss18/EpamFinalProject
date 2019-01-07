@@ -3,8 +3,8 @@ GO
 
 CREATE TABLE PatientsToDoctors
 (
-   PatientId INT
-   FOREIGN KEY REFERENCES Patients(UserId),
-   DoctorId INT
-   FOREIGN KEY REFERENCES Doctors(UserId)
+   PatientId INT NOT NULL
+   FOREIGN KEY REFERENCES Patients(UserId) ON DELETE NO ACTION,
+   DoctorId INT NOT NULL
+   FOREIGN KEY REFERENCES Doctors(UserId) ON DELETE CASCADE
 )
