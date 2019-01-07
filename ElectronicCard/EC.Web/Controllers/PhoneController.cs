@@ -1,4 +1,5 @@
-﻿using EC.BusinessLogic.Services.Interfaces;
+﻿using System.Collections.Generic;
+using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
 using System.Web.Mvc;
 
@@ -7,16 +8,12 @@ namespace EC.Web.Controllers
     public class PhoneController : Controller
     {
         private readonly IPhoneService _phoneService;
+        private readonly IUserService _userService;
 
-        public PhoneController(IPhoneService phoneService)
+        public PhoneController(IPhoneService phoneService, IUserService userService)
         {
             _phoneService = phoneService;
-        }
-
-        [HttpGet]
-        public ActionResult AddPhone()
-        {
-            return View();
+            _userService = userService;
         }
 
         [HttpPost]
@@ -24,18 +21,16 @@ namespace EC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
+                var user = _userService.GetUserByLogin(User.Identity.Name);
+
+                phone.UserId = user.Id;
+
                 _phoneService.CreatePhone(phone);
+
+                return RedirectToAction("EditUserContacts", new { login = User.Identity.Name });
             }
 
-            return View();
-        }
-
-        [HttpGet]
-        public ActionResult UpdatePhone(int? id)
-        {
-            var phone = _phoneService.GetById(id);
-
-            return View(phone);
+            return PartialView("CreatePhone");
         }
 
         [HttpPost]
@@ -44,9 +39,11 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _phoneService.UpdatePhone(phone);
+
+                return RedirectToAction("EditUserContacts", new { login = User.Identity.Name });
             }
 
-            return View(phone);
+            return PartialView(phone);
         }
 
         [HttpPost]
@@ -59,13 +56,13 @@ namespace EC.Web.Controllers
 
             _phoneService.DeletePhone(id);
 
-            return View();
+            return RedirectToAction("EditUserContacts", new { login = User.Identity.Name });
         }
 
         [HttpGet]
-        public ActionResult UserPhones(int? userId)
+        public ActionResult UserPhones(string login)
         {
-            var userPhones = _phoneService.GetUserPhones(userId);
+            var userPhones = _phoneService.GetUserContacts(login);
 
             if (userPhones == null)
             {
@@ -73,6 +70,29 @@ namespace EC.Web.Controllers
             }
 
             return View(userPhones);
+        }
+
+        [HttpGet]
+        public ActionResult EditUserContacts(string login)
+        {
+            var phones = _phoneService.GetUserContacts(login);
+
+            return View(phones);
+
+        }
+
+        [HttpPost]
+        public ActionResult EditUserContacts(ICollection<Phone> phones)
+        {
+            if (ModelState.IsValid)
+            {
+                foreach (var item in phones)
+                {
+                    _phoneService.UpdatePhone(item);
+                }
+            }
+
+            return View(phones);
         }
     }
 }

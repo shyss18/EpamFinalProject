@@ -1,7 +1,10 @@
-﻿namespace EC.Entities.Entities
+﻿using System.Web.Mvc;
+
+namespace EC.Entities.Entities
 {
     public class Phone
     {
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
         public string PhoneNumber { get; set; }
