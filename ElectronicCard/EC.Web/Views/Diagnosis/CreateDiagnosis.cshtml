@@ -1,9 +1,28 @@
 ﻿@model EC.Entities.Entities.Diagnosis
 
 @{
-    ViewBag.Title = "CreateDiagnosis";
+    ViewBag.Title = "Создании диагноза";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>CreateDiagnosis</h2>
+<div class="container" align="center">
+    <div class="col-md-5">
+        <h4 class="text-center text-success" style="padding-top: 10%">Добавление диагноза</h4>
+        @using (Html.BeginForm("CreateDiagnosis", "Diagnosis", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
+        {
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Title, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Title),
+                })
+                @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
+            </div>
+            <div class="container">
+                <input type="submit" class="btn btn-outline-success" value="Добавить" />
+                @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
 

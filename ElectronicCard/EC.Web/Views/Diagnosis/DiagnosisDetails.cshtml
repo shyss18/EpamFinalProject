@@ -1,9 +1,25 @@
 ﻿@model EC.Entities.Entities.Diagnosis
 
 @{
-    ViewBag.Title = "DiagnosisDetails";
+    ViewBag.Title = "Диагноз " + Model.Title;
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
-<h2>DiagnosisDetails</h2>
+<div class="container">
+    <h4 class="text-info text-center">Информация о препарате</h4>
+    <div class="justify-content-center">
+        <div class="form-group row">
+            @Html.LabelFor(m => m.Title, "Название диагноза:", new { @class = "col-sm-3 col-form-label h3" })
+            <div class="col-sm-3 col-form-label">
+                @Html.DisplayTextFor(m => m.Title)
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        @Html.ActionLink("Изменить", "UpdateDiagnosis", new { id = Model.Id }, new { @class = "btn btn-outline-warning" })
+        <a class="btn btn-outline-danger my-2 my-sm-0" href="#" data-toggle="modal" data-target="#deleteDiagnosis">Удалить</a>
+        @Html.ActionLink("Все диагнозы", "GetAllDiagnoses", null, new { @class = "btn btn-outline-secondary" })
+    </div>
+</div>
+@{Html.RenderPartial("DeleteDiagnosis", Model);}
 
