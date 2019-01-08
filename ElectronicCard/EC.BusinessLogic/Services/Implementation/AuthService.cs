@@ -81,56 +81,9 @@ namespace EC.BusinessLogic.Services.Implementation
                 return;
             }
 
-            if (user.IsDoctor)
-            {
-                var doctor = new Doctor
-                {
-                    Id = user.Id,
-                    Login = user.Login,
-                    Email = user.Email,
-                    IsDoctor = user.IsDoctor,
-                    Password = user.Password,
-                    FirstName = user.Doctor.FirstName,
-                    MiddleName = user.Doctor.MiddleName,
-                    LastName = user.Doctor.LastName,
-                    Position = user.Doctor.Position,
-                    Roles = user.Roles,
-                    Records = user.Records,
-                    PhoneNumbers = user.PhoneNumbers,
-                    Patients = user.Doctor.Patients,
-                    Photo = user.Photo
-                };
-
-                DeleteCookie();
-                CreateCookie(user);
-
-                _userRepository.Update(doctor);
-            }
-            else
-            {
-                var patient = new Patient
-                {
-                    Id = user.Id,
-                    Login = user.Login,
-                    Email = user.Email,
-                    IsDoctor = user.IsDoctor,
-                    Password = user.Password,
-                    FirstName = user.Patient.FirstName,
-                    MiddleName = user.Patient.MiddleName,
-                    LastName = user.Patient.LastName,
-                    PlaceWork = user.Patient.PlaceWork,
-                    DateBirth = user.Patient.DateBirth,
-                    Roles = user.Roles,
-                    Records = user.Records,
-                    PhoneNumbers = user.PhoneNumbers,
-                    Doctors = user.Patient.Doctors,
-                    Photo = user.Photo
-                };
-
-                DeleteCookie();
-                CreateCookie(user);
-                _userRepository.Update(patient);
-            }
+            DeleteCookie();
+            CreateCookie(user);
+            _userRepository.Update(user);
         }
 
         private static void DeleteCookie()
