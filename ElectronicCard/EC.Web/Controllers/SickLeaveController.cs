@@ -1,16 +1,19 @@
 ﻿using System.Web.Mvc;
 using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
+using EC.Web.Models;
 
 namespace EC.Web.Controllers
 {
     public class SickLeaveController : Controller
     {
         private readonly ISickLeaveService _sickLeaveService;
+        private readonly IDiagnosisService _diagnosisService;
 
-        public SickLeaveController(ISickLeaveService sickLeaveService)
+        public SickLeaveController(ISickLeaveService sickLeaveService, IDiagnosisService diagnosisService)
         {
             _sickLeaveService = sickLeaveService;
+            _diagnosisService = diagnosisService;
         }
 
         [HttpGet]
@@ -20,11 +23,24 @@ namespace EC.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateSickLeave(SickLeave sickLeave)
+        public ActionResult CreateSickLeave(CreateSickLeaveModel sickLeave)
         {
             if (ModelState.IsValid)
             {
-                _sickLeaveService.CreateSickLeave(sickLeave);
+                var diagnosis = _diagnosisService.GetById(sickLeave.DiagnosisId);
+
+                var sick = new SickLeave
+                {
+                    IsGive = sickLeave.IsGive,
+                    Number = sickLeave.Number,
+                    PeriodAction = sickLeave.PeriodAction,
+                    DiagnosisId = diagnosis.Id,
+                    Diagnosis = diagnosis
+                };
+
+                _sickLeaveService.CreateSickLeave(sick);
+
+                return RedirectToAction("GetAllSickLeaves");
             }
 
             return View(sickLeave);
@@ -48,23 +64,43 @@ namespace EC.Web.Controllers
         {
             var sickLeave = _sickLeaveService.GetById(id);
 
-            if (sickLeave == null)
+            if (sickLeave != null)
             {
-                return View("NotFound");
+                var edit = new EditSickLeaveModel
+                {
+                    Id = sickLeave.Id,
+                    IsGive = sickLeave.IsGive,
+                    Number = sickLeave.Number,
+                    PeriodAction = sickLeave.PeriodAction,
+                    DiagnosisId = sickLeave.DiagnosisId
+                };
+
+                return View(edit);
             }
 
-            return View(sickLeave);
+            return View("NotFound");
         }
 
         [HttpPost]
-        public ActionResult UpdateSickLeave(SickLeave sickLeave)
+        public ActionResult UpdateSickLeave(EditSickLeaveModel edit)
         {
             if (ModelState.IsValid)
             {
+                var sickLeave = _sickLeaveService.GetById(edit.Id);
+                var diagnosis = _diagnosisService.GetById(edit.DiagnosisId);
+
+                sickLeave.IsGive = edit.IsGive;
+                sickLeave.Number = edit.Number;
+                sickLeave.PeriodAction = edit.PeriodAction;
+                sickLeave.DiagnosisId = sickLeave.DiagnosisId;
+                sickLeave.Diagnosis = diagnosis;
+
                 _sickLeaveService.UpdateSickLeave(sickLeave);
+
+                return RedirectToAction("GetAllSickLeaves");
             }
 
-            return View(sickLeave);
+            return View(edit);
         }
 
         [HttpPost]
@@ -72,15 +108,23 @@ namespace EC.Web.Controllers
         {
             _sickLeaveService.DeleteSickLeave(id);
 
-            return View();
+            return RedirectToAction("GetAllSickLeaves");
         }
 
         [HttpGet]
         public ActionResult GetAllSickLeaves()
         {
-            var diagnoses = _sickLeaveService.GetAll();
+            var sickLeaves = _sickLeaveService.GetAll();
 
-            return View(diagnoses);
+            return View(sickLeaves);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult GetSickLeaveForSelect()
+        {
+            var sickLeave = _sickLeaveService.GetAll();
+
+            return PartialView(sickLeave);
         }
     }
 }

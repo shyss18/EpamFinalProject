@@ -65,7 +65,7 @@ namespace EC.Web.Controllers
             {
                 _diagnosisService.UpdateDiagnosis(diagnosis);
 
-                return RedirectToAction("DiagnosisDetails", diagnosis.Id);
+                return RedirectToAction("GetAllDiagnoses");
             }
 
             return View(diagnosis);
@@ -85,6 +85,14 @@ namespace EC.Web.Controllers
             var diagnoses = _diagnosisService.GetAll();
 
             return View(diagnoses);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult GetDiagnosisForSelect()
+        {
+            var diagnoses = _diagnosisService.GetAll();
+
+            return PartialView(diagnoses);
         }
     }
 }
