@@ -1,16 +1,21 @@
 ﻿using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
 using System.Web.Mvc;
+using EC.Web.Models;
 
 namespace EC.Web.Controllers
 {
     public class RecordController : Controller
     {
         private readonly IRecordService _recordService;
+        private readonly IPreparationService _preparationService;
+        private readonly IProcedureService _procedureService;
 
-        public RecordController(IRecordService recordService)
+        public RecordController(IRecordService recordService, IPreparationService preparationService, IProcedureService procedureService)
         {
             _recordService = recordService;
+            _preparationService = preparationService;
+            _procedureService = procedureService;
         }
 
         [HttpGet]
@@ -20,14 +25,26 @@ namespace EC.Web.Controllers
         }
 
         [HttpPost]
-        public ActionResult CreateRecord(Record record)
+        public ActionResult CreateRecord(CreateRecordModel model)
         {
             if (ModelState.IsValid)
             {
+                var record = new Record
+                {
+                    DateRecord = model.DateRecord,
+                    DiagnosisId = model.DiagnosisId,
+                    PatientId = model.PatientId,
+                    DoctorId = model.DoctorId,
+                    SickLeaveId = model.SickLeaveId,
+
+                };
+
                 _recordService.CreateRecord(record);
+
+                return RedirectToAction("GetAllRecords");
             }
 
-            return View(record);
+            return View(model);
         }
 
         [HttpGet]
