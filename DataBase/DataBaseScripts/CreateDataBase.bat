@@ -76,6 +76,7 @@ sqlcmd -S %sqlServer% -i StoredProcedures/Roles/UpdateRole.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Roles/GetRoleById.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Roles/AddRoleToUser.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Roles/GetUserRoles.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Roles/DeleteUserRoles.sql
 
 sqlcmd -S %sqlServer% -i StoredProcedures/SickLeaves/CreateSickLeave.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/SickLeaves/DeleteSickLeave.sql
@@ -94,6 +95,10 @@ sqlcmd -S %sqlServer% -i StoredProcedures/Users/UpdateUser.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserStatusByLogin.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserByLogin.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Users/AddPatientToDoctor.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserPatients.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Users/GetUserDoctors.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Users/DeleteUserPatients.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Users/DeleteUserDoctors.sql
 
 sqlcmd -S %sqlServer% -i StoredProcedures/Photo/CreatePhoto.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Photo/UpdatePhoto.sql
