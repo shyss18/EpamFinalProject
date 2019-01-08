@@ -57,37 +57,40 @@ namespace EC.Web.Controllers
 
             if (ModelState.IsValid)
             {
-                User user;
-
-                if (registration.IsDoctor)
+                var user = new User
                 {
-                    user = new Doctor
+                    Login = registration.Login,
+                    Password = registration.Password,
+                    Email = registration.Email,
+                    IsDoctor = registration.IsDoctor,
+                    PhoneNumbers = new List<Phone>
                     {
-                        Login = registration.Login,
-                        Password = registration.Password,
-                        Email = registration.Email,
+                        new Phone
+                        {
+                            PhoneNumber = registration.Phone
+                        }
+                    }               
+                };
+
+                if (_isDoctor)
+                {
+                    user.Doctor = new Doctor
+                    {
                         FirstName = registration.FirstName,
                         MiddleName = registration.MiddleName,
                         LastName = registration.LastName,
                         Position = registration.Position,
-                        IsDoctor = true,
-                        PhoneNumbers = (IReadOnlyCollection<Phone>)registration.Phones
                     };
                 }
                 else
                 {
-                    user = new Patient
+                    user.Patient = new Patient
                     {
-                        Login = registration.Login,
-                        Password = registration.Password,
-                        Email = registration.Email,
                         FirstName = registration.FirstName,
                         MiddleName = registration.MiddleName,
                         LastName = registration.LastName,
                         PlaceWork = registration.PlaceWork,
-                        DateBirth = registration.DateBirth,
-                        IsDoctor = false,
-                        PhoneNumbers = (IReadOnlyCollection<Phone>)registration.Phones
+                        DateBirth = registration.DateBirth
                     };
                 }
 
