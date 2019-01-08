@@ -112,7 +112,6 @@
     <Content Include="Content\dashboard.css" />
     <Content Include="Content\styles.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\addPhone.js" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\checkUser.js" />
@@ -146,13 +145,16 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateRecordModel.cs" />
+    <Compile Include="Models\CreateSickLeaveModel.cs" />
     <Compile Include="Models\CreateUserModel.cs" />
     <Compile Include="Models\EditAccountModel.cs" />
     <Compile Include="Models\EditPasswordModel.cs" />
     <Compile Include="Models\EditPhotoModel.cs" />
+    <Compile Include="Models\EditSickLeaveModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
-    <Compile Include="Models\UpdateUserModel.cs" />
+    <Compile Include="Models\EditUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -187,7 +189,7 @@
     <Content Include="Views\Role\GetRolesForSelect.cshtml" />
     <Content Include="Views\User\GetListPatient.cshtml" />
     <Content Include="Views\User\GetListDoctors.cshtml" />
-    <Content Include="Views\User\UpdateUser.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
     <Content Include="Views\Auth\EditAccount.cshtml" />
     <Content Include="Views\Phone\EditUserContacts.cshtml" />
     <Content Include="Views\Phone\CreatePhone.cshtml" />
@@ -196,7 +198,16 @@
     <Content Include="Views\Phone\UpdatePhone.cshtml" />
     <Content Include="Views\Auth\EditPassword.cshtml" />
     <Content Include="Views\Photo\EditPhoto.cshtml" />
-    <Content Include="Views\Photo\DeletePhoto.cshtml" />
+    <Content Include="Views\User\GetAllUsers.cshtml" />
+    <Content Include="Views\User\UserDetails.cshtml" />
+    <Content Include="Views\User\DeleteUser.cshtml" />
+    <Content Include="Views\Diagnosis\GetDiagnosisForSelect.cshtml" />
+    <Content Include="Views\SickLeave\CreateSickLeave.cshtml" />
+    <Content Include="Views\SickLeave\SickLeaveDetails.cshtml" />
+    <Content Include="Views\SickLeave\UpdateSickLeave.cshtml" />
+    <Content Include="Views\SickLeave\GetAllSickLeaves.cshtml" />
+    <Content Include="Views\SickLeave\GetSickLeaveForSelect.cshtml" />
+    <Content Include="Views\SickLeave\DeleteSickLeave.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -206,7 +217,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Views\Record\" />
-    <Folder Include="Views\SickLeave\" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\EC.BusinessLogic\EC.BusinessLogic.csproj">
