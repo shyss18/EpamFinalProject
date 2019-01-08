@@ -131,22 +131,14 @@
             </div>
         }
 
-        <div id="ExtraPhonesContainer">
-            <div class="ExtraPhones">
-                @Html.TextBox("Phones[0].PhoneNumber", null, new
-                {
-                    @class = "form-control",
-                    @placeholder = @Html.DisplayNameFor(user => user.Phones),
-                    @type = "text",
-                    @required = true
-                })
-            </div>
-        </div>
-
-        <br />
-
-        <div id="addPhoneDynamic">
-            @Html.TextBox("extraFieldAdd", "Добавить телефон", new { @class = "btn btn-lg btn-info col-sm-8", @type = "button" })
+        <div>
+            @Html.TextBoxFor(user=>user.Phone, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.Phone),
+                @type= "text",
+                @required = true
+            })
         </div>
 
         <br />

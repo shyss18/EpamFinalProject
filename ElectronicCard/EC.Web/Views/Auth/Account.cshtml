@@ -13,7 +13,7 @@
         }
         else
         {
-            <img src="@Url.Action("GetImage", "Photo", new{login=User.Identity.Name})" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
+            <img src="@Url.Action("GetImage", "Photo", new{login=Model.Login})" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
         }
     </div>
     <br />
@@ -121,19 +121,19 @@
                 Редактирование аккаунта
             </div>
             <div>
-                @Html.ActionLink("Изменить аккаунт", "EditAccount", "Auth", new { login = User.Identity.Name }, new { @class = "btn btn-outline-warning" })
+                @Html.ActionLink("Изменить аккаунт", "EditAccount", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-warning" })
             </div>
             <br />
             <div>
-                @Html.ActionLink("Изменить контакты", "EditUserContacts", "Phone", new { login = User.Identity.Name }, new { @class = "btn btn-outline-info" })
+                @Html.ActionLink("Изменить контакты", "EditUserContacts", "Phone", new { login = Model.Login }, new { @class = "btn btn-outline-info" })
             </div>
             <br />
             <div>
-                @Html.ActionLink("Изменить фото", "EditPhoto", "Photo", new { login = User.Identity.Name }, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink("Изменить фото", "EditPhoto", "Photo", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
             </div>
             <br />
             <div>
-                @Html.ActionLink("Изменить пароль", "EditPassword", "Auth", new { login = User.Identity.Name }, new { @class = "btn btn-outline-primary" })
+                @Html.ActionLink("Изменить пароль", "EditPassword", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
             </div>
             <br />
         </div>

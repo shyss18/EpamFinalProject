@@ -129,25 +129,14 @@
                 </select>
             </div>
 
-            <div id="ExtraPhonesContainer">
-                <div class="ExtraPhones">
-                    @Html.TextBox("Phones[0].PhoneNumber", null, new
-                    {
-                        @class = "form-control",
-                        @placeholder = @Html.DisplayNameFor(user => user.Phones),
-                        @type = "text",
-                        @required = true
-                    })
-                </div>
-                
-                <br />
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Phone, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Phone),
+                })
+                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
             </div>
-            
-            <div id="addPhoneDynamic">
-                @Html.TextBox("extraFieldAdd", "Добавить телефон", new { @class = "btn btn-lg btn-info col-sm-8", @type = "button" })
-            </div>
-
-            <br />
 
             <div class="text-left">
                 <div class="form-group">

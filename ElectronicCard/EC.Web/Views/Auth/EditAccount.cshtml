@@ -96,7 +96,7 @@
 
             <div class="container">
                 <button class="btn btn-outline-warning" type="submit">Изменить</button>
-                @Html.ActionLink("Отмена", "Account", "Auth", new { login = User.Identity.Name }, new { @class = "btn btn-outline-secondary" })
+                @Html.ActionLink("Отмена", "Account", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-secondary" })
             </div>
         }
 

@@ -63,7 +63,7 @@
                         {
                             <div class="form-group">
                                 <div>
-                                    @patient.FirstName
+                                    @patient.LastName @patient.FirstName.Remove(1, patient.FirstName.Count() - 1) .
                                 </div>
                             </div>
                         }
@@ -119,7 +119,7 @@
                         {
                             <div class="form-group">
                                 <div>
-                                    @doctor.FirstName
+                                    @doctor.LastName @doctor.FirstName.Remove(1, doctor.FirstName.Count() - 1) .
                                 </div>
                             </div>
                         }
@@ -178,11 +178,12 @@
             </div>
             <br />
             <div>
-                @Html.ActionLink("Изменить пароль", "EditPassword", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
+                <a class="btn btn-outline-danger " href="#" data-toggle="modal" data-target="#deleteUser">Удалить</a>
             </div>
             <br />
         </div>
-
     </div>
 </div>
+
+@{Html.RenderPartial("DeleteUser", Model);}
 
