@@ -28,6 +28,7 @@ namespace EC.Web.DependencyResolution {
             {
                 c.AddRegistry<DependencyRegister>();
                 c.For<UserController>().AlwaysUnique();
+                c.For<RoleController>().AlwaysUnique();
             });
         }
     }

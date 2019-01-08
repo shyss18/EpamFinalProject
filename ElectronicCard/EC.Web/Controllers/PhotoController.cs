@@ -1,36 +1,50 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
-using EC.BusinessLogic.Services.Interfaces;
-using EC.Entities.Entities;
+﻿using EC.BusinessLogic.Services.Interfaces;
 using EC.Web.Models;
+using System.Web.Mvc;
+using EC.Entities.Entities;
 
 namespace EC.Web.Controllers
 {
     public class PhotoController : Controller
     {
         private readonly IPhotoService _photoService;
+        private readonly IUserService _userService;
 
-        public PhotoController(IPhotoService photoService)
+        public PhotoController(IPhotoService photoService, IUserService userService)
         {
             _photoService = photoService;
+            _userService = userService;
         }
 
         [HttpGet]
         public ActionResult EditPhoto(string login)
         {
             var photo = _photoService.GetUserPhoto(login);
+            var user = _userService.GetUserByLogin(login);
 
-            var editPhoto = new EditPhotoModel
+            if (photo != null)
             {
-                Id = photo.Id,
-                UserPhoto = photo,
-                UserId = photo.UserId
-            };
+                var editPhoto = new EditPhotoModel
+                {
+                    Id = photo.Id,
+                    UserPhoto = photo,
+                    UserId = photo.UserId,
+                    UserLogin = user.Login
+                };
 
-            return View(editPhoto);
+                return View(editPhoto);
+            }
+            else
+            {
+                var editPhoto = new EditPhotoModel
+                {
+                    Id = 0,
+                    UserPhoto = null,
+                    UserId = 0
+                };
+
+                return View(editPhoto);
+            }
         }
 
         [HttpPost]
@@ -40,25 +54,37 @@ namespace EC.Web.Controllers
             {
                 var photo = _photoService.GetUserPhoto(User.Identity.Name);
 
-                photo.Image = new byte[model.Image.ContentLength];
-                photo.ImageType = model.Image.ContentType;
+                if (photo != null)
+                {
+                    photo.Image = new byte[model.Image.ContentLength];
+                    photo.ImageType = model.Image.ContentType;
 
-                model.Image.InputStream.Read(photo.Image, 0, model.Image.ContentLength);
+                    model.Image.InputStream.Read(photo.Image, 0, model.Image.ContentLength);
 
-                _photoService.UpdatePhoto(photo);
+                    _photoService.UpdatePhoto(photo);
 
-                return RedirectToAction("Account", "Auth", new { login = User.Identity.Name });
+                    return RedirectToAction("Account", "Auth", new { login = User.Identity.Name });
+                }
+                else
+                {
+                    var user = _userService.GetUserByLogin(User.Identity.Name);
+
+                    var createPhoto = new Photo
+                    {
+                        Image = new byte[model.Image.ContentLength],
+                        ImageType = model.Image.ContentType,
+                        UserId = user.Id
+                    };
+
+                    model.Image.InputStream.Read(createPhoto.Image, 0, model.Image.ContentLength);
+
+                    _photoService.CreatePhoto(createPhoto);
+
+                    return RedirectToAction("Account", "Auth", new { login = User.Identity.Name });
+                }
             }
 
             return View(model);
-        }
-
-        [HttpPost]
-        public ActionResult DeletePhoto(int? id)
-        {
-            _photoService.DeletePhoto(id);
-
-            return RedirectToAction("Account", "Auth", new { login = User.Identity.Name });
         }
 
         public FileContentResult GetImage(string login)
