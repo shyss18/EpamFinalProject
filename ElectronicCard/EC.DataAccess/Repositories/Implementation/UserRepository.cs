@@ -5,6 +5,7 @@ using EC.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using DbConstants = EC.Common.Helpers.DbConstants;
 
 namespace EC.DataAccess.Repositories.Implementation
 {
@@ -145,18 +146,26 @@ namespace EC.DataAccess.Repositories.Implementation
                             .AddParameters(idParameter, loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, dateBirthParameter, workParameter)
                             .ExecuteQuery();
 
-                        if (patient.PhoneNumbers.Count > 0)
+                        if (patient.Roles != null)
                         {
-                            foreach (var phoneNumber in patient.PhoneNumbers)
+                            _roleRepository.DeleteUserRoles(patient.Id);
+
+                            foreach (var role in patient.Roles)
                             {
-                                _phoneRepository.Update(phoneNumber);
+                                _roleRepository.AddRoleToUser(patient.Id, role.Id);
                             }
                         }
 
-                        if (patient.Photo != null)
+                        if (patient.Doctors != null)
                         {
-                            _photoRepository.Update(patient.Photo);
+                            DeleteUserDoctors(patient.Id);
+
+                            foreach (var doctor in patient.Doctors)
+                            {
+                                AddPatientToDoctor(patient.Id, doctor.UserId);
+                            }
                         }
+
 
                         break;
                     }
@@ -172,17 +181,24 @@ namespace EC.DataAccess.Repositories.Implementation
                             .AddParameters(idParameter, loginParameter, passwordParameter, emailParameter, isDoctorParameter, firstNameParameter, middleNameParameter, lastNameParameter, workParameter)
                             .ExecuteQuery();
 
-                        if (doctor.PhoneNumbers.Count > 0)
+                        if (doctor.Roles != null)
                         {
-                            foreach (var phoneNumber in doctor.PhoneNumbers)
+                            _roleRepository.DeleteUserRoles(doctor.Id);
+
+                            foreach (var role in doctor.Roles)
                             {
-                                _phoneRepository.Update(phoneNumber);
+                                _roleRepository.AddRoleToUser(doctor.Id, role.Id);
                             }
                         }
 
-                        if (doctor.Photo != null)
+                        if (doctor.Patients != null)
                         {
-                            _photoRepository.Update(doctor.Photo);
+                            DeleteUserPatients(doctor.Id);
+
+                            foreach (var patient in doctor.Patients)
+                            {
+                                AddPatientToDoctor(patient.UserId, doctor.UserId);
+                            }
                         }
 
                         break;
@@ -250,8 +266,10 @@ namespace EC.DataAccess.Repositories.Implementation
                         FirstName = (string)item["FirstName"],
                         MiddleName = (string)item["MiddleName"],
                         LastName = (string)item["LastName"],
-                        Position = (string)item["Position"]
+                        Position = (string)item["Position"],
+                        Patients = GetUserPatients(user.Id)
                     };
+
                 }
                 else
                 {
@@ -264,7 +282,8 @@ namespace EC.DataAccess.Repositories.Implementation
                         MiddleName = (string)item["MiddleName"],
                         LastName = (string)item["LastName"],
                         DateBirth = (DateTime)item["DateBirth"],
-                        PlaceWork = (string)item["PlaceWork"]
+                        PlaceWork = (string)item["PlaceWork"],
+                        Doctors = GetUserDoctors(user.Id)
                     };
                 }
             }
@@ -368,14 +387,14 @@ namespace EC.DataAccess.Repositories.Implementation
                 }
                 else
                 {
-                    user.PatientId = (int)item["UserId"];
+                    user.PatientId = (int)item["PatientId"];
 
                     user.Patient = new Patient
                     {
-                        UserId = (int)item["UserId"],
-                        FirstName = (string)item["FirstName"],
-                        MiddleName = (string)item["MiddleName"],
-                        LastName = (string)item["LastName"],
+                        UserId = (int)item["PatientId"],
+                        FirstName = (string)item["PatientFirstName"],
+                        MiddleName = (string)item["PatientMiddleName"],
+                        LastName = (string)item["PatientLastName"],
                         DateBirth = (DateTime)item["DateBirth"],
                         PlaceWork = (string)item["PlaceWork"]
                     };
@@ -450,6 +469,85 @@ namespace EC.DataAccess.Repositories.Implementation
             }
 
             return allDoctors;
+        }
+
+        public IReadOnlyCollection<Patient> GetUserPatients(int? userId)
+        {
+            var idParameter = _factory.CreateParameter("userId", userId, DbType.Int32);
+
+            var reader = _factory.CreateConnection()
+                .CreateCommand(DbConstants.GET_USER_PATIENTS)
+                .AddParameters(idParameter)
+                .ExecuteReader();
+
+            var patients = new List<Patient>();
+
+            foreach (var item in reader)
+            {
+                patients.Add(new Patient
+                {
+                    Id = (int)item["Id"],
+                    Login = (string)item["Login"],
+                    Email = (string)item["Email"],
+                    Password = (string)item["Password"],
+                    FirstName = (string)item["FirstName"],
+                    MiddleName = (string)item["MiddleName"],
+                    LastName = (string)item["LastName"],
+                    DateBirth = (DateTime)item["DateBirth"],
+                    PlaceWork = (string)item["PlaceWork"],
+                });
+            }
+
+            return patients;
+        }
+
+        public IReadOnlyCollection<Doctor> GetUserDoctors(int? userId)
+        {
+            var idParameter = _factory.CreateParameter("userId", userId, DbType.Int32);
+
+            var reader = _factory.CreateConnection()
+                .CreateCommand(DbConstants.GET_USER_DOCTORS)
+                .AddParameters(idParameter)
+                .ExecuteReader();
+
+            var doctors = new List<Doctor>();
+
+            foreach (var item in reader)
+            {
+                doctors.Add(new Doctor
+                {
+                    UserId = (int)item["Id"],
+                    Login = (string)item["Login"],
+                    Email = (string)item["Email"],
+                    Password = (string)item["Password"],
+                    FirstName = (string)item["FirstName"],
+                    MiddleName = (string)item["MiddleName"],
+                    LastName = (string)item["LastName"],
+                    Position = (string)item["Position"],
+                });
+            }
+
+            return doctors;
+        }
+
+        private void DeleteUserDoctors(int? userId)
+        {
+            var idParameter = _factory.CreateParameter("userId", userId, DbType.Int32);
+
+            _factory.CreateConnection()
+                .CreateCommand(DbConstants.DELETE_USER_DOCTORS)
+                .AddParameters(idParameter)
+                .ExecuteQuery();
+        }
+
+        private void DeleteUserPatients(int? userId)
+        {
+            var idParameter = _factory.CreateParameter("userId", userId, DbType.Int32);
+
+            _factory.CreateConnection()
+                .CreateCommand(DbConstants.DELETE_USER_PATIENTS)
+                .AddParameters(idParameter)
+                .ExecuteQuery();
         }
     }
 }

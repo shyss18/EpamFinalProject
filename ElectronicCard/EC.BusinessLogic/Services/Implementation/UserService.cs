@@ -16,12 +16,132 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void CreateUser(User user)
         {
-            _userRepository.Create(user);
+            if (user.IsDoctor)
+            {
+                var doctor = new Doctor
+                {
+                    Id = user.Id,
+                    UserId = user.Id,
+                    Login = user.Login,
+                    Password = user.Password,
+                    Email = user.Email,
+                    IsDoctor = user.IsDoctor,
+                    Roles = user.Roles,
+                    PhoneNumbers = user.PhoneNumbers,
+                    FirstName = user.Doctor.FirstName,
+                    MiddleName = user.Doctor.MiddleName,
+                    LastName = user.Doctor.LastName,
+                    Position = user.Doctor.Position
+                };
+
+                if (user.Doctor.Patients != null)
+                {
+                    doctor.Patients = user.Doctor.Patients;
+                }
+
+                if (user.Photo != null)
+                {
+                    doctor.Photo = user.Photo;
+                }
+
+                _userRepository.Create(doctor);
+            }
+            else
+            {
+                var patient = new Patient
+                {
+                    Id = user.Id,
+                    UserId = user.Id,
+                    Login = user.Login,
+                    Password = user.Password,
+                    Email = user.Email,
+                    IsDoctor = user.IsDoctor,
+                    Roles = user.Roles,
+                    PhoneNumbers = user.PhoneNumbers,
+                    FirstName = user.Patient.FirstName,
+                    MiddleName = user.Patient.MiddleName,
+                    LastName = user.Patient.LastName,
+                    PlaceWork = user.Patient.PlaceWork,
+                    DateBirth = user.Patient.DateBirth
+                };
+
+                if (user.Patient.Doctors != null)
+                {
+                    patient.Doctors = user.Patient.Doctors;
+                }
+
+                if (user.Photo != null)
+                {
+                    patient.Photo = user.Photo;
+                }
+
+                _userRepository.Create(patient);
+            }
         }
 
         public void UpdateUser(User user)
         {
-            _userRepository.Update(user);
+            if (user.IsDoctor)
+            {
+                var doctor = new Doctor
+                {
+                    Id = user.Id,
+                    UserId = user.Id,
+                    Login = user.Login,
+                    IsDoctor = user.IsDoctor,
+                    Password = user.Password,
+                    Email = user.Email,
+                    Roles = user.Roles,
+                    PhoneNumbers = user.PhoneNumbers,
+                    FirstName = user.Doctor.FirstName,
+                    MiddleName = user.Doctor.MiddleName,
+                    LastName = user.Doctor.LastName,
+                    Position = user.Doctor.Position
+                };
+
+                if (user.Doctor.Patients != null)
+                {
+                    doctor.Patients = user.Doctor.Patients;
+                }
+
+                if (user.Photo != null)
+                {
+                    doctor.Photo = user.Photo;
+                }
+
+                _userRepository.Update(doctor);
+            }
+            else
+            {
+                var patient = new Patient
+                {
+                    Id = user.Id,
+                    UserId = user.Id,
+                    Login = user.Login,
+                    Password = user.Password,
+                    IsDoctor = user.IsDoctor,
+                    Email = user.Email,
+                    Roles = user.Roles,
+                    PhoneNumbers = user.PhoneNumbers,
+                    FirstName = user.Patient.FirstName,
+                    MiddleName = user.Patient.MiddleName,
+                    LastName = user.Patient.LastName,
+                    PlaceWork = user.Patient.PlaceWork,
+                    DateBirth = user.Patient.DateBirth
+                };
+
+                if (user.Patient.Doctors != null)
+                {
+                    patient.Doctors = user.Patient.Doctors;
+                }
+
+                if (user.Photo != null)
+                {
+                    patient.Photo = user.Photo;
+                }
+
+                _userRepository.Update(patient);
+            }
         }
 
         public void DeleteUser(int? id)
@@ -52,6 +172,11 @@ namespace EC.BusinessLogic.Services.Implementation
         public IReadOnlyCollection<Doctor> GetAllDoctors()
         {
             return _userRepository.GetAllDoctors();
+        }
+
+        public IReadOnlyCollection<Patient> GetUserPatients(int? userId)
+        {
+            return userId == null ? null : _userRepository.GetUserPatients(userId);
         }
     }
 }

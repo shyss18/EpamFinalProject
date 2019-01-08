@@ -13,5 +13,6 @@ namespace EC.BusinessLogic.Services.Interfaces
         IReadOnlyCollection<User> GetAllUsers();
         IReadOnlyCollection<Patient> GetAllPatients();
         IReadOnlyCollection<Doctor> GetAllDoctors();
+        IReadOnlyCollection<Patient> GetUserPatients(int? userId);
     }
 }
