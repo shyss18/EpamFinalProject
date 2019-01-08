@@ -1,0 +1,188 @@
+﻿@model EC.Entities.Entities.User
+
+@{
+    ViewBag.Title = "Информация о пользователе " + Model.Login;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <div>
+        @if (Model.Photo == null)
+        {
+            <img src="" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
+        }
+        else
+        {
+            <img src="@Url.Action("GetImage", "Photo", new {login = Model.Login})" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
+        }
+    </div>
+    <br />
+    <div class="row col-md-12">
+
+        @if (Model.IsDoctor)
+        {
+            <div class="col-md-3">
+                <div class="form-group row">
+                    <div class="col-sm-12 col-form-label h3">
+                        Информация о пользователе
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Doctor.FirstName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Doctor.FirstName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Doctor.MiddleName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Doctor.MiddleName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Doctor.LastName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Doctor.LastName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Doctor.Position, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Doctor.Position)
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-sm-12 col-form-label h3">
+                    Список пациентов
+                </div>
+                @if (Model.Doctor.Patients != null)
+                {
+                    <div>
+                        @foreach (var patient in Model.Doctor.Patients)
+                        {
+                            <div class="form-group">
+                                <div>
+                                    @patient.FirstName
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+            </div>
+        }
+        else
+        {
+            <div class="col-md-3">
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.FirstName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.FirstName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.MiddleName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.MiddleName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.LastName, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.LastName)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.DateBirth, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.DateBirth)
+                    </div>
+                </div>
+                <div class="form-group row">
+                    @Html.LabelFor(user => user.Patient.PlaceWork, new { @class = "col-sm-4 col-form-label h3" })
+                    <div class="col-sm-6 col-form-label">
+                        @Html.DisplayTextFor(user => user.Patient.PlaceWork)
+                    </div>
+                </div>
+                <div>
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <div class="col-sm-12 col-form-label h3">
+                    Список докторов
+                </div>
+                @if (Model.Patient.Doctors != null)
+                {
+                    <div>
+                        @foreach (var doctor in Model.Patient.Doctors)
+                        {
+                            <div class="form-group">
+                                <div>
+                                    @doctor.FirstName
+                                </div>
+                            </div>
+                        }
+                    </div>
+                }
+
+            </div>
+        }
+        <div class="col-md-1">
+            <div class="col-sm-12 col-form-label h3">
+                Контакты
+            </div>
+            <div>
+                @if (Model.PhoneNumbers.Count == 0)
+                {
+                    <div class="col-sm-12 col-form-label">
+                        Добавьте ваш контактный номер
+                    </div>
+                }
+
+                @foreach (var phone in Model.PhoneNumbers)
+                {
+                    <div class="col-sm-6 col-form-label">
+                        @phone.PhoneNumber
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-2">
+            <div class="col-sm-12 col-form-label h3">
+                Список ролей
+            </div>
+            <div>
+                @foreach (var role in Model.Roles)
+                {
+                    <div class="col-sm-12 col-form-label">
+                        @role.Name
+                    </div>
+                }
+            </div>
+        </div>
+        <div class="col-md-3 text-center">
+            <div class="col-sm-12 col-form-label h3">
+                Редактирование пользователя
+            </div>
+            <div>
+                @Html.ActionLink("Изменить пользователя", "EditUser", "User", new { id = Model.Id }, new { @class = "btn btn-outline-warning" })
+            </div>
+            <br />
+            <div>
+                @Html.ActionLink("Изменить контакты", "EditUserContacts", "Phone", new { login = Model.Login }, new { @class = "btn btn-outline-info" })
+            </div>
+            <br />
+            <div>
+                @Html.ActionLink("Изменить фото", "EditPhoto", "Photo", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
+            </div>
+            <br />
+            <div>
+                @Html.ActionLink("Изменить пароль", "EditPassword", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
+            </div>
+            <br />
+        </div>
+
+    </div>
+</div>
+

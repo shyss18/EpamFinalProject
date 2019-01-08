@@ -8,6 +8,13 @@
     <link href="~/Content/style.css" rel="stylesheet" />
     <link href="~/Content/dashboard.css" rel="stylesheet" />
     <link href="~/Content/css/select2.css" rel="stylesheet" />
+    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
+    <script src="~/Scripts/select2.js"></script>
+    <script>
+        $(document).ready(function () {
+            $('.js-example-basic-multiple').select2();
+        });
+    </script>
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light navBack fixed-top shadow">
@@ -78,19 +85,13 @@
         </div>
     </footer>
 
-    <script src="~/Scripts/jquery-3.0.0.min.js"></script>
     <script src="~/Scripts/bootstrap.min.js"></script>
     <script src="https://unpkg.com/feather-icons/dist/feather.min.js"></script>
     <script src="~/Scripts/jquery.unobtrusive-ajax.js"></script>
     <script>
         feather.replace()
     </script>
-    <script src="~/Scripts/select2.js"></script>
-    <script>
-        $(document).ready(function () {
-            $('.js-example-basic-multiple').select2();
-        });
-    </script>
+
     <script src="~/Scripts/checkUser.js"></script>
     <script src="~/Scripts/addPhone.js"></script>
 </body>
