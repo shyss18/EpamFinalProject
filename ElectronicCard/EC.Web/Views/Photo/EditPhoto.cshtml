@@ -33,13 +33,8 @@
             }
             else
             {
-                
                 <div class="form-group">
-                    <img src="@Url.Action("GetImage", "Photo", new{login=User.Identity.Name})" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
-                    <button type="button" class="close" data-toggle="modal" data-target="#deletePhoto">
-                        <span aria-hidden="true">&times;</span>
-                    </button>
-                    @{Html.RenderPartial("DeletePhoto", Model.UserPhoto);}
+                    <img src="@Url.Action("GetImage", "Photo", new{login= Model.UserLogin})" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
                 </div>
 
                 <div class="form-group">
