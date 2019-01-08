@@ -12,5 +12,7 @@ namespace EC.Web.Models
         public int UserId { get; set; }
 
         public HttpPostedFileBase Image { get; set; }
+
+        public string UserLogin { get; set; }
     }
 }

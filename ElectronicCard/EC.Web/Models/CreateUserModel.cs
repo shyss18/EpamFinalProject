@@ -1,6 +1,4 @@
-﻿using EC.Entities.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 using System.ComponentModel;
 using System.Web;
 
@@ -43,7 +41,7 @@ namespace EC.Web.Models
         public int[] Roles { get; set; }
 
         [DisplayName("Номер телефона")]
-        public virtual ICollection<Phone> Phones { get; set; }
+        public string Phone { get; set; }
 
         [DisplayName("Пациенты")]
         public int[] Patients { get; set; }
