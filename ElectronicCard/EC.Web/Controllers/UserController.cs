@@ -1,19 +1,14 @@
-﻿using System.Collections.Generic;
-using System.IO;
-using System.Linq;
-using System.Security.Policy;
-using EC.BusinessLogic.Services.Interfaces;
+﻿using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
 using EC.Web.Models;
+using System.Collections.Generic;
+using System.Linq;
 using System.Web.Mvc;
-using System.Web.UI.WebControls;
 
 namespace EC.Web.Controllers
 {
     public class UserController : Controller
     {
-        private static bool _isDoctor;
-
         private readonly IUserService _userService;
         private readonly IRoleService _roleService;
 
@@ -32,45 +27,67 @@ namespace EC.Web.Controllers
         [HttpPost]
         public ActionResult CreateUser(CreateUserModel model)
         {
-            //if (ModelState.IsValid)
-            //{
+            if (ModelState.IsValid)
+            {
                 User user;
 
                 if (model.IsDoctor)
                 {
-                    user = new Doctor
+                    user = new User
                     {
                         Login = model.Login,
-                        Email = model.Email,
                         Password = model.Password,
-                        FirstName = model.FirstName,
-                        MiddleName = model.MiddleName,
-                        LastName = model.LastName,
-                        Position = model.Position,
+                        Email = model.Email,
                         IsDoctor = model.IsDoctor,
-                        Patients = _userService.GetAllPatients().Where(u => model.Patients.Contains(u.Id)).ToList(),
-                        PhoneNumbers = (IReadOnlyCollection<Phone>)model.Phones,
-                        Roles = _roleService.GetAll().Where(role => model.Roles.Contains(role.Id)).ToList()
+                        PhoneNumbers = new List<Phone>
+                        {
+                            new Phone
+                            {
+                                PhoneNumber = model.Phone
+                            }
+                        },
+                        Doctor = new Doctor
+                        {
+                            FirstName = model.FirstName,
+                            MiddleName = model.MiddleName,
+                            LastName = model.LastName,
+                            Position = model.Position,
+                        }
                     };
+
+                    user.Doctor.Patients =
+                        _userService.GetAllPatients().Where(p => model.Patients.Contains(p.Id)).ToList();
                 }
                 else
                 {
-                    user = new Patient()
+                    user = new User
                     {
                         Login = model.Login,
-                        Email = model.Email,
                         Password = model.Password,
-                        FirstName = model.FirstName,
-                        MiddleName = model.MiddleName,
-                        LastName = model.LastName,
-                        PlaceWork = model.Position,
-                        DateBirth = model.DateBirth,
+                        Email = model.Email,
                         IsDoctor = model.IsDoctor,
-                        Doctors = _userService.GetAllDoctors().Where(u => model.Doctors.Contains(u.Id)).ToList(),
-                        PhoneNumbers = (IReadOnlyCollection<Phone>)model.Phones,
-                        Roles = _roleService.GetAll().Where(role => model.Roles.Contains(role.Id)).ToList()
+                        PhoneNumbers = new List<Phone>
+                        {
+                            new Phone
+                            {
+                                PhoneNumber = model.Phone
+                            }
+                        },
+                        Patient = new Patient
+                        {
+                            FirstName = model.FirstName,
+                            MiddleName = model.MiddleName,
+                            LastName = model.LastName,
+                            DateBirth = model.DateBirth,
+                            PlaceWork = model.PlaceWork
+                        }
                     };
+
+                    user.Patient.Doctors =
+                        _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.Id)).ToList();
                 }
+
+                user.Roles = _roleService.GetAll().Where(r => model.Roles.Contains(r.Id)).ToList();
 
                 if (model.Photo != null)
                 {
@@ -85,27 +102,124 @@ namespace EC.Web.Controllers
 
                 _userService.CreateUser(user);
 
-                return RedirectToAction("AllUsers");
-            //}
+                return View("GetAllUsers", _userService.GetAllUsers());
+            }
 
-            //return View(model);
+            return View(model);
         }
 
         [HttpGet]
-        public ActionResult UpdateUser(string login)
+        public ActionResult UserDetails(int? id)
         {
-            var user = _userService.GetUserByLogin(login);
+            var user = _userService.GetUserById(id);
 
             if (user != null)
             {
-                ViewBag.IsDoctor = user.IsDoctor;
-
                 return View(user);
             }
 
             return View("NotFound");
         }
 
+        [HttpGet]
+        public ActionResult EditUser(int? id)
+        {
+            var user = _userService.GetUserById(id);
+
+            if (user != null)
+            {
+                var edit = new EditUserModel
+                {
+                    Id = user.Id,
+                    IsDoctor = user.IsDoctor,
+                    Roles = user.Roles.Select(r => r.Id).ToArray()
+                };
+
+                if (user.IsDoctor)
+                {
+                    edit.FirstName = user.Doctor.FirstName;
+                    edit.MiddleName = user.Doctor.MiddleName;
+                    edit.LastName = user.Doctor.LastName;
+                    edit.Position = user.Doctor.Position;
+
+                    if (user.Doctor.Patients != null)
+                    {
+                        edit.Patients = user.Doctor.Patients.Select(p => p.UserId).ToArray();
+                    }
+                }
+                else
+                {
+                    edit.FirstName = user.Patient.FirstName;
+                    edit.MiddleName = user.Patient.MiddleName;
+                    edit.LastName = user.Patient.LastName;
+                    edit.PlaceWork = user.Patient.PlaceWork;
+                    edit.PlaceWork = user.Patient.PlaceWork;
+
+                    if (user.Patient.Doctors != null)
+                    {
+                        edit.Doctors = user.Patient.Doctors.Select(p => p.UserId).ToArray();
+                    }
+                }
+
+                return View(edit);
+            };
+
+            return View("NotFound");
+        }
+
+        [HttpPost]
+        public ActionResult EditUser(EditUserModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                var user = _userService.GetUserById(model.Id);
+
+                if (user.IsDoctor)
+                {
+                    user.Doctor.FirstName = model.FirstName;
+                    user.Doctor.MiddleName = model.MiddleName;
+                    user.Doctor.LastName = model.LastName;
+                    user.Doctor.Position = model.Position;
+
+                    user.Doctor.Patients = _userService.GetAllPatients().Where(p => model.Patients.Contains(p.UserId)).ToList();
+                }
+                else
+                {
+                    user.Patient.FirstName = model.FirstName;
+                    user.Patient.MiddleName = model.MiddleName;
+                    user.Patient.LastName = model.LastName;
+                    user.Patient.PlaceWork = model.PlaceWork;
+                    user.Patient.DateBirth = model.DateBirth;
+
+                    user.Patient.Doctors = _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.UserId))
+                        .ToList();
+                }
+
+                user.Roles = _roleService.GetAll().Where(r => model.Roles.Contains(r.Id)).ToList();
+
+                _userService.UpdateUser(user);
+
+                return RedirectToAction("UserDetails", new { id = user.Id });
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
+        public ActionResult GetAllUsers()
+        {
+            var users = _userService.GetAllUsers();
+
+            return View(users);
+        }
+
+        [HttpPost]
+        public ActionResult DeleteUser(int? id)
+        {
+            _userService.DeleteUser(id);
+
+            return RedirectToAction("GetAllUsers", _userService.GetAllUsers());
+        }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult GetListDoctors()
