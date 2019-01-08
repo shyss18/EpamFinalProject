@@ -57,7 +57,9 @@ namespace EC.Common.Helpers
         public const string GET_DOCTOR_RECORDS = "GetDoctorRecords";
         public const string GET_ALL_RECORDS = "GetAllRecords";
         public const string GET_RECORD_BY_ID = "GetRecordById";
-
+        public const string DELETE_RECORD_PREPARATIONS = "DeleteRecordPreparations";
+        public const string DELETE_RECORD_PROCEDURES = "DeleteRecordProcedures";
+        
         #endregion
 
         #region Role
@@ -68,6 +70,7 @@ namespace EC.Common.Helpers
         public const string GET_ALL_ROLES = "GetAllRole";
         public const string GET_ROLE_BY_ID = "GetRoleById";
         public const string ADD_ROLE_TO_USER = "AddRoleToUser";
+        public const string DELETE_USER_ROLES = "DeleteUserRoles";
         public const string GET_USER_ROLES = "GetUserRoles";
 
         #endregion
@@ -93,6 +96,10 @@ namespace EC.Common.Helpers
         public const string UPDATE_USER = "UpdateUser";
         public const string GET_USER_BY_LOGIN = "GetUserByLogin";
         public const string ADD_PATIENT_TO_DOCTOR = "AddPatientToDoctor";
+        public const string GET_USER_DOCTORS = "GetUserDoctors";
+        public const string GET_USER_PATIENTS = "GetUserPatients";
+        public const string DELETE_USER_PATIENTS = "DeleteUserPatients";
+        public const string DELETE_USER_DOCTORS = "DeleteUserDoctors";
 
         #endregion
 
