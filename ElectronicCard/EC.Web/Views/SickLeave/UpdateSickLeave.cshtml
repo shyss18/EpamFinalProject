@@ -1,0 +1,63 @@
+﻿@model EC.Web.Models.EditSickLeaveModel
+@{
+/**/
+ViewBag.Title = "Редактирование больничного листа";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function() {
+        $("#DiagnosisId").select2({
+            placeholder: 'Диагноз'
+        });
+    });
+
+    $(document).ready(function() {
+        var changeDiagnosis = @Html.Raw(Json.Encode(Model.DiagnosisId));
+        $("#DiagnosisId").val(changeDiagnosis).trigger("change");
+    });
+</script>
+
+<div class="container" align="center">
+    <div class="col-md-5">
+        <h4 class="text-center text-success" style="padding-top: 10%">Добавление больничного листа</h4>
+        @using (Html.BeginForm("UpdateSickLeave", "SickLeave", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Number, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Number),
+                })
+                @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
+            </div>
+            <div class="form-group row">
+                <div class="form-check">
+                    @Html.CheckBoxFor(model => model.IsGive, new { @class = "form-check-input" })
+                    @Html.LabelFor(model => model.IsGive, "Выдан", new { @class = "form-check-label", @for = "IsGive" })
+                </div>
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.PeriodAction, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.PeriodAction),
+                })
+                @Html.ValidationMessageFor(model => model.PeriodAction, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group row">
+                <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId">
+                    @Html.Action("GetDiagnosisForSelect", "Diagnosis")
+                </select>
+            </div>
+
+            <div class="container">
+                <input type="submit" class="btn btn-outline-warning" value="Изменить" />
+                @Html.ActionLink("Отмена", "GetAllSickLeaves", "SickLeave", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+
