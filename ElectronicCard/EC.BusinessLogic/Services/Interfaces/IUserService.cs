@@ -7,7 +7,7 @@ namespace EC.BusinessLogic.Services.Interfaces
     {
         void CreateUser(User user);
         void UpdateUser(User user);
-        void DeleteUser(int? id);
+        bool DeleteUser(int? id);
         User GetUserById(int? id);
         User GetUserByLogin(string login);
         IReadOnlyCollection<User> GetAllUsers();

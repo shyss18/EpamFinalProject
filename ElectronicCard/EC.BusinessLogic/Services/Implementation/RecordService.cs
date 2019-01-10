@@ -2,21 +2,31 @@
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
 using System.Collections.Generic;
+using System.Linq;
 
 namespace EC.BusinessLogic.Services.Implementation
 {
     public class RecordService : IRecordService
     {
         private readonly IRecordRepository _recordRepository;
+        private readonly IUserRepository _userRepository;
 
-        public RecordService(IRecordRepository recordRepository)
+        public RecordService(IRecordRepository recordRepository, IUserRepository userRepository)
         {
             _recordRepository = recordRepository;
+            _userRepository = userRepository;
         }
 
         public void CreateRecord(Record record)
         {
             _recordRepository.Create(record);
+
+            var user = _userRepository.GetById(record.DoctorId);
+
+            if (user.Doctor.Patients.FirstOrDefault(p => p.Id == record.PatientId) == null)
+            {
+                _userRepository.AddPatientToDoctor(record.PatientId, user.Id);
+            }
         }
 
         public void UpdateRecord(Record record)
@@ -39,14 +49,18 @@ namespace EC.BusinessLogic.Services.Implementation
             return _recordRepository.GetAll();
         }
 
-        public IReadOnlyCollection<Record> GetRecordsByPatientId(int? id)
+        public IReadOnlyCollection<Record> GetPatientRecords(string login)
         {
-            return id == null ? null : _recordRepository.GetPatientRecords(id);
+            var user = _userRepository.GetUserByLogin(login);
+
+            return user == null ? null : _recordRepository.GetPatientRecords(user.Id);
         }
 
-        public IReadOnlyCollection<Record> GetRecordsByDoctorId(int? id)
+        public IReadOnlyCollection<Record> GetDoctorRecords(string login)
         {
-            return id == null ? null : _recordRepository.GetDoctorRecords(id);
+            var user = _userRepository.GetUserByLogin(login);
+
+            return user == null ? null : _recordRepository.GetDoctorRecords(user.Id);
         }
     }
 }

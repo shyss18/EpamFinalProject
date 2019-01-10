@@ -2,6 +2,7 @@
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
 using System.Collections.Generic;
+using System.Data.SqlClient;
 
 namespace EC.BusinessLogic.Services.Implementation
 {
@@ -144,9 +145,18 @@ namespace EC.BusinessLogic.Services.Implementation
             }
         }
 
-        public void DeleteUser(int? id)
+        public bool DeleteUser(int? id)
         {
-            _userRepository.Delete(id);
+            try
+            {
+                _userRepository.Delete(id);
+
+                return true;
+            }
+            catch (SqlException)
+            {
+                return false;
+            }
         }
 
         public User GetUserById(int? id)

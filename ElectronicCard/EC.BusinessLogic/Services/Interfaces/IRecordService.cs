@@ -10,7 +10,7 @@ namespace EC.BusinessLogic.Services.Interfaces
         void DeleteRecord(int? id);
         Record GetRecordById(int? id);
         IReadOnlyCollection<Record> GetAllRecords();
-        IReadOnlyCollection<Record> GetRecordsByPatientId(int? id);
-        IReadOnlyCollection<Record> GetRecordsByDoctorId(int? id);
+        IReadOnlyCollection<Record> GetPatientRecords(string login);
+        IReadOnlyCollection<Record> GetDoctorRecords(string login);
     }
 }
