@@ -21,6 +21,8 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Login),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
             </div>
 
@@ -33,6 +35,8 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Email),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
 
@@ -45,6 +49,8 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.FirstName),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
             </div>
 
@@ -57,6 +63,8 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.MiddleName),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
             </div>
 
@@ -69,6 +77,8 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.LastName),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
 
@@ -85,6 +95,8 @@
                         @class = "form-control",
                         @placeholder = Html.DisplayNameFor(model => model.Position),
                     })
+                </div>
+                <div>
                     @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
                 </div>
             }
@@ -101,6 +113,8 @@
                         @class = "form-control",
                         @placeholder = Html.DisplayNameFor(model => model.PlaceWork),
                     })
+                </div>
+                <div>
                     @Html.ValidationMessageFor(model => model.PlaceWork, "", new { @class = "text-danger" })
                 </div>
 
@@ -111,9 +125,10 @@
                     @Html.TextBoxFor(model => model.DateBirth, new
                     {
                         @class = "form-control",
-                        @placeholder = Html.DisplayNameFor(model => model.DateBirth),
-                        @type = "date"
+                        @placeholder = Html.DisplayNameFor(model => model.DateBirth)
                     })
+                </div>
+                <div>
                     @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
                 </div>
             }

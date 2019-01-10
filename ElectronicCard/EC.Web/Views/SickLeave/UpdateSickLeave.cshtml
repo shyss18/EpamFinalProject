@@ -29,8 +29,11 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Number),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Number, "", new { @class = "text-danger" })
             </div>
+            <br />
             <div class="form-group row">
                 <div class="form-check">
                     @Html.CheckBoxFor(model => model.IsGive, new { @class = "form-check-input" })
@@ -43,15 +46,20 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.PeriodAction),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.PeriodAction, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div class="form-group row">
                 <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId">
                     @Html.Action("GetDiagnosisForSelect", "Diagnosis")
                 </select>
             </div>
-
+            <div>
+                @Html.ValidationMessageFor(model => model.DiagnosisId, "", new { @class = "text-danger" })
+            </div>
+            <br />
             <div class="container">
                 <input type="submit" class="btn btn-outline-warning" value="Изменить" />
                 @Html.ActionLink("Отмена", "SickLeaveDetails", "SickLeave", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })

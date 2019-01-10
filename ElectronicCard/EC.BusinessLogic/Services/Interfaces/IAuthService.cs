@@ -9,5 +9,6 @@ namespace EC.BusinessLogic.Services.Interfaces
         void SignOut();
         User GetUserByLogin(string login);
         void UpdateUser(User user);
+        User GetUserByEmail(string email);
     }
 }

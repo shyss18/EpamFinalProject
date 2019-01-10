@@ -14,6 +14,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult CreatePreparation()
         {
             return View();
@@ -33,6 +34,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult PreparationDetails(int? id)
         {
             var preparation = _preparationService.GetById(id);
@@ -46,6 +48,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult UpdatePreparation(int? id)
         {
             var preparation = _preparationService.GetById(id);
@@ -80,6 +83,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult GetAllPreparations()
         {
             var preparation = _preparationService.GetAll();

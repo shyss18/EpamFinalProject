@@ -12,6 +12,7 @@ namespace EC.Entities.Entities
         [DisplayName("Логин")]
         public string Login { get; set; }
 
+        [DisplayName("Email")]
         public string Email { get; set; }
 
         [DisplayName("Пароль")]
@@ -27,14 +28,10 @@ namespace EC.Entities.Entities
 
         public virtual Doctor Doctor { get; set; }
 
-        public virtual int PhotoId { get; set; }
-
         public virtual Photo Photo { get; set; }
 
         public virtual IReadOnlyCollection<Phone> PhoneNumbers { get; set; }
 
         public virtual IReadOnlyCollection<Role> Roles { get; set; }
-
-        public virtual IReadOnlyCollection<Record> Records { get; set; }
     }
 }

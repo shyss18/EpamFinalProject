@@ -228,6 +228,7 @@
     <Content Include="Views\User\Patients.cshtml" />
     <Content Include="Views\Record\Search.cshtml" />
     <Content Include="Views\Record\Records.cshtml" />
+    <Content Include="Views\Phone\GetPhone.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

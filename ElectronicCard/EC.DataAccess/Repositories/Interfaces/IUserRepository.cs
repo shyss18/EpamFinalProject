@@ -10,5 +10,6 @@ namespace EC.DataAccess.Repositories.Interfaces
         IReadOnlyCollection<Patient> GetAllPatients();
         IReadOnlyCollection<Doctor> GetAllDoctors();
         User GetUserByLogin(string login);
+        User GetUserByEmail(string email);
     }
 }

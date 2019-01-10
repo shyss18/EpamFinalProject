@@ -26,11 +26,9 @@ namespace EC.Web.Controllers
                 phone.UserId = user.Id;
 
                 _phoneService.CreatePhone(phone);
-
-                return RedirectToAction("EditUserContacts", new { login = User.Identity.Name });
             }
 
-            return PartialView("CreatePhone");
+            return PartialView("GetPhone", phone);
         }
 
         [HttpPost]
@@ -39,11 +37,9 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _phoneService.UpdatePhone(phone);
-
-                return RedirectToAction("EditUserContacts", new { login = User.Identity.Name });
             }
 
-            return PartialView(phone);
+            return PartialView("GetPhone", phone);
         }
 
         [HttpPost]

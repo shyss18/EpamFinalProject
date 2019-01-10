@@ -17,6 +17,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor, Doctor")]
         public ActionResult CreateSickLeave()
         {
             return View();
@@ -47,6 +48,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor, Doctor")]
         public ActionResult SickLeaveDetails(int? id)
         {
             var sickLeave = _sickLeaveService.GetById(id);
@@ -60,6 +62,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor, Doctor")]
         public ActionResult UpdateSickLeave(int? id)
         {
             var sickLeave = _sickLeaveService.GetById(id);
@@ -112,6 +115,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor, Doctor")]
         public ActionResult GetAllSickLeaves()
         {
             var sickLeaves = _sickLeaveService.GetAll();

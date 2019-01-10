@@ -93,6 +93,7 @@ namespace EC.Common.Helpers
         public const string GET_ALL_PATIENTS = "GetAllPatients";
         public const string GET_ALL_USERS = "GetAllUsers";
         public const string GET_USER_BY_ID = "GetUserById";
+        public const string GET_USER_BY_EMAIL = "GetUserByEmail";
         public const string UPDATE_USER = "UpdateUser";
         public const string GET_USER_BY_LOGIN = "GetUserByLogin";
         public const string ADD_PATIENT_TO_DOCTOR = "AddPatientToDoctor";

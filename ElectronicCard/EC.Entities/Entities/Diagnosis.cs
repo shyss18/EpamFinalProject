@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace EC.Entities.Entities
@@ -8,8 +9,9 @@ namespace EC.Entities.Entities
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
+        [DisplayName("Название диагноза")]
+        [Required(ErrorMessage = "Введите название диагноза")]
+        [StringLength(20, ErrorMessage = "Название диагноза должно быть до 20 знаков")]
         public string Title { get; set; }
-
-        public virtual IReadOnlyCollection<SickLeave> SickLeaves { get; set; }
     }
 }

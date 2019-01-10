@@ -1,6 +1,6 @@
 ﻿@model EC.Entities.Entities.Phone
 
-<div class="modal fade" id="update_@Model.PhoneNumber" role="dialog" aria-labelledby="title">
+<div class="modal fade" id="update_@Model.PhoneNumber.GetHashCode()" role="dialog" aria-labelledby="title">
     <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header text-center">
@@ -10,16 +10,12 @@
                 </button>
             </div>
             <div class="modal-body">
-                @using (Html.BeginForm("UpdatePhone", "Phone", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
+                @using (Ajax.BeginForm("UpdatePhone", "Phone", new AjaxOptions { HttpMethod = "POST", UpdateTargetId = "updatePhone", OnSuccess = "onSuccess" }, new { @class = "form-group" }))
                 {
                     @Html.HiddenFor(phone => phone.Id)
                     @Html.HiddenFor(phone => phone.UserId)
-                    <div class="form-group">
-                        @Html.TextBoxFor(phone => phone.PhoneNumber, new
-                        {
-                            @class="form-control",
-                            @placeholder = @Html.DisplayNameFor(phone => phone.PhoneNumber)
-                        })
+                    <div id="updatePhone">
+                        @{Html.RenderPartial("GetPhone", Model);}
                     </div>
 
                     <div class="modal-footer">
@@ -31,3 +27,9 @@
         </div>
     </div>
 </div>
+
+<script>
+    function onSuccess() {
+        location.reload();
+    };
+</script>

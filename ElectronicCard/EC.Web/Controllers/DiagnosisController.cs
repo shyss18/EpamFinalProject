@@ -14,6 +14,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult CreateDiagnosis()
         {
             return View();
@@ -33,6 +34,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult DiagnosisDetails(int? id)
         {
             var diagnosis = _diagnosisService.GetById(id);
@@ -46,6 +48,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult UpdateDiagnosis(int? id)
         {
             var diagnosis = _diagnosisService.GetById(id);
@@ -80,6 +83,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult GetAllDiagnoses()
         {
             var diagnoses = _diagnosisService.GetAll();

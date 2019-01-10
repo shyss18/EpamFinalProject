@@ -357,6 +357,31 @@ namespace EC.DataAccess.Repositories.Implementation
             return user;
         }
 
+        public User GetUserByEmail(string email)
+        {
+            var emailParameter = _factory.CreateParameter("email", email, DbType.String);
+
+            var reader = _factory.CreateConnection()
+                .CreateCommand(DbConstants.GET_USER_BY_EMAIL)
+                .AddParameters(emailParameter)
+                .ExecuteReader();
+
+            User user = null;
+
+            foreach (var item in reader)
+            {
+                user = new User
+                {
+                    Id = (int)item["Id"],
+                    Login = (string)item["Login"],
+                    Email = (string)item["Email"],
+                    Password = (string)item["Password"]
+                };
+            }
+
+            return user;
+        }
+
         public IReadOnlyCollection<User> GetAll()
         {
             var allUsers = new List<User>();

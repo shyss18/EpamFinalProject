@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 
 namespace EC.Entities.Entities
 {
@@ -7,6 +8,8 @@ namespace EC.Entities.Entities
     {
         public int Id { get; set; }
 
+        [DataType(DataType.Date)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         public DateTime DateRecord { get; set; }
 
         public int PatientId { get; set; }

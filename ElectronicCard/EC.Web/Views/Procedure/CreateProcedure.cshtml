@@ -16,24 +16,33 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Title),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Title, "", new { @class = "text-danger" })
             </div>
+            <br />
             <div class="form-group row">
                 @Html.TextAreaFor(model => model.Description, new
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Description),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Description, "", new { @class = "text-danger" })
             </div>
+            <br />
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.TimeUse, new
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.TimeUse),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.TimeUse, "", new { @class = "text-danger" })
             </div>
+            <br />
             <div class="container">
                 <input type="submit" class="btn btn-outline-success" value="Добавить" />
                 @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-outline-secondary" })

@@ -49,6 +49,11 @@
                     </div>
                 </div>
             }
+            <div class="text-danger">
+                @Html.ValidationSummary(true)
+            </div>
+            <br />
+
             <div class="container">
                 <input type="submit" class="btn btn-outline-warning" value="Изменить" />
                 @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-outline-secondary" })

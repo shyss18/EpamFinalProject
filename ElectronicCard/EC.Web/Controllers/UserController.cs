@@ -1,4 +1,5 @@
-﻿using EC.BusinessLogic.Services.Interfaces;
+﻿using System;
+using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
 using EC.Web.Models;
 using System.Collections.Generic;
@@ -19,6 +20,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult CreateUser()
         {
             return View();
@@ -27,6 +29,11 @@ namespace EC.Web.Controllers
         [HttpPost]
         public ActionResult CreateUser(CreateUserModel model)
         {
+            if (model.Photo != null && !model.Photo.ContentType.Contains("image"))
+            {
+                ModelState.AddModelError("", "Выберете фотографию для загрузки");
+            }
+
             if (ModelState.IsValid)
             {
                 User user;
@@ -115,6 +122,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor, Doctor")]
         public ActionResult UserDetails(int? id)
         {
             var user = _userService.GetUserById(id);
@@ -128,6 +136,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult EditUser(int? id)
         {
             var user = _userService.GetUserById(id);
@@ -228,6 +237,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
         public ActionResult GetAllUsers()
         {
             var users = _userService.GetAllUsers();
@@ -247,6 +257,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor, Doctor")]
         public ActionResult GetPatients(string login)
         {
             var doctor = _userService.GetUserByLogin(login);
@@ -296,6 +307,24 @@ namespace EC.Web.Controllers
             var patients = _userService.GetAllPatients();
 
             return PartialView(patients);
+        }
+
+        [HttpGet]
+        public JsonResult CheckDate(string DateBirth)
+        {
+            if (!DateTime.TryParse(DateBirth, out var parsedDate))
+            {
+                return Json("Пожалуйста, введите дату в формате (мм.дд.гггг)",
+                    JsonRequestBehavior.AllowGet);
+            }
+
+            if (DateTime.Now < parsedDate)
+            {
+                return Json("Введите дату не относящуюся к будущему",
+                    JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

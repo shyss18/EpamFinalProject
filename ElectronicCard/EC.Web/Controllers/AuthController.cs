@@ -1,8 +1,10 @@
-﻿using EC.BusinessLogic.Services.Interfaces;
+﻿using System;
+using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
 using EC.Web.Models;
 using System.Collections.Generic;
 using System.IO;
+using System.Web;
 using System.Web.Mvc;
 
 namespace EC.Web.Controllers
@@ -27,6 +29,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SignIn(SignInModel signIn)
         {
             if (ModelState.IsValid)
@@ -39,6 +42,7 @@ namespace EC.Web.Controllers
                 }
             }
 
+            ModelState.AddModelError("", "Неверный логин или пароль");
             return View(signIn);
         }
 
@@ -51,9 +55,15 @@ namespace EC.Web.Controllers
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult SignUp(RegistrationModel registration)
         {
             ViewBag.IsDoctor = _isDoctor;
+
+            if (registration.Photo != null && !registration.Photo.ContentType.Contains("image"))
+            {
+                ModelState.AddModelError("", "Выберете файл изображения");
+            }
 
             if (ModelState.IsValid)
             {
@@ -69,7 +79,7 @@ namespace EC.Web.Controllers
                         {
                             PhoneNumber = registration.Phone
                         }
-                    }               
+                    }
                 };
 
                 if (_isDoctor)
@@ -122,6 +132,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Account(string login)
         {
             var user = _authService.GetUserByLogin(login);
@@ -135,6 +146,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult EditAccount(string login)
         {
             var user = _authService.GetUserByLogin(login);
@@ -207,6 +219,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult EditPassword(string login)
         {
             var user = _authService.GetUserByLogin(login);
@@ -223,7 +236,6 @@ namespace EC.Web.Controllers
 
             return View("NotFound");
         }
-
 
         [HttpPost]
         public ActionResult EditPassword(EditPasswordModel model)
@@ -259,6 +271,61 @@ namespace EC.Web.Controllers
 
                 return RedirectToAction("SignUp");
             }
+        }
+
+        [HttpGet]
+        public JsonResult CheckLogin(string Login)
+        {
+            var result = _authService.GetUserByLogin(Login);
+
+            if (result != null & User.Identity.Name != Login)
+            {
+                return Json("Данный логин уже занят", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult CheckEmail(string Email)
+        {
+            var result = _authService.GetUserByEmail(Email);
+            var checkUser = _authService.GetUserByLogin(User.Identity.Name);
+
+            if (checkUser == null)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            if (result != null & checkUser.Email == Email)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            if (result != null & checkUser.Email != Email)
+            {
+                return Json("Пользователь с таким адресом уже зарегистрирован", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
+        }
+
+        [HttpGet]
+        public JsonResult CheckPassword(string NewPassword)
+        {
+            var user = _authService.GetUserByLogin(User.Identity.Name);
+
+            if (user == null)
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            if (user.Password == NewPassword)
+            {
+                return Json("Новый пароль не может быть старым", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }
