@@ -100,7 +100,7 @@ namespace EC.BusinessLogic.Services.Implementation
                     Position = user.Doctor.Position
                 };
 
-                if (user.Doctor.Patients != null)
+                if (user.Doctor.Patients.Count > 0)
                 {
                     doctor.Patients = user.Doctor.Patients;
                 }

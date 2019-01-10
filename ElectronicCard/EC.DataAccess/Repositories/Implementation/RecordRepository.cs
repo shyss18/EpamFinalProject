@@ -5,7 +5,6 @@ using EC.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using System.Linq;
 
 namespace EC.DataAccess.Repositories.Implementation
 {
@@ -192,9 +191,15 @@ namespace EC.DataAccess.Repositories.Implementation
                         Id = (int)item["SickLeaveId"],
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"],
-                        DiagnosisId = (int)item["SLDiagnosisId"],
+                        PeriodAction = (int)item["PeriodAction"]
                     };
+
+                    var diagnosis = item["SLDiagnosisId"] as int? ?? default(int);
+
+                    if (diagnosis != default(int))
+                    {
+                        record.SickLeave.DiagnosisId = (int)item["SLDiagnosisId"];
+                    }
                 }
 
                 if (record.DiagnosisId != default(int))
@@ -224,7 +229,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     PatientId = item["PatientId"] as int? ?? default(int),
                     DoctorId = item["DoctorId"] as int? ?? default(int),
                     DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
-                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int),
+                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int)
                 };
 
                 if (record.PatientId != default(int))
@@ -268,9 +273,15 @@ namespace EC.DataAccess.Repositories.Implementation
                         Id = (int)item["SickLeaveId"],
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"],
-                        DiagnosisId = (int)item["SLDiagnosisId"],
+                        PeriodAction = (int)item["PeriodAction"]
                     };
+
+                    var diagnosis = item["SLDiagnosisId"] as int? ?? default(int);
+
+                    if (diagnosis != default(int))
+                    {
+                        record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
+                    }
                 }
 
                 record.Preparations = _preparationRepository.GetPreparationsByRecordId(record.Id);
@@ -347,9 +358,15 @@ namespace EC.DataAccess.Repositories.Implementation
                         Id = (int)item["SickLeaveId"],
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"],
-                        DiagnosisId = (int)item["SLDiagnosisId"],
+                        PeriodAction = (int)item["PeriodAction"]
                     };
+
+                    var diagnosis = item["SLDiagnosisId"] as int? ?? default(int);
+
+                    if (diagnosis != default(int))
+                    {
+                        record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
+                    }
                 }
 
                 record.Preparations = _preparationRepository.GetPreparationsByRecordId(doctorId);
@@ -427,8 +444,15 @@ namespace EC.DataAccess.Repositories.Implementation
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
                         PeriodAction = (int)item["PeriodAction"],
-                        DiagnosisId = (int)item["SLDiagnosisId"],
+                        DiagnosisId = (int)item["SLDiagnosisId"]
                     };
+
+                    var diagnosis = item["SLDiagnosisId"] as int? ?? default(int);
+
+                    if (diagnosis != default(int))
+                    {
+                        record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
+                    }
                 }
 
                 record.Preparations = _preparationRepository.GetPreparationsByRecordId(patientId);

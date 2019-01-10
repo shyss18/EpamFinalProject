@@ -155,6 +155,11 @@ namespace EC.DataAccess.Repositories.Implementation
                             }
                         }
 
+                        if (patient.Doctors == null)
+                        {
+                            DeleteUserDoctors(patient.Id);
+                        }
+
                         if (patient.Doctors != null)
                         {
                             DeleteUserDoctors(patient.Id);
@@ -187,6 +192,11 @@ namespace EC.DataAccess.Repositories.Implementation
                             {
                                 _roleRepository.AddRoleToUser(doctor.Id, role.Id);
                             }
+                        }
+
+                        if (doctor.Patients == null)
+                        {
+                            DeleteUserPatients(doctor.Id);
                         }
 
                         if (doctor.Patients != null)
