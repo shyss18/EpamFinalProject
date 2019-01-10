@@ -72,7 +72,7 @@ namespace EC.DataAccess.Repositories.Implementation
 
         public IReadOnlyCollection<Diagnosis> GetAll()
         {
-            List<Diagnosis> allDiagnoses = new List<Diagnosis>();
+            var allDiagnoses = new List<Diagnosis>();
 
             var reader = _query.CreateConnection()
                 .CreateCommand(DbConstants.GET_ALL_DIAGNOSIS)

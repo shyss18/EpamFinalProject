@@ -72,13 +72,18 @@ namespace EC.DataAccess.Repositories.Implementation
                     IsGive = (bool)item["IsGive"],
                     Number = (int)item["Number"],
                     PeriodAction = (int)item["PeriodAction"],
-                    DiagnosisId = (int)item["DiagnosisId"],
-                    Diagnosis = new Diagnosis
+                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int)
+                };
+
+                if (sickLeave.DiagnosisId != default(int))
+                {
+                    sickLeave.DiagnosisId = (int)item["DiagnosisId"];
+                    sickLeave.Diagnosis = new Diagnosis
                     {
                         Id = (int)item["DiagnosisId"],
                         Title = (string)item["Title"]
-                    }
-                };
+                    };
+                }
             }
 
             return sickLeave;
@@ -86,7 +91,7 @@ namespace EC.DataAccess.Repositories.Implementation
 
         public IReadOnlyCollection<SickLeave> GetAll()
         {
-            List<SickLeave> allSickLeaves = new List<SickLeave>();
+            var allSickLeaves = new List<SickLeave>();
 
             var reader = _query.CreateConnection()
                 .CreateCommand(DbConstants.GET_ALL_SICKLEAVES)
@@ -94,19 +99,26 @@ namespace EC.DataAccess.Repositories.Implementation
 
             foreach (var item in reader)
             {
-                allSickLeaves.Add(new SickLeave
+                var sickLeave = new SickLeave
                 {
-                    Id = (int)item["SickLeaveId"],
-                    IsGive = (bool)item["IsGive"],
-                    Number = (int)item["Number"],
-                    PeriodAction = (int)item["PeriodAction"],
-                    DiagnosisId = (int)item["DiagnosisId"],
-                    Diagnosis = new Diagnosis
+                    Id = (int) item["SickLeaveId"],
+                    IsGive = (bool) item["IsGive"],
+                    Number = (int) item["Number"],
+                    PeriodAction = (int) item["PeriodAction"],
+                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int)
+                };
+                
+                if (sickLeave.DiagnosisId != default(int))
+                {
+                    sickLeave.DiagnosisId = (int) item["DiagnosisId"];
+                    sickLeave.Diagnosis = new Diagnosis
                     {
-                        Id = (int)item["DiagnosisId"],
-                        Title = (string)item["Title"]
-                    }
-                });
+                        Id = (int) item["DiagnosisId"],
+                        Title = (string) item["Title"]
+                    };
+                }
+
+                allSickLeaves.Add(sickLeave);
             }
 
             return allSickLeaves;

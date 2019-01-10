@@ -1,11 +1,10 @@
-﻿using EC.Common.Helpers;
-using EC.Common.Helpers.Interface;
+﻿using EC.Common.Helpers.Interface;
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
-using DbConstants = EC.Common.Helpers.DbConstants;
+using EC.Common.Helpers;
 
 namespace EC.DataAccess.Repositories.Implementation
 {
@@ -165,7 +164,6 @@ namespace EC.DataAccess.Repositories.Implementation
                                 AddPatientToDoctor(patient.Id, doctor.UserId);
                             }
                         }
-
 
                         break;
                     }

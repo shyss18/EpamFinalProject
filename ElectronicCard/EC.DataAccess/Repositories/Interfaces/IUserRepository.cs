@@ -7,7 +7,6 @@ namespace EC.DataAccess.Repositories.Interfaces
     {
         void AddPatientToDoctor(int? patientId, int? doctorId);
         IReadOnlyCollection<Patient> GetUserPatients(int? userId);
-        IReadOnlyCollection<Doctor> GetUserDoctors(int? userId);
         IReadOnlyCollection<Patient> GetAllPatients();
         IReadOnlyCollection<Doctor> GetAllDoctors();
         User GetUserByLogin(string login);

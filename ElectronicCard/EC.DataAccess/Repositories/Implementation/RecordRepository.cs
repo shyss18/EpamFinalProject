@@ -5,6 +5,7 @@ using EC.Entities.Entities;
 using System;
 using System.Collections.Generic;
 using System.Data;
+using System.Linq;
 
 namespace EC.DataAccess.Repositories.Implementation
 {
@@ -13,12 +14,14 @@ namespace EC.DataAccess.Repositories.Implementation
         private readonly ISqlFactory _factory;
         private readonly IPreparationRepository _preparationRepository;
         private readonly IProcedureRepository _procedureRepository;
+        private readonly IDiagnosisRepository _diagnosisRepository;
 
-        public RecordRepository(ISqlFactory factory, IPreparationRepository preparationRepository, IProcedureRepository procedureRepository)
+        public RecordRepository(ISqlFactory factory, IPreparationRepository preparationRepository, IProcedureRepository procedureRepository, IDiagnosisRepository diagnosisRepository, IUserRepository userRepository)
         {
             _factory = factory;
             _preparationRepository = preparationRepository;
             _procedureRepository = procedureRepository;
+            _diagnosisRepository = diagnosisRepository;
         }
 
         public void Create(Record item)
@@ -34,7 +37,7 @@ namespace EC.DataAccess.Repositories.Implementation
                 .AddParameters(dateParameter, patientParameter, diagnosisParameter, doctorParameter, sickLeaveParameter)
                 .ExecuteScalar();
 
-            if (item.Preparations.Count > 0 & item.Procedures.Count > 0)
+            if (item.Preparations != null & item.Procedures != null)
             {
                 foreach (var preparation in item.Preparations)
                 {
@@ -46,14 +49,14 @@ namespace EC.DataAccess.Repositories.Implementation
                     _procedureRepository.AddProcedureToRecord(procedure.Id, id);
                 }
             }
-            else if (item.Procedures.Count > 0)
+            else if (item.Procedures != null)
             {
                 foreach (var procedure in item.Procedures)
                 {
                     _procedureRepository.AddProcedureToRecord(procedure.Id, id);
                 }
             }
-            else
+            else if (item.Preparations != null)
             {
                 foreach (var preparation in item.Preparations)
                 {
@@ -76,30 +79,37 @@ namespace EC.DataAccess.Repositories.Implementation
                 .AddParameters(idParameter, dateParameter, patientParameter, diagnosisParameter, doctorParameter, sickLeaveParameter)
                 .ExecuteQuery();
 
-            if (item.Preparations.Count > 0 & item.Procedures.Count > 0)
+            if (item.Preparations != null & item.Procedures != null)
             {
+                DeletePreparationsRecord(item.Id);
+                DeleteProceduresRecord(item.Id);
+
                 foreach (var preparation in item.Preparations)
                 {
-                    _preparationRepository.Update(preparation);
+                    _preparationRepository.AddPreparationToRecord(preparation.Id, item.Id);
                 }
 
                 foreach (var procedure in item.Procedures)
                 {
-                    _procedureRepository.Update(procedure);
+                    _procedureRepository.AddProcedureToRecord(procedure.Id, item.Id);
                 }
             }
-            else if (item.Procedures.Count > 0)
+            else if (item.Procedures != null)
             {
+                DeleteProceduresRecord(item.Id);
+
                 foreach (var procedure in item.Procedures)
                 {
-                    _procedureRepository.Update(procedure);
+                    _procedureRepository.AddProcedureToRecord(procedure.Id, item.Id);
                 }
             }
-            else
+            else if (item.Preparations != null)
             {
+                DeletePreparationsRecord(item.Id);
+
                 foreach (var preparation in item.Preparations)
                 {
-                    _preparationRepository.Update(preparation);
+                    _preparationRepository.AddPreparationToRecord(preparation.Id, item.Id);
                 }
             }
         }
@@ -132,48 +142,65 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = (int)item["PatientId"],
-                    Patient =
-                        new Patient
-                        {
-                            UserId = (int)item["PatientId"],
-                            FirstName = (string)item["FirstName"],
-                            MiddleName = (string)item["MiddleName"],
-                            LastName = (string)item["LastName"],
-                            DateBirth = (DateTime)item["DateBirth"],
-                            PlaceWork = (string)item["PlaceWork"]
-                        },
-
-                    DoctorId = (int)item["DoctorId"],
-                    Doctor =
-                        new Doctor
-                        {
-                            UserId = (int)item["DoctorId"],
-                            FirstName = (string)item["FirstName"],
-                            MiddleName = (string)item["MiddleName"],
-                            LastName = (string)item["LastName"],
-                            Position = (string)item["Position"]
-                        },
-
-                    DiagnosisId = (int)item["DiagnosisId"],
-                    Diagnosis = new Diagnosis
-                    {
-                        Id = (int)item["DiagnosisId"],
-                        Title = (string)item["Title"]
-                    },
-
-                    SickLeaveId = (int)item["SickLeaveId"],
-                    SickLeave = new SickLeave
-                    {
-                        Id = (int)item["SickLeaveId"],
-                        IsGive = (bool)item["IsGive"],
-                        Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"]
-                    },
+                    PatientId = item["PatientId"] as int? ?? default(int),
+                    DoctorId = item["DoctorId"] as int? ?? default(int),
+                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
+                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int),
 
                     Preparations = _preparationRepository.GetPreparationsByRecordId(id),
                     Procedures = _procedureRepository.GetProceduresByRecordId(id)
                 };
+
+                if (record.PatientId != default(int))
+                {
+                    record.Patient = new Patient
+                    {
+                        UserId = (int)item["PatientId"],
+                        FirstName = (string)item["FirstName"],
+                        MiddleName = (string)item["MiddleName"],
+                        LastName = (string)item["LastName"],
+                        DateBirth = (DateTime)item["DateBirth"],
+                        PlaceWork = (string)item["PlaceWork"]
+                    };
+                }
+
+                if (record.DoctorId != default(int))
+                {
+                    record.Doctor = new Doctor
+                    {
+                        UserId = (int)item["DoctorId"],
+                        FirstName = (string)item["DoctorFirstName"],
+                        MiddleName = (string)item["DoctorMiddleName"],
+                        LastName = (string)item["DoctorLastName"],
+                        Position = (string)item["Position"]
+                    };
+                }
+
+                if (record.DiagnosisId != default(int))
+                {
+                    record.Diagnosis = new Diagnosis
+                    {
+                        Id = (int)item["DiagnosisId"],
+                        Title = (string)item["Title"]
+                    };
+                }
+
+                if (record.SickLeaveId != default(int))
+                {
+                    record.SickLeave = new SickLeave
+                    {
+                        Id = (int)item["SickLeaveId"],
+                        IsGive = (bool)item["IsGive"],
+                        Number = (int)item["Number"],
+                        PeriodAction = (int)item["PeriodAction"],
+                        DiagnosisId = (int)item["SLDiagnosisId"],
+                    };
+                }
+
+                if (record.DiagnosisId != default(int))
+                {
+                    record.SickLeave.Diagnosis = _diagnosisRepository.GetById(record.SickLeave.DiagnosisId);
+                }
             }
 
             return record;
@@ -194,45 +221,57 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = (int)item["PatientId"],
-                    Patient =
-                        new Patient
-                        {
-                            UserId = (int)item["PatientId"],
-                            FirstName = (string)item["FirstName"],
-                            MiddleName = (string)item["MiddleName"],
-                            LastName = (string)item["LastName"],
-                            DateBirth = (DateTime)item["DateBirth"],
-                            PlaceWork = (string)item["PlaceWork"]
-                        },
+                    PatientId = item["PatientId"] as int? ?? default(int),
+                    DoctorId = item["DoctorId"] as int? ?? default(int),
+                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
+                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int),
+                };
 
-                    DoctorId = (int)item["DoctorId"],
-                    Doctor =
-                        new Doctor
-                        {
-                            UserId = (int)item["DoctorId"],
-                            FirstName = (string)item["FirstName"],
-                            MiddleName = (string)item["MiddleName"],
-                            LastName = (string)item["LastName"],
-                            Position = (string)item["Position"]
-                        },
+                if (record.PatientId != default(int))
+                {
+                    record.Patient = new Patient
+                    {
+                        UserId = (int)item["PatientId"],
+                        FirstName = (string)item["FirstName"],
+                        MiddleName = (string)item["MiddleName"],
+                        LastName = (string)item["LastName"],
+                        DateBirth = (DateTime)item["DateBirth"],
+                        PlaceWork = (string)item["PlaceWork"]
+                    };
+                }
 
-                    DiagnosisId = (int)item["DiagnosisId"],
-                    Diagnosis = new Diagnosis
+                if (record.DoctorId != default(int))
+                {
+                    record.Doctor = new Doctor
+                    {
+                        UserId = (int)item["DoctorId"],
+                        FirstName = (string)item["DoctorFirstName"],
+                        MiddleName = (string)item["DoctorMiddleName"],
+                        LastName = (string)item["DoctorLastName"],
+                        Position = (string)item["Position"]
+                    };
+                }
+
+                if (record.DiagnosisId != default(int))
+                {
+                    record.Diagnosis = new Diagnosis
                     {
                         Id = (int)item["DiagnosisId"],
                         Title = (string)item["Title"]
-                    },
+                    };
+                }
 
-                    SickLeaveId = (int)item["SickLeaveId"],
-                    SickLeave = new SickLeave
+                if (record.SickLeaveId != default(int))
+                {
+                    record.SickLeave = new SickLeave
                     {
                         Id = (int)item["SickLeaveId"],
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"]
-                    },
-                };
+                        PeriodAction = (int)item["PeriodAction"],
+                        DiagnosisId = (int)item["SLDiagnosisId"],
+                    };
+                }
 
                 record.Preparations = _preparationRepository.GetPreparationsByRecordId(record.Id);
                 record.Procedures = _procedureRepository.GetProceduresByRecordId(record.Id);
@@ -261,45 +300,57 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = (int)item["PatientId"],
-                    Patient =
-                        new Patient
-                        {
-                            UserId = (int)item["PatientId"],
-                            FirstName = (string)item["FirstName"],
-                            MiddleName = (string)item["MiddleName"],
-                            LastName = (string)item["LastName"],
-                            DateBirth = (DateTime)item["DateBirth"],
-                            PlaceWork = (string)item["PlaceWork"]
-                        },
+                    PatientId = item["PatientId"] as int? ?? default(int),
+                    DoctorId = item["DoctorId"] as int? ?? default(int),
+                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
+                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int),
+                };
 
-                    DoctorId = (int)item["DoctorId"],
-                    Doctor =
-                        new Doctor
-                        {
-                            UserId = (int)item["DoctorId"],
-                            FirstName = (string)item["FirstName"],
-                            MiddleName = (string)item["MiddleName"],
-                            LastName = (string)item["LastName"],
-                            Position = (string)item["Position"]
-                        },
+                if (record.PatientId != default(int))
+                {
+                    record.Patient = new Patient
+                    {
+                        UserId = (int)item["PatientId"],
+                        FirstName = (string)item["FirstName"],
+                        MiddleName = (string)item["MiddleName"],
+                        LastName = (string)item["LastName"],
+                        DateBirth = (DateTime)item["DateBirth"],
+                        PlaceWork = (string)item["PlaceWork"]
+                    };
+                }
 
-                    DiagnosisId = (int)item["DiagnosisId"],
-                    Diagnosis = new Diagnosis
+                if (record.DoctorId != default(int))
+                {
+                    record.Doctor = new Doctor
+                    {
+                        UserId = (int)item["DoctorId"],
+                        FirstName = (string)item["DoctorFirstName"],
+                        MiddleName = (string)item["DoctorMiddleName"],
+                        LastName = (string)item["DoctorLastName"],
+                        Position = (string)item["Position"]
+                    };
+                }
+
+                if (record.DiagnosisId != default(int))
+                {
+                    record.Diagnosis = new Diagnosis
                     {
                         Id = (int)item["DiagnosisId"],
                         Title = (string)item["Title"]
-                    },
+                    };
+                }
 
-                    SickLeaveId = (int)item["SickLeaveId"],
-                    SickLeave = new SickLeave
+                if (record.SickLeaveId != default(int))
+                {
+                    record.SickLeave = new SickLeave
                     {
                         Id = (int)item["SickLeaveId"],
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"]
-                    },
-                };
+                        PeriodAction = (int)item["PeriodAction"],
+                        DiagnosisId = (int)item["SLDiagnosisId"],
+                    };
+                }
 
                 record.Preparations = _preparationRepository.GetPreparationsByRecordId(doctorId);
                 record.Procedures = _procedureRepository.GetProceduresByRecordId(doctorId);
@@ -319,7 +370,7 @@ namespace EC.DataAccess.Repositories.Implementation
                 .AddParameters(idParameter)
                 .ExecuteReader();
 
-            var doctorRecords = new List<Record>();
+            var patientRecords = new List<Record>();
 
             foreach (var item in reader)
             {
@@ -328,53 +379,85 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = (int)item["PatientId"],
-                    Patient =
-                        new Patient
-                        {
-                            UserId = (int)item["PatientId"],
-                            FirstName = (string)item["FirstName"],
-                            MiddleName = (string)item["MiddleName"],
-                            LastName = (string)item["LastName"],
-                            DateBirth = (DateTime)item["DateBirth"],
-                            PlaceWork = (string)item["PlaceWork"]
-                        },
+                    PatientId = item["PatientId"] as int? ?? default(int),
+                    DoctorId = item["DoctorId"] as int? ?? default(int),
+                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
+                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int),
+                };
 
-                    DoctorId = (int)item["DoctorId"],
-                    Doctor =
-                        new Doctor
-                        {
-                            UserId = (int)item["DoctorId"],
-                            FirstName = (string)item["FirstName"],
-                            MiddleName = (string)item["MiddleName"],
-                            LastName = (string)item["LastName"],
-                            Position = (string)item["Position"]
-                        },
+                if (record.PatientId != default(int))
+                {
+                    record.Patient = new Patient
+                    {
+                        UserId = (int)item["PatientId"],
+                        FirstName = (string)item["FirstName"],
+                        MiddleName = (string)item["MiddleName"],
+                        LastName = (string)item["LastName"],
+                        DateBirth = (DateTime)item["DateBirth"],
+                        PlaceWork = (string)item["PlaceWork"]
+                    };
+                }
 
-                    DiagnosisId = (int)item["DiagnosisId"],
-                    Diagnosis = new Diagnosis
+                if (record.DoctorId != default(int))
+                {
+                    record.Doctor = new Doctor
+                    {
+                        UserId = (int)item["DoctorId"],
+                        FirstName = (string)item["DoctorFirstName"],
+                        MiddleName = (string)item["DoctorMiddleName"],
+                        LastName = (string)item["DoctorLastName"],
+                        Position = (string)item["Position"]
+                    };
+                }
+
+                if (record.DiagnosisId != default(int))
+                {
+                    record.Diagnosis = new Diagnosis
                     {
                         Id = (int)item["DiagnosisId"],
                         Title = (string)item["Title"]
-                    },
+                    };
+                }
 
-                    SickLeaveId = (int)item["SickLeaveId"],
-                    SickLeave = new SickLeave
+                if (record.SickLeaveId != default(int))
+                {
+                    record.SickLeave = new SickLeave
                     {
                         Id = (int)item["SickLeaveId"],
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"]
-                    },
-                };
+                        PeriodAction = (int)item["PeriodAction"],
+                        DiagnosisId = (int)item["SLDiagnosisId"],
+                    };
+                }
 
                 record.Preparations = _preparationRepository.GetPreparationsByRecordId(patientId);
                 record.Procedures = _procedureRepository.GetProceduresByRecordId(patientId);
 
-                doctorRecords.Add(record);
+                patientRecords.Add(record);
             }
 
-            return doctorRecords;
+            return patientRecords;
+        }
+
+        private void DeletePreparationsRecord(int? recordId)
+        {
+            var recordParameter = _factory.CreateParameter("recordId", recordId, DbType.Int32);
+
+            _factory.CreateConnection()
+                .CreateCommand(DbConstants.DELETE_PREPARATIONS_RECORD)
+                .AddParameters(recordParameter)
+                .ExecuteQuery();
+        }
+
+        private void DeleteProceduresRecord(int? recordId)
+        {
+            var recordParameter = _factory.CreateParameter("recordId", recordId, DbType.Int32);
+
+            _factory.CreateConnection()
+                .CreateCommand(DbConstants.DELETE_PROCEDURES_RECORD)
+                .AddParameters(recordParameter)
+                .ExecuteQuery();
         }
     }
 }

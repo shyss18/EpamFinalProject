@@ -51,14 +51,14 @@ namespace EC.Common.Helpers
         #region Record
 
         public const string CREATE_RECORD = "CreateRecord";
-        public const string DELETE_RECORD = "DeleteRecords";
+        public const string DELETE_RECORD = "DeleteRecord";
         public const string UPDATE_RECORD = "UpdateRecord";
         public const string GET_PATIENT_RECORDS = "GetPatientRecords";
         public const string GET_DOCTOR_RECORDS = "GetDoctorRecords";
         public const string GET_ALL_RECORDS = "GetAllRecords";
         public const string GET_RECORD_BY_ID = "GetRecordById";
-        public const string DELETE_RECORD_PREPARATIONS = "DeleteRecordPreparations";
-        public const string DELETE_RECORD_PROCEDURES = "DeleteRecordProcedures";
+        public const string DELETE_PREPARATIONS_RECORD = "DeletePreparationsRecord";
+        public const string DELETE_PROCEDURES_RECORD = "DeleteProceduresRecord";
         
         #endregion
 
