@@ -86,5 +86,13 @@ namespace EC.Web.Controllers
 
             return View(preparation);
         }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult GetPreparationForSelect()
+        {
+            var preparations = _preparationService.GetAll();
+
+            return PartialView(preparations);
+        }
     }
 }

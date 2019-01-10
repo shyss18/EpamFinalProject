@@ -18,8 +18,8 @@
     </div>
     <br />
     <div class="row col-md-12">
-        <div class="col-md-3">
-            <div class="form-group row">
+        <div class="col-md-4">
+            <div class="form-group row ">
                 @Html.LabelFor(user => user.Login, new { @class = "col-sm-3 col-form-label h3" })
                 <div class="col-sm-6 col-form-label">
                     @Html.DisplayTextFor(user => user.Login)
@@ -34,7 +34,7 @@
         </div>
         @if (Model.IsDoctor)
         {
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group row">
                     @Html.LabelFor(user => user.Doctor.FirstName, new { @class = "col-sm-4 col-form-label h3" })
                     <div class="col-sm-6 col-form-label">
@@ -63,7 +63,7 @@
         }
         else
         {
-            <div class="col-md-3">
+            <div class="col-md-4">
                 <div class="form-group row">
                     @Html.LabelFor(user => user.Patient.FirstName, new { @class = "col-sm-4 col-form-label h3" })
                     <div class="col-sm-6 col-form-label">
@@ -96,7 +96,7 @@
                 </div>
             </div>
         }
-        <div class="col-md-3">
+        <div class="col-md-4">
             <div class="col-sm-12 col-form-label h3">
                 Контакты
             </div>
@@ -116,28 +116,27 @@
                 }
             </div>
         </div>
-        <div class="col-md-3 text-center">
-            <div class="col-sm-12 col-form-label h3">
-                Редактирование аккаунта
-            </div>
-            <div>
-                @Html.ActionLink("Изменить аккаунт", "EditAccount", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-warning" })
-            </div>
-            <br />
-            <div>
-                @Html.ActionLink("Изменить контакты", "EditUserContacts", "Phone", new { login = Model.Login }, new { @class = "btn btn-outline-info" })
-            </div>
-            <br />
-            <div>
-                @Html.ActionLink("Изменить фото", "EditPhoto", "Photo", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
-            </div>
-            <br />
-            <div>
-                @Html.ActionLink("Изменить пароль", "EditPassword", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
-            </div>
-            <br />
+    </div>
+    <div class="col-sm-12 col-form-label h3 text-center form-group">
+        Редактирование аккаунта
+    </div>
+    <div class="col-md-12 row text-center">
+        <div class="col-md-3">
+            @Html.ActionLink("Изменить аккаунт", "EditAccount", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-warning" })
         </div>
-
+        <br />
+        <div class="col-md-3">
+            @Html.ActionLink("Изменить контакты", "EditUserContacts", "Phone", new { login = Model.Login }, new { @class = "btn btn-outline-info" })
+        </div>
+        <br />
+        <div class="col-md-3">
+            @Html.ActionLink("Изменить фото", "EditPhoto", "Photo", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
+        </div>
+        <br />
+        <div class="col-md-3">
+            @Html.ActionLink("Изменить пароль", "EditPassword", "Auth", new { login = Model.Login }, new { @class = "btn btn-outline-primary" })
+        </div>
+        <br />
     </div>
 </div>
 

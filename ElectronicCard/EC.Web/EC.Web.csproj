@@ -151,6 +151,7 @@
     <Compile Include="Models\EditAccountModel.cs" />
     <Compile Include="Models\EditPasswordModel.cs" />
     <Compile Include="Models\EditPhotoModel.cs" />
+    <Compile Include="Models\EditRecordModel.cs" />
     <Compile Include="Models\EditSickLeaveModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
@@ -208,6 +209,18 @@
     <Content Include="Views\SickLeave\GetAllSickLeaves.cshtml" />
     <Content Include="Views\SickLeave\GetSickLeaveForSelect.cshtml" />
     <Content Include="Views\SickLeave\DeleteSickLeave.cshtml" />
+    <Content Include="Views\Record\CreateRecord.cshtml" />
+    <Content Include="Views\User\GetDoctorPatients.cshtml" />
+    <Content Include="Views\User\GetDoctorForSelect.cshtml" />
+    <Content Include="Views\Procedure\GetProceduresForSelect.cshtml" />
+    <Content Include="Views\Preparation\GetPreparationForSelect.cshtml" />
+    <Content Include="Views\Record\DetailsRecord.cshtml" />
+    <Content Include="Views\Record\GetAllRecords.cshtml" />
+    <Content Include="Views\Record\GetPatientRecords.cshtml" />
+    <Content Include="Views\Record\GetDoctorsRecords.cshtml" />
+    <Content Include="Views\Record\DeleteRecord.cshtml" />
+    <Content Include="Views\Record\EditRecord.cshtml" />
+    <Content Include="Views\User\WarningDelete.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -215,9 +228,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Views\Record\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EC.BusinessLogic\EC.BusinessLogic.csproj">
       <Project>{3cac8f00-63c3-434c-896e-c2a8be6a3f2e}</Project>

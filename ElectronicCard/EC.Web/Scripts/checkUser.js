@@ -1,15 +1,15 @@
 ﻿$(document).ready(function () {
     $("#IsDoctor").change(function () {
         if ($(this).prop('checked')) {
-            $('#Position').fadeIn(300);
+            $('#position').fadeIn(300);
             $('#hidePatient').fadeIn(300);
             $('#PlaceWork').fadeOut().show();
             $('#DateBirth').fadeOut().show();
             $('#hideDoctors').fadeOut().show();
         } else {
-            $('#Position').fadeOut().show();
+            $('#position').fadeOut().show();
             $('#hidePatient').fadeOut().show();
-            $('#hideDoctors').fadeIn(300);
+            $('#hideDoctors').fadeOut().show();
             $('#PlaceWork').fadeIn(300);
             $('#DateBirth').fadeIn(300);
         }

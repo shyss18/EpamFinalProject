@@ -1,7 +1,6 @@
 ﻿@model EC.Web.Models.EditSickLeaveModel
 @{
-/**/
-ViewBag.Title = "Редактирование больничного листа";
+    ViewBag.Title = "Редактирование больничного листа";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -19,7 +18,7 @@ ViewBag.Title = "Редактирование больничного листа"
 </script>
 
 <div class="container" align="center">
-    <div class="col-md-5">
+    <div class="col-md-4">
         <h4 class="text-center text-success" style="padding-top: 10%">Добавление больничного листа</h4>
         @using (Html.BeginForm("UpdateSickLeave", "SickLeave", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
         {
@@ -55,7 +54,7 @@ ViewBag.Title = "Редактирование больничного листа"
 
             <div class="container">
                 <input type="submit" class="btn btn-outline-warning" value="Изменить" />
-                @Html.ActionLink("Отмена", "GetAllSickLeaves", "SickLeave", null, new { @class = "btn btn-outline-secondary" })
+                @Html.ActionLink("Отмена", "SickLeaveDetails", "SickLeave", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })
             </div>
         }
     </div>

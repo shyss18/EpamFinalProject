@@ -5,6 +5,26 @@
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
+<script>
+    $(document).ready(function () {
+        $("#Roles").select2({
+            placeholder: 'Роли'
+        });
+    });
+
+    $(document).ready(function () {
+        $("#Patients").select2({
+            placeholder: 'Пациенты'
+        });
+    });
+
+    $(document).ready(function () {
+        $("#Doctors").select2({
+            placeholder: 'Врачи'
+        });
+    });
+</script>
+
 <div class="container" align="center">
     <div class="col-md-4">
         <h4 class="text-center text-success" style="padding-top: 10%">Добавление пользователя</h4>
@@ -94,12 +114,12 @@
                 <div class="form-group row">
                     Выберете пациентов
                 </div>
-     
+
                 <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Patients" name="Patients">
                     @Html.Action("GetListPatient", "User")
                 </select>
             </div>
-            
+
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.PlaceWork, new
                 {
@@ -118,12 +138,12 @@
                 @*@Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })*@
             </div>
 
-            <div id="hideDoctors" class="form-group row">
 
-                <div class="form-group row">
+
+            <div id="hideDoctors" class="form-group row">
+                <div class="form-group">
                     Назначьте докторов
                 </div>
-
                 <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Doctors" name="Doctors">
                     @Html.Action("GetListDoctors", "User")
                 </select>
@@ -138,15 +158,12 @@
                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
             </div>
 
-            <div class="text-left">
-                <div class="form-group">
-                    @Html.Label("", "Выберите фото", new { @for = "Photo" })
-                    @Html.TextBoxFor(model => model.Photo, new
-                    {
-                        @class = "form-control-file",
-                        @type = "file"
-                    })
-                </div>
+            <div>
+                <label class="input-label" for="Photo">Выберете фото</label>
+                @Html.TextBoxFor(model => model.Photo, new
+                {
+                    @type = "file"
+                })
             </div>
 
             <br />

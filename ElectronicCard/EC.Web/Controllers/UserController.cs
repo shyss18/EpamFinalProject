@@ -55,8 +55,11 @@ namespace EC.Web.Controllers
                         }
                     };
 
-                    user.Doctor.Patients =
-                        _userService.GetAllPatients().Where(p => model.Patients.Contains(p.Id)).ToList();
+                    if (model.Patients != null)
+                    {
+                        user.Doctor.Patients =
+                            _userService.GetAllPatients().Where(p => model.Patients.Contains(p.UserId)).ToList();
+                    }
                 }
                 else
                 {
@@ -83,8 +86,11 @@ namespace EC.Web.Controllers
                         }
                     };
 
-                    user.Patient.Doctors =
-                        _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.Id)).ToList();
+                    if (model.Doctors != null)
+                    {
+                        user.Patient.Doctors =
+                            _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.UserId)).ToList();
+                    }
                 }
 
                 user.Roles = _roleService.GetAll().Where(r => model.Roles.Contains(r.Id)).ToList();
@@ -181,7 +187,10 @@ namespace EC.Web.Controllers
                     user.Doctor.LastName = model.LastName;
                     user.Doctor.Position = model.Position;
 
-                    user.Doctor.Patients = _userService.GetAllPatients().Where(p => model.Patients.Contains(p.UserId)).ToList();
+                    if (model.Patients != null)
+                    {
+                        user.Doctor.Patients = _userService.GetAllPatients().Where(p => model.Patients.Contains(p.UserId)).ToList();
+                    }
                 }
                 else
                 {
@@ -191,8 +200,11 @@ namespace EC.Web.Controllers
                     user.Patient.PlaceWork = model.PlaceWork;
                     user.Patient.DateBirth = model.DateBirth;
 
-                    user.Patient.Doctors = _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.UserId))
-                        .ToList();
+                    if (model.Doctors != null)
+                    {
+                        user.Patient.Doctors = _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.UserId))
+                            .ToList();
+                    }
                 }
 
                 user.Roles = _roleService.GetAll().Where(r => model.Roles.Contains(r.Id)).ToList();
@@ -216,9 +228,35 @@ namespace EC.Web.Controllers
         [HttpPost]
         public ActionResult DeleteUser(int? id)
         {
-            _userService.DeleteUser(id);
+            if (_userService.DeleteUser(id))
+            {
+                return RedirectToAction("GetAllUsers");
+            }
 
-            return RedirectToAction("GetAllUsers", _userService.GetAllUsers());
+            return View("WarningDelete");
+        }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Patch)]
+        public ActionResult GetDoctorForSelect(string login)
+        {
+            var doctor = _userService.GetUserByLogin(login);
+
+            return doctor == null ? null : PartialView("GetDoctorForSelect", doctor);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Patch)]
+        public ActionResult GetDoctorPatients(string login)
+        {
+            var doctor = _userService.GetUserByLogin(login);
+
+            if (doctor != null)
+            {
+                var users = _userService.GetUserPatients(doctor.Id);
+
+                return PartialView("GetDoctorPatients", users);
+            }
+
+            return PartialView("GetListPatient", _userService.GetAllPatients());
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]

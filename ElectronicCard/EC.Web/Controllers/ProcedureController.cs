@@ -86,5 +86,13 @@ namespace EC.Web.Controllers
 
             return View(procedures);
         }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult GetProceduresForSelect()
+        {
+            var procedures = _procedureService.GetAll();
+
+            return PartialView(procedures);
+        }
     }
 }
