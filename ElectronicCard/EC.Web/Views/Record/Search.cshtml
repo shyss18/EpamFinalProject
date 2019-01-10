@@ -1,0 +1,29 @@
+﻿@{
+    ViewBag.Title = "Поиск";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" align="center">
+    @using (Ajax.BeginForm("Search", new AjaxOptions { UpdateTargetId = "results" }))
+    {
+        <p>
+            <b>Искать: </b> @Html.RadioButton("searchBy", "Date") по дате
+            @Html.RadioButton("searchBy", "Diagnosis") по диагнозу
+            @Html.RadioButton("searchBy", "Position") по должности <br />
+
+        </p>
+        <div class="col-sm-12 row">
+            <div class="col-sm-2">
+            </div>
+            <div class="col-sm-6">
+                @Html.TextBox("search", null, new { @class = "form-control", @placeholder = "Введите значение" })
+            </div>
+            <div class="col-sm-2">
+                <input type="submit" value="Поиск" class="btn btn-outline-info" />
+            </div>
+        </div>
+    }
+    <div id="results">
+    </div>
+</div>
+

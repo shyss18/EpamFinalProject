@@ -103,8 +103,8 @@
             else if (User.IsInRole("Doctor"))
             {
                 <div class="form-group row">
-                    <select class="js-example-templating form-control" style="width: 100%;" id="PatientId" name="PatientId">
-                        @Html.Action("GetDoctorForSelect", "User", User.Identity.Name)
+                    <select class="js-example-templating form-control" style="width: 100%;" id="DoctorId" name="DoctorId">
+                        @Html.Action("GetDoctorForSelect", "User", new { login = User.Identity.Name })
                     </select>
                 </div>
             }

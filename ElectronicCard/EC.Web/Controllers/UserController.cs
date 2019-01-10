@@ -150,7 +150,7 @@ namespace EC.Web.Controllers
 
                     if (user.Doctor.Patients != null)
                     {
-                        edit.Patients = user.Doctor.Patients.Select(p => p.UserId).ToArray();
+                        edit.Patients = user.Doctor.Patients.Select(p => p.Id).ToArray();
                     }
                 }
                 else
@@ -163,7 +163,7 @@ namespace EC.Web.Controllers
 
                     if (user.Patient.Doctors != null)
                     {
-                        edit.Doctors = user.Patient.Doctors.Select(p => p.UserId).ToArray();
+                        edit.Doctors = user.Patient.Doctors.Select(p => p.Id).ToArray();
                     }
                 }
 
@@ -187,6 +187,11 @@ namespace EC.Web.Controllers
                     user.Doctor.LastName = model.LastName;
                     user.Doctor.Position = model.Position;
 
+                    if (model.Patients == null)
+                    {
+                        user.Doctor.Patients = new List<Patient>();
+                    }
+
                     if (model.Patients != null)
                     {
                         user.Doctor.Patients = _userService.GetAllPatients().Where(p => model.Patients.Contains(p.UserId)).ToList();
@@ -200,9 +205,14 @@ namespace EC.Web.Controllers
                     user.Patient.PlaceWork = model.PlaceWork;
                     user.Patient.DateBirth = model.DateBirth;
 
+                    if (model.Doctors == null)
+                    {
+                        user.Patient.Doctors = new List<Doctor>();
+                    }
+
                     if (model.Doctors != null)
                     {
-                        user.Patient.Doctors = _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.UserId))
+                        user.Patient.Doctors = _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.Id))
                             .ToList();
                     }
                 }
@@ -236,12 +246,25 @@ namespace EC.Web.Controllers
             return View("WarningDelete");
         }
 
+        [HttpGet]
+        public ActionResult GetPatients(string login)
+        {
+            var doctor = _userService.GetUserByLogin(login);
+
+            if (doctor != null)
+            {
+                return View("Patients", _userService.GetUserPatients(doctor.Id));
+            }
+
+            return View("NotFound");
+        }
+
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Patch)]
         public ActionResult GetDoctorForSelect(string login)
         {
             var doctor = _userService.GetUserByLogin(login);
 
-            return doctor == null ? null : PartialView("GetDoctorForSelect", doctor);
+            return doctor == null ? null : PartialView("GetDoctorForSelect", doctor.Doctor);
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Patch)]

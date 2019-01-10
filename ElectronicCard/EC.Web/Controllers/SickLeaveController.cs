@@ -92,7 +92,7 @@ namespace EC.Web.Controllers
                 sickLeave.IsGive = edit.IsGive;
                 sickLeave.Number = edit.Number;
                 sickLeave.PeriodAction = edit.PeriodAction;
-                sickLeave.DiagnosisId = sickLeave.DiagnosisId;
+                sickLeave.DiagnosisId = edit.DiagnosisId;
                 sickLeave.Diagnosis = diagnosis;
 
                 _sickLeaveService.UpdateSickLeave(sickLeave);

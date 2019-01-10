@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Linq;
 using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
@@ -60,7 +61,7 @@ namespace EC.Web.Controllers
                     return RedirectToAction("GetAllRecords");
                 }
 
-                return RedirectToAction("GetDoctorsRecords", User.Identity.Name);
+                return RedirectToAction("GetDoctorsRecords", "Record", new { login = User.Identity.Name });
             }
 
             return View(model);
@@ -169,15 +170,107 @@ namespace EC.Web.Controllers
         {
             var records = _recordService.GetPatientRecords(login);
 
-            return records == null ? View("NotFound") : View(records);
+            return records == null ? View("NotFound") : View("GetAllRecords", records);
         }
 
         [HttpGet]
-        public ActionResult GetDoctorsRecords(string login)
+        public ActionResult GetDoctorRecords(string login)
         {
             var records = _recordService.GetDoctorRecords(login);
 
-            return records == null ? View("NotFound") : View(records);
+            return records == null ? View("NotFound") : View("GetAllRecords", records);
+        }
+
+        [HttpGet]
+        public ActionResult Search()
+        {
+            return View();
+        }
+
+        public ActionResult Search(string searchBy, string search)
+        {
+            IReadOnlyCollection<Record> records;
+
+            if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+            {
+                switch (searchBy)
+                {
+                    case "Date":
+
+                        if (DateTime.TryParse(search, out var check))
+                        {
+                            records = _recordService.GetAllRecords().Where(r => r.DateRecord == check).ToList();
+
+                            return PartialView("Records", records);
+                        }
+
+                        break;
+                    case "Diagnosis":
+
+                        records = _recordService.GetAllRecords().Where(r => r.Diagnosis.Title == search).ToList();
+
+                        return PartialView("Records", records);
+                    case "Position":
+
+                        records = _recordService.GetAllRecords().Where(r => r.Doctor.Position == search).ToList();
+
+                        return PartialView("Records", records);
+                }
+            }
+            else if (User.IsInRole("Doctor"))
+            {
+                switch (searchBy)
+                {
+                    case "Date":
+
+                        if (DateTime.TryParse(search, out var check))
+                        {
+                            records = _recordService.GetDoctorRecords(User.Identity.Name).Where(r => r.DateRecord == check).ToList();
+
+                            return PartialView("Records", records);
+                        }
+
+                        break;
+                    case "Diagnosis":
+
+                        records = _recordService.GetDoctorRecords(User.Identity.Name).Where(r => r.Diagnosis.Title == search).ToList();
+
+                        return PartialView("Records", records);
+                    case "Position":
+
+                        records = _recordService.GetDoctorRecords(User.Identity.Name).Where(r => r.Doctor.Position == search).ToList();
+
+                        return PartialView("Records", records);
+                }
+            }
+            else
+            {
+                switch (searchBy)
+                {
+                    case "Date":
+
+                        if (DateTime.TryParse(search, out var check))
+                        {
+                            records = _recordService.GetPatientRecords(User.Identity.Name).Where(r => r.DateRecord == check).ToList();
+
+                            return PartialView("Records", records);
+                        }
+
+                        break;
+                    case "Diagnosis":
+
+                        records = _recordService.GetPatientRecords(User.Identity.Name).Where(r => r.Diagnosis.Title == search).ToList();
+
+                        return PartialView("Records", records);
+                    case "Position":
+
+                        records = _recordService.GetPatientRecords(User.Identity.Name).Where(r => r.Doctor.Position == search).ToList();
+
+                        return PartialView("Records", records);
+                }
+            }
+
+            return PartialView("Records");
         }
     }
 }

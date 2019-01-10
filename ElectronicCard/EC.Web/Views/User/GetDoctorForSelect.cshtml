@@ -1,7 +1,3 @@
-﻿@model IEnumerable<EC.Entities.Entities.User>
+﻿@model EC.Entities.Entities.Doctor
 
-@foreach (var doctor in Model)
-{
-    <option value="@doctor.Id">@doctor.Doctor.FirstName @doctor.Doctor.LastName</option>
-}
-
+<option value="@Model.Id">@Model.FirstName @Model.LastName</option>
