@@ -68,6 +68,8 @@ sqlcmd -S %sqlServer% -i StoredProcedures/Records/UpdateRecord.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Records/GetAllRecords.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Records/GetDoctorRecords.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Records/GetRecordById.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Records/DeletePreparationsRecord.sql
+sqlcmd -S %sqlServer% -i StoredProcedures/Records/DeleteProceduresRecord.sql
 
 sqlcmd -S %sqlServer% -i StoredProcedures/Roles/CreateRole.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Roles/DeleteRole.sql
@@ -106,4 +108,5 @@ sqlcmd -S %sqlServer% -i StoredProcedures/Photo/DeletePhoto.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Photo/GetPhotoById.sql
 sqlcmd -S %sqlServer% -i StoredProcedures/Photo/GetUserPhoto.sql
 
+sqlcmd -S %sqlServer% -i FillDataBase.sql
 PAUSE
