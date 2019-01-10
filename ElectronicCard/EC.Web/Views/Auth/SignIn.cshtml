@@ -1,4 +1,5 @@
-﻿@model EC.Web.Models.SignInModel
+﻿@using System.Web.Optimization
+@model EC.Web.Models.SignInModel
 
 @{
     Layout = null;
@@ -11,8 +12,7 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/formStyle.css" rel="stylesheet" />
+    @Styles.Render("~/Content/form")
 </head>
 
 <body class="text-center">
@@ -44,12 +44,10 @@
         <div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
             @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-lg btn-secondary btn-block" })
-            @Html.ActionLink("Нет аккаунта? Создайте", "SignUp", "Auth")
             <p class="mt-5 mb-3 text-muted text-center">&copy; @DateTime.Now.Year</p>
         </div>
     }
-    <script src="~/Scripts/jquery-3.0.0.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
 </body>
-
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 </html>
