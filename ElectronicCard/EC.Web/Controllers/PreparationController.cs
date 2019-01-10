@@ -25,6 +25,8 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _preparationService.CreatePreparation(preparation);
+
+                return RedirectToAction("GetAllPreparations");
             }
 
             return View(preparation);
@@ -62,6 +64,8 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _preparationService.UpdatePreparation(preparation);
+
+                return RedirectToAction("PreparationDetails", preparation.Id);
             }
 
             return View(preparation);
@@ -72,15 +76,23 @@ namespace EC.Web.Controllers
         {
             _preparationService.DeletePreparation(id);
 
-            return View();
+            return RedirectToAction("GetAllPreparations");
         }
 
         [HttpGet]
-        public ActionResult GetAllPreparation()
+        public ActionResult GetAllPreparations()
         {
             var preparation = _preparationService.GetAll();
 
             return View(preparation);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult GetPreparationForSelect()
+        {
+            var preparations = _preparationService.GetAll();
+
+            return PartialView(preparations);
         }
     }
 }

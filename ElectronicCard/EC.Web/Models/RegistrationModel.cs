@@ -44,6 +44,6 @@ namespace EC.Web.Models
         public DateTime DateBirth { get; set; }
 
         [DisplayName("Номер телефона")]
-        public virtual ICollection<Phone> Phones { get; set; }
+        public string Phone { get; set; }
     }
 }

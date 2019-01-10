@@ -1,0 +1,31 @@
+﻿@model EC.Entities.Entities.Phone
+
+<div class="modal fade" id="createPhone" role="dialog" aria-labelledby="title">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title text-info" id="title">Добавление телефона</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("AddPhone", "Phone", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
+                {
+                    <div class="form-group">
+                        @Html.TextBoxFor(phone => phone.PhoneNumber, new
+                        {
+                            @class="form-control",
+                            @placeholder = @Html.DisplayNameFor(phone => phone.PhoneNumber)
+                        })
+                    </div>
+
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-primary">Добавить</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Закрыть</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

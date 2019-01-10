@@ -1,15 +1,20 @@
 ﻿using System.Collections.Generic;
+using System.ComponentModel;
+using System.Web.Mvc;
 
 namespace EC.Entities.Entities
 {
     public class User
     {
+        [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
+        [DisplayName("Логин")]
         public string Login { get; set; }
 
         public string Email { get; set; }
 
+        [DisplayName("Пароль")]
         public string Password { get; set; }
 
         public bool IsDoctor { get; set; }

@@ -7,10 +7,12 @@ namespace EC.BusinessLogic.Services.Implementation
     public class PhotoService : IPhotoService
     {
         private readonly IPhotoRepository _photoRepository;
+        private readonly IUserRepository _userRepository;
 
-        public PhotoService(IPhotoRepository photoRepository)
+        public PhotoService(IPhotoRepository photoRepository, IUserRepository userRepository)
         {
             _photoRepository = photoRepository;
+            _userRepository = userRepository;
         }
 
         public void CreatePhoto(Photo photo)
@@ -33,9 +35,11 @@ namespace EC.BusinessLogic.Services.Implementation
             return id == null ? null : _photoRepository.GetById(id);
         }
 
-        public Photo GetUserPhoto(int? userId)
+        public Photo GetUserPhoto(string login)
         {
-            return userId == null ? null : _photoRepository.GetUserPhoto(userId);
+            var user = _userRepository.GetUserByLogin(login);
+
+            return user == null ? null : _photoRepository.GetUserPhoto(user.Id);
         }
     }
 }

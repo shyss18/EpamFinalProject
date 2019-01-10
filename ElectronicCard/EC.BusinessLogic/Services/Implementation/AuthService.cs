@@ -18,32 +18,30 @@ namespace EC.BusinessLogic.Services.Implementation
             _userRepository = userRepository;
         }
 
-        public bool SignIn(string email, string password)
+        public bool SignIn(string login, string password)
         {
-            if (string.IsNullOrEmpty(email) || string.IsNullOrEmpty(password))
+            if (string.IsNullOrEmpty(login) || string.IsNullOrEmpty(password))
             {
                 return false;
             }
 
-            if (IsValidUser(email, password))
+            if (IsValidUser(login, password))
             {
-                var user = _userRepository.GetUserByEmail(email);
+                var user = _userRepository.GetUserByLogin(login);
 
-                var data = JsonConvert.SerializeObject(user);
-
-                var ticket = new FormsAuthenticationTicket(1, user.Email, DateTime.Now, DateTime.Now.AddMinutes(10),
-                    false, data);
-
-                var encryptTicket = FormsAuthentication.Encrypt(ticket);
-
-                var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptTicket);
-
-                HttpContext.Current.Response.Cookies.Add(cookie);
+                CreateCookie(user);
 
                 return true;
             }
 
             return false;
+        }
+
+        private bool IsValidUser(string login, string password)
+        {
+            var user = _userRepository.GetUserByLogin(login);
+
+            return user != null && user.Password == password;
         }
 
         public void SignUp(User user)
@@ -71,11 +69,54 @@ namespace EC.BusinessLogic.Services.Implementation
             FormsAuthentication.SignOut();
         }
 
-        private bool IsValidUser(string email, string password)
+        public User GetUserByLogin(string login)
         {
-            var user = _userRepository.GetUserByEmail(email);
+            return login == null ? null : _userRepository.GetUserByLogin(login);
+        }
 
-            return user != null && user.Password == password;
+        public void UpdateUser(User user)
+        {
+            if (user == null)
+            {
+                return;
+            }
+
+            DeleteCookie();
+            CreateCookie(user);
+            _userRepository.Update(user);
+        }
+
+        private static void DeleteCookie()
+        {
+            if (HttpContext.Current.Request.Cookies[FormsAuthentication.FormsCookieName] != null)
+            {
+                var deleteCookie = new HttpCookie(FormsAuthentication.FormsCookieName)
+                {
+                    Expires = DateTime.Now.AddDays(-1)
+                };
+
+                HttpContext.Current.Response.Cookies.Add(deleteCookie);
+            }
+        }
+
+        private static void CreateCookie(User user)
+        {
+            var serialize = new SerializeModel
+            {
+                Login = user.Login,
+                Roles = user.Roles
+            };
+
+            var data = JsonConvert.SerializeObject(serialize);
+
+            var ticket = new FormsAuthenticationTicket(1, user.Login, DateTime.Now, DateTime.Now.AddMinutes(10),
+                false, data);
+
+            var encryptTicket = FormsAuthentication.Encrypt(ticket);
+
+            var cookie = new HttpCookie(FormsAuthentication.FormsCookieName, encryptTicket);
+
+            HttpContext.Current.Response.Cookies.Add(cookie);
         }
     }
 }

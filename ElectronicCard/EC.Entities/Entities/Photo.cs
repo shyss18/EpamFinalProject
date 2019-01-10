@@ -4,10 +4,10 @@
     {
         public int Id { get; set; }
 
-        public string Path { get; set; }
+        public byte[] Image { get; set; }
+
+        public string ImageType { get; set; }
 
         public int UserId { get; set; }
-
-        public User User { get; set; }
     }
 }

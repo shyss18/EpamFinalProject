@@ -13,7 +13,7 @@ namespace EC.BusinessLogic.Auth
         public UserPrincipal(User user)
         {
             User = user;
-            Identity = new GenericIdentity(user.Email);
+            Identity = new GenericIdentity(user.Login);
         }
 
         public bool IsInRole(string role)

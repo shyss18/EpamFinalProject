@@ -1,0 +1,52 @@
+﻿@model EC.Entities.Entities.SickLeave
+
+@{
+    ViewBag.Title = "Информация о больничном листе № " + Model.Number;
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h4 class="text-info text-center">Информация о больничном листе</h4>
+    <div class="justify-content-center">
+        <div class="form-group row col-sm-12">
+            @Html.LabelFor(m => m.Number, "Номер больничного листа:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+            <div class="col-sm-6 col-form-label">
+                @Html.DisplayTextFor(m => m.Number)
+            </div>
+        </div>
+        <div class="form-group row col-sm-12">
+            @Html.LabelFor(m => m.IsGive, "Выдан ли:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+            @if (Model.IsGive)
+            {
+                <div class="col-sm-6 col-form-label text-success">
+                    Да
+                </div>
+            }
+            else
+            {
+                <div class="col-sm-6 col-form-label text-danger">
+                    Нет
+                </div>
+            }
+        </div>
+        <div class="form-group row col-sm-12">
+            @Html.LabelFor(m => m.PeriodAction, "Период действования:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+            <div class="col-sm-6 col-form-label">
+                @Html.DisplayTextFor(m => m.PeriodAction), дней/дня
+            </div>
+        </div>
+        <div class="form-group row col-sm-12">
+            @Html.LabelFor(m => m.Diagnosis.Title, "Название диагноза:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+            <div class="col-sm-6 col-form-label">
+                @Html.DisplayTextFor(m => m.Diagnosis.Title)
+            </div>
+        </div>
+    </div>
+    <div class="container text-center">
+        @Html.ActionLink("Изменить", "UpdateSickLeave", new { id = Model.Id }, new { @class = "btn btn-outline-warning" })
+        <a class="btn btn-outline-danger " href="#" data-toggle="modal" data-target="#deleteSickLeave">Удалить</a>
+        @Html.ActionLink("Все больничные листы", "GetAllSickLeaves", null, new { @class = "btn btn-outline-secondary" })
+    </div>
+</div>
+@{Html.RenderPartial("DeleteSickLeave");}
+

@@ -8,7 +8,6 @@ namespace EC.BusinessLogic.Services.Interfaces
         void CreatePhone(Phone phone);
         void UpdatePhone(Phone phone);
         void DeletePhone(int? id);
-        Phone GetById(int? id);
-        IReadOnlyCollection<Phone> GetUserPhones(int? userId);
+        IReadOnlyCollection<Phone> GetUserContacts(string login);
     }
 }

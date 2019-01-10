@@ -5,8 +5,10 @@ namespace EC.DataAccess.Repositories.Interfaces
 {
     public interface IUserRepository : IRepository<User>
     {
+        void AddPatientToDoctor(int? patientId, int? doctorId);
+        IReadOnlyCollection<Patient> GetUserPatients(int? userId);
         IReadOnlyCollection<Patient> GetAllPatients();
         IReadOnlyCollection<Doctor> GetAllDoctors();
-        User GetUserByEmail(string email);
+        User GetUserByLogin(string login);
     }
 }

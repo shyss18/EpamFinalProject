@@ -8,6 +8,6 @@ namespace EC.BusinessLogic.Services.Interfaces
         void UpdatePhoto(Photo photo);
         void DeletePhoto(int? id);
         Photo GetById(int? id);
-        Photo GetUserPhoto(int? userId);
+        Photo GetUserPhoto(string login);
     }
 }

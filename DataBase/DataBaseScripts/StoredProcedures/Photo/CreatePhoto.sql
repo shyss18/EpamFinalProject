@@ -2,11 +2,12 @@ USE ElectronicCardDB;
 GO
 
 CREATE PROC CreatePhoto
-      @path NVARCHAR(50),
+      @image VARBINARY(MAX),
+      @imageType NVARCHAR(50) NULL,
       @userId INT
 AS
 BEGIN
-INSERT dbo.Photo(Path, UserId)
-VALUES(@path, @userId)
+INSERT dbo.Photo(Image, ImageType,UserId)
+VALUES(@image, @imageType, @userId)
 END
 GO

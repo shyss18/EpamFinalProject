@@ -72,8 +72,6 @@
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Services\Implementation\AuthService.cs" />
     <Compile Include="Services\Implementation\DiagnosisService.cs" />
-    <Compile Include="Services\Implementation\DoctorService.cs" />
-    <Compile Include="Services\Implementation\PatientService.cs" />
     <Compile Include="Services\Implementation\PhoneService.cs" />
     <Compile Include="Services\Implementation\PhotoService.cs" />
     <Compile Include="Services\Implementation\PreparationService.cs" />
@@ -82,10 +80,9 @@
     <Compile Include="Services\Implementation\RecordService.cs" />
     <Compile Include="Services\Implementation\RoleService.cs" />
     <Compile Include="Services\Implementation\SickLeaveService.cs" />
+    <Compile Include="Services\Implementation\UserService.cs" />
     <Compile Include="Services\Interfaces\IAuthService.cs" />
     <Compile Include="Services\Interfaces\IDiagnosisService.cs" />
-    <Compile Include="Services\Interfaces\IDoctorService.cs" />
-    <Compile Include="Services\Interfaces\IPatientService.cs" />
     <Compile Include="Services\Interfaces\IPhoneService.cs" />
     <Compile Include="Services\Interfaces\IPhotoService.cs" />
     <Compile Include="Services\Interfaces\IPreparationService.cs" />
@@ -94,6 +91,7 @@
     <Compile Include="Services\Interfaces\IRecordService.cs" />
     <Compile Include="Services\Interfaces\IRoleService.cs" />
     <Compile Include="Services\Interfaces\ISickLeaveService.cs" />
+    <Compile Include="Services\Interfaces\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="Connected Services\MyService\PromotionService.wsdl" />

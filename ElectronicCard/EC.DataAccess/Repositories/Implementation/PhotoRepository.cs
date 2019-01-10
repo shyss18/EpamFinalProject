@@ -19,24 +19,26 @@ namespace EC.DataAccess.Repositories.Implementation
 
         public void Create(Photo item)
         {
-            var pathParameter = _factory.CreateParameter("path", item.Path, DbType.String);
+            var imageParameter = _factory.CreateParameter("image", item.Image, DbType.Binary);
+            var typeParameter = _factory.CreateParameter("imageType", item.ImageType, DbType.String);
             var userParameter = _factory.CreateParameter("userId", item.UserId, DbType.Int32);
 
             _factory.CreateConnection()
                 .CreateCommand(DbConstants.CREATE_PHOTO)
-                .AddParameters(pathParameter, userParameter)
+                .AddParameters(imageParameter, typeParameter, userParameter)
                 .ExecuteQuery();
         }
 
         public void Update(Photo item)
         {
             var idParameter = _factory.CreateParameter("id", item.Id, DbType.Int32);
-            var pathParameter = _factory.CreateParameter("path", item.Path, DbType.String);
+            var imageParameter = _factory.CreateParameter("image", item.Image, DbType.Binary);
+            var typeParameter = _factory.CreateParameter("imageType", item.ImageType, DbType.String);
             var userParameter = _factory.CreateParameter("userId", item.UserId, DbType.Int32);
 
             _factory.CreateConnection()
                 .CreateCommand(DbConstants.UPDATE_PHOTO)
-                .AddParameters(idParameter, pathParameter, userParameter)
+                .AddParameters(idParameter, imageParameter, typeParameter, userParameter)
                 .ExecuteQuery();
         }
 
@@ -66,7 +68,8 @@ namespace EC.DataAccess.Repositories.Implementation
                 photo = new Photo
                 {
                     Id = (int)item["Id"],
-                    Path = (string)item["Path"]
+                    Image = (byte[])item["Image"],
+                    ImageType = (string)item["ImageType"]
                 };
             }
 
@@ -89,7 +92,9 @@ namespace EC.DataAccess.Repositories.Implementation
                 photo = new Photo
                 {
                     Id = (int) item["Id"],
-                    Path = (string) item["Path"]
+                    Image = (byte[])item["Image"],
+                    ImageType = (string)item["ImageType"],
+                    UserId = (int)item["UserId"]
                 };
             }
 

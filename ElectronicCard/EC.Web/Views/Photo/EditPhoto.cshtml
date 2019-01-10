@@ -1,0 +1,58 @@
+﻿@model EC.Web.Models.EditPhotoModel
+
+@{
+    ViewBag.Title = "Изменение фото";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" align="center">
+    <div class="col-md-5">
+        <h4 class="text-center text-warning" style="padding-top: 10%">Изменение фото</h4>
+        @using (Html.BeginForm("EditPhoto", "Photo", FormMethod.Post, new { @class = "form-group", enctype = "multipart/form-data" }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            @Html.HiddenFor(model => model.UserId)
+
+            if (Model.UserPhoto == null)
+            {
+                <div class="form-group">
+                    <img src="" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
+                </div>
+
+                <div class="form-group">
+                    <div class="text-left">
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.Image, new
+                            {
+                                @class = "form-control-file",
+                                @type = "file"
+                            })
+                        </div>
+                    </div>
+                </div>
+            }
+            else
+            {
+                <div class="form-group">
+                    <img src="@Url.Action("GetImage", "Photo", new{login= Model.UserLogin})" class="rounded float-left img-thumbnail" alt="Нет фото" width="200" height="200" />
+                </div>
+
+                <div class="form-group">
+                    <div class="text-left">
+                        <div class="form-group">
+                            @Html.TextBoxFor(model => model.Image, new
+                            {
+                                @class = "form-control-file",
+                                @type = "file"
+                            })
+                        </div>
+                    </div>
+                </div>
+            }
+            <div class="container">
+                <input type="submit" class="btn btn-outline-warning" value="Изменить" />
+                @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+

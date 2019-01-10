@@ -6,6 +6,7 @@ using Newtonsoft.Json;
 using System;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Optimization;
 using System.Web.Routing;
 using System.Web.Security;
 
@@ -17,6 +18,7 @@ namespace EC.Web
         {
             AreaRegistration.RegisterAllAreas();
             RouteConfig.RegisterRoutes(RouteTable.Routes);
+            BundleConfig.RegisterBundles(BundleTable.Bundles);
         }
 
         protected void Application_PostAuthenticateRequest(object sender, EventArgs e)
@@ -27,7 +29,13 @@ namespace EC.Web
             {
                 var decryptCookie = FormsAuthentication.Decrypt(cookie.Value);
 
-                var user = JsonConvert.DeserializeObject<User>(decryptCookie.UserData);
+                var deserialize = JsonConvert.DeserializeObject<SerializeModel>(decryptCookie.UserData);
+
+                var user = new User
+                {
+                    Login = deserialize.Login,
+                    Roles = deserialize.Roles
+                };
 
                 var principal = new UserPrincipal(user);
 

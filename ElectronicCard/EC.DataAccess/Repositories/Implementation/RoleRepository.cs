@@ -123,5 +123,15 @@ namespace EC.DataAccess.Repositories.Implementation
 
             return roles;
         }
+
+        public void DeleteUserRoles(int? userId)
+        {
+            var idParameter = _query.CreateParameter("userId", userId, DbType.Int32);
+
+            _query.CreateConnection()
+                .CreateCommand(DbConstants.DELETE_USER_ROLES)
+                .AddParameters(idParameter)
+                .ExecuteQuery();
+        }
     }
 }

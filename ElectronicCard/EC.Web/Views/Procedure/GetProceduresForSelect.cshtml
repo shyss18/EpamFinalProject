@@ -1,0 +1,6 @@
+﻿@model IEnumerable<EC.Entities.Entities.Procedure>
+
+@foreach (var procedure in Model)
+{
+    <option value="@procedure.Id">@procedure.Title</option>
+}
