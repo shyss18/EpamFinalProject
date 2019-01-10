@@ -5,9 +5,9 @@
     @foreach (var phone in Model)
     {
         <div class="form-group row">
-            <a class="form-control nav-link col-sm-10" href="#" data-toggle="modal" data-target="#update_@phone.PhoneNumber">@phone.PhoneNumber</a>
+            <a class="form-control nav-link col-sm-10" href="#" data-toggle="modal" data-target="#update_@phone.PhoneNumber.GetHashCode()">@phone.PhoneNumber</a>
             @{ Html.RenderPartial("UpdatePhone", phone);}
-            <button type="button" class="close col-sm-2" data-toggle="modal" data-target="#delete_@phone.PhoneNumber">
+            <button type="button" class="close col-sm-2" data-toggle="modal" data-target="#delete_@phone.PhoneNumber.GetHashCode()">
                 <span aria-hidden="true">&times;</span>
             </button>
             @{Html.RenderPartial("DeletePhone", phone);}

@@ -14,6 +14,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult CreateProcedure()
         {
             return View();
@@ -33,6 +34,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult ProcedureDetails(int? id)
         {
             var procedure = _procedureService.GetById(id);
@@ -46,6 +48,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult UpdateProcedure(int? id)
         {
             var procedure = _procedureService.GetById(id);
@@ -80,6 +83,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult GetAllProcedures()
         {
             var procedures = _procedureService.GetAll();

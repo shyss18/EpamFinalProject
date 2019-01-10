@@ -1,0 +1,13 @@
+﻿@model EC.Entities.Entities.Phone
+
+<div class="form-group">
+    @Html.TextBoxFor(phone => phone.PhoneNumber, new
+    {
+        @class="form-control",
+        @placeholder = @Html.DisplayNameFor(phone => phone.PhoneNumber)
+    })
+</div>
+<div>
+    @Html.ValidationMessageFor(phone => phone.PhoneNumber, "", new { @class = "text-danger" })
+</div>
+<br/>

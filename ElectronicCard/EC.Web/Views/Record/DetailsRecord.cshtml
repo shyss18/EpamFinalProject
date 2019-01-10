@@ -9,7 +9,7 @@
     <div class="row col-sm-12">
         @Html.LabelFor(m => m.DateRecord, "Дата записи:", new { @class = "col-sm-6 col-form-label h3 text-right" })
         <div class="col-sm-2 col-form-label">
-            @Html.DisplayTextFor(m => m.DateRecord)
+            @Html.DisplayFor(m => m.DateRecord)
         </div>
     </div>
     <div class="text-center col-sm-12 h4 text-info">
@@ -41,7 +41,7 @@
             <div class="row col-sm-12">
                 @Html.LabelFor(m => m.Patient.DateBirth, "Дата рождения:", new { @class = "col-sm-6 col-form-label h3 text-right" })
                 <div class="col-sm-2 col-form-label">
-                    @Html.DisplayTextFor(m => m.Patient.DateBirth)
+                    @Html.DisplayFor(m => m.Patient.DateBirth)
                 </div>
             </div>
             <div class="row col-sm-12">

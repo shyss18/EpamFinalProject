@@ -22,7 +22,7 @@ namespace EC.Entities.Entities
         public string PlaceWork { get; set; }
 
         [DataType(DataType.Date)]
-        [DisplayFormat(DataFormatString = "{0:dd/MM/yyyy}", ApplyFormatInEditMode = true)]
+        [DisplayFormat(DataFormatString = "{0:dd.MM.yyyy}", ApplyFormatInEditMode = true)]
         [DisplayName("Дата рождения")]
         public DateTime DateBirth { get; set; }
 

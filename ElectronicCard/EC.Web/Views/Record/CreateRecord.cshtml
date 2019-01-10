@@ -45,11 +45,13 @@
                 @Html.TextBoxFor(model => model.DateRecord, new
                 {
                     @class = "form-control",
-                    @placeholder = Html.DisplayNameFor(model => model.DateRecord),
-                    @type = "date"
+                    @placeholder = Html.DisplayNameFor(model => model.DateRecord)
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.DateRecord, "", new { @class = "text-danger" })
             </div>
+            <br />
 
             <div class="col-form-label h3">
                 Пациент
@@ -61,6 +63,10 @@
                         @Html.Action("GetListPatient", "User")
                     </select>
                 </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                </div>
+                <br />
             }
             else if (User.IsInRole("Doctor"))
             {
@@ -69,6 +75,10 @@
                         @Html.Action("GetDoctorPatients", "User", User.Identity.Name)
                     </select>
                 </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                </div>
+                <br />
             }
 
             <div class="col-form-label h3">
@@ -79,6 +89,10 @@
                     @Html.Action("GetDiagnosisForSelect", "Diagnosis")
                 </select>
             </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.DiagnosisId, "", new { @class = "text-danger" })
+            </div>
+            <br />
 
             <div class="col-form-label h3">
                 Больничный лист
@@ -88,6 +102,10 @@
                     @Html.Action("GetSickLeaveForSelect", "SickLeave")
                 </select>
             </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.SickLeaveId, "", new { @class = "text-danger" })
+            </div>
+            <br />
 
             <div class="col-form-label h3">
                 Врач
@@ -99,6 +117,10 @@
                         @Html.Action("GetListDoctors", "User")
                     </select>
                 </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.DoctorId, "", new { @class = "text-danger" })
+                </div>
+                <br />
             }
             else if (User.IsInRole("Doctor"))
             {
@@ -107,6 +129,10 @@
                         @Html.Action("GetDoctorForSelect", "User", new { login = User.Identity.Name })
                     </select>
                 </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.DoctorId, "", new { @class = "text-danger" })
+                </div>
+                <br />
             }
 
             <div class="col-form-label h3">
@@ -117,6 +143,10 @@
                     @Html.Action("GetProceduresForSelect", "Procedure")
                 </select>
             </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Procedures, "", new { @class = "text-danger" })
+            </div>
+            <br />
 
             <div class="col-form-label h3">
                 Препараты
@@ -126,6 +156,10 @@
                     @Html.Action("GetPreparationForSelect", "Preparation")
                 </select>
             </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Preparations, "", new { @class = "text-danger" })
+            </div>
+            <br />
 
             <div class="container">
                 <input type="submit" class="btn btn-outline-success" value="Добавить" />

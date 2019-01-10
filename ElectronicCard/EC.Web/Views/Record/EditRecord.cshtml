@@ -56,8 +56,11 @@
                     @placeholder = Html.DisplayNameFor(model => model.DateRecord),
                     @type = "date"
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.DateRecord, "", new { @class = "text-danger" })
             </div>
+            <br />
 
             <div class="col-form-label h3">
                 Пациент
@@ -81,6 +84,10 @@
                     @Html.Action("GetDiagnosisForSelect", "Diagnosis")
                 </select>
             </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.DiagnosisId, "", new { @class = "text-danger" })
+            </div>
+            <br />
 
             <div class="col-form-label h3">
                 Больничный лист
@@ -90,6 +97,10 @@
                     @Html.Action("GetSickLeaveForSelect", "SickLeave")
                 </select>
             </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.SickLeaveId, "", new { @class = "text-danger" })
+            </div>
+            <br />
 
             <div class="col-form-label h3">
                 Процедуры

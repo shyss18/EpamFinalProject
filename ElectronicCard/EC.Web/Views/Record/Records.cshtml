@@ -7,7 +7,7 @@
         {
             <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; margin-bottom: 20px; margin-right: 20px;">
                 <div class="card-body">
-                    <h5 class="card-title">@record.DateRecord</h5>
+                    <h5 class="card-title">@record.DateRecord.</h5>
                     <h6 class="card-subtitle mb-2 text-muted">Диагноз: @record.Diagnosis.Title</h6>
                     <h6 class="card-subtitle mb-2 text-muted">Должность врача: @record.Doctor.Position</h6>
                     @Html.ActionLink("Подробнее", "DetailsRecord", "Record", new { id = record.Id }, new { @class = "card-link" })

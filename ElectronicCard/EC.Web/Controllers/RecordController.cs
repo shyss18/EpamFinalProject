@@ -24,6 +24,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor, Doctor")]
         public ActionResult CreateRecord()
         {
             return View();
@@ -68,6 +69,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult EditRecord(int? id)
         {
             var record = _recordService.GetRecordById(id);
@@ -137,6 +139,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult DetailsRecord(int? id)
         {
             var record = _recordService.GetRecordById(id);
@@ -158,6 +161,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult GetAllRecords()
         {
             var records = _recordService.GetAllRecords();
@@ -166,6 +170,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "User")]
         public ActionResult GetPatientRecords(string login)
         {
             var records = _recordService.GetPatientRecords(login);
@@ -174,6 +179,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor, Doctor")]
         public ActionResult GetDoctorRecords(string login)
         {
             var records = _recordService.GetDoctorRecords(login);
@@ -182,11 +188,13 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult Search()
         {
             return View();
         }
 
+        [HttpPost]
         public ActionResult Search(string searchBy, string search)
         {
             IReadOnlyCollection<Record> records;
@@ -271,6 +279,24 @@ namespace EC.Web.Controllers
             }
 
             return PartialView("Records");
+        }
+
+        [HttpGet]
+        public JsonResult CheckDate(string DateRecord)
+        {
+            if (!DateTime.TryParse(DateRecord, out var parsedDate))
+            {
+                return Json("Пожалуйста, введите дату в формате (мм.дд.гггг)",
+                    JsonRequestBehavior.AllowGet);
+            }
+
+            if (DateTime.Now < parsedDate)
+            {
+                return Json("Введите дату не относящуюся к будущему",
+                    JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }

@@ -48,20 +48,51 @@ namespace EC.BusinessLogic.Services.Implementation
         {
             if (user.IsDoctor)
             {
-                user.Roles = new List<Role>
+                var doctor = new Doctor
                 {
-                    new Role{Id = 2}
+                    Id = user.Id,
+                    UserId = user.Id,
+                    Login = user.Login,
+                    Password = user.Password,
+                    Email = user.Email,
+                    IsDoctor = user.IsDoctor,
+                    Roles = new List<Role>
+                    {
+                        new Role{Id = 2}
+                    },
+                    PhoneNumbers = user.PhoneNumbers,
+                    FirstName = user.Doctor.FirstName,
+                    MiddleName = user.Doctor.MiddleName,
+                    LastName = user.Doctor.LastName,
+                    Position = user.Doctor.Position
                 };
+
+                _userRepository.Create(doctor);
             }
             else
             {
-                user.Roles = new List<Role>
+                var patient = new Patient
                 {
-                    new Role{Id = 1}
+                    Id = user.Id,
+                    UserId = user.Id,
+                    Login = user.Login,
+                    Password = user.Password,
+                    Email = user.Email,
+                    IsDoctor = user.IsDoctor,
+                    Roles = new List<Role>
+                    {
+                        new Role {Id = 1}
+                    },
+                    PhoneNumbers = user.PhoneNumbers,
+                    FirstName = user.Patient.FirstName,
+                    MiddleName = user.Patient.MiddleName,
+                    LastName = user.Patient.LastName,
+                    PlaceWork = user.Patient.PlaceWork,
+                    DateBirth = user.Patient.DateBirth
                 };
-            }
 
-            _userRepository.Create(user);
+                _userRepository.Create(patient);
+            }
         }
 
         public void SignOut()
@@ -74,6 +105,11 @@ namespace EC.BusinessLogic.Services.Implementation
             return login == null ? null : _userRepository.GetUserByLogin(login);
         }
 
+        public User GetUserByEmail(string email)
+        {
+            return email == null ? null : _userRepository.GetUserByEmail(email);
+        }
+
         public void UpdateUser(User user)
         {
             if (user == null)
@@ -83,7 +119,68 @@ namespace EC.BusinessLogic.Services.Implementation
 
             DeleteCookie();
             CreateCookie(user);
-            _userRepository.Update(user);
+
+            if (user.IsDoctor)
+            {
+                var doctor = new Doctor
+                {
+                    Id = user.Id,
+                    UserId = user.Id,
+                    Login = user.Login,
+                    IsDoctor = user.IsDoctor,
+                    Password = user.Password,
+                    Email = user.Email,
+                    Roles = user.Roles,
+                    PhoneNumbers = user.PhoneNumbers,
+                    FirstName = user.Doctor.FirstName,
+                    MiddleName = user.Doctor.MiddleName,
+                    LastName = user.Doctor.LastName,
+                    Position = user.Doctor.Position
+                };
+
+                if (user.Doctor.Patients.Count > 0)
+                {
+                    doctor.Patients = user.Doctor.Patients;
+                }
+
+                if (user.Photo != null)
+                {
+                    doctor.Photo = user.Photo;
+                }
+
+                _userRepository.Update(doctor);
+            }
+            else
+            {
+                var patient = new Patient
+                {
+                    Id = user.Id,
+                    UserId = user.Id,
+                    Login = user.Login,
+                    Password = user.Password,
+                    IsDoctor = user.IsDoctor,
+                    Email = user.Email,
+                    Roles = user.Roles,
+                    PhoneNumbers = user.PhoneNumbers,
+                    FirstName = user.Patient.FirstName,
+                    MiddleName = user.Patient.MiddleName,
+                    LastName = user.Patient.LastName,
+                    PlaceWork = user.Patient.PlaceWork,
+                    DateBirth = user.Patient.DateBirth
+                };
+
+                if (user.Patient.Doctors != null)
+                {
+                    patient.Doctors = user.Patient.Doctors;
+                }
+
+                if (user.Photo != null)
+                {
+                    patient.Photo = user.Photo;
+                }
+
+                _userRepository.Update(patient);
+            }
         }
 
         private static void DeleteCookie()

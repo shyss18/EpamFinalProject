@@ -36,54 +36,66 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Login),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.Email, new
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Email),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.Password, new
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Password),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.FirstName, new
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.FirstName),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.MiddleName, new
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.MiddleName),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.LastName, new
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.LastName),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div class="form-group row">
                 Выберете роль/ли
             </div>
@@ -93,7 +105,10 @@
                     @Html.Action("GetRolesForSelect", "Role")
                 </select>
             </div>
-
+            <div>
+                @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
+            </div>
+            <br />
             <div class="form-group row">
                 <div class="form-check">
                     @Html.CheckBoxFor(model => model.IsDoctor, new { @class = "form-check-input" })
@@ -106,10 +121,13 @@
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Position),
+                    @required = true
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div id="hidePatient" class="form-group row">
                 <div class="form-group row">
                     Выберете пациентов
@@ -125,20 +143,25 @@
                 {
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.PlaceWork),
+                    @required = true
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.PlaceWork, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.DateBirth, new
                 {
                     @class = "form-control",
-                    @placeholder = @Html.DisplayNameFor(user => user.DateBirth)
+                    @placeholder = @Html.DisplayNameFor(user => user.DateBirth),
+                    @required = true
                 })
-                @*@Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })*@
             </div>
-
-
+            <div>
+                @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
+            </div>
+            <br />
 
             <div id="hideDoctors" class="form-group row">
                 <div class="form-group">
@@ -155,15 +178,20 @@
                     @class = "form-control",
                     @placeholder = Html.DisplayNameFor(model => model.Phone),
                 })
+            </div>
+            <div>
                 @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
             </div>
-
+            <br />
             <div>
                 <label class="input-label" for="Photo">Выберете фото</label>
                 @Html.TextBoxFor(model => model.Photo, new
                 {
                     @type = "file"
                 })
+            </div>
+            <div class="text-danger">
+                @Html.ValidationSummary(true)
             </div>
 
             <br />

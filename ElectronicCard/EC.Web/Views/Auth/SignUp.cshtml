@@ -18,6 +18,7 @@
 <body class="text-center">
     @using (Html.BeginForm("SignUp", "Auth", FormMethod.Post, new { @class = "form-signin", @novalidate = true, enctype = "multipart/form-data" }))
     {
+        @Html.AntiForgeryToken()
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
         </div>
@@ -31,16 +32,24 @@
                 @autofocus = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.Login, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.Email, new
             {
                 @class="form-control",
                 @placeholder = @Html.DisplayNameFor(user => user.Email),
-                @type= "text",
+                @type= "email",
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.Email, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.Password, new
@@ -51,6 +60,10 @@
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.Password, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.ConfirmPassword, new
@@ -61,6 +74,10 @@
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.FirstName, new
@@ -71,6 +88,10 @@
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.FirstName, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.MiddleName, new
@@ -81,6 +102,10 @@
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.MiddleName, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.LastName, new
@@ -91,6 +116,10 @@
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.LastName, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         if ((bool)ViewBag.IsDoctor == false)
         {
@@ -105,16 +134,24 @@
                     @required = true
                 })
             </div>
+            <div>
+                @Html.ValidationMessageFor(user => user.PlaceWork, "", new { @class = "text-danger" })
+            </div>
+            <br />
 
             <div>
                 @Html.TextBoxFor(user=>user.DateBirth, new
                 {
                     @class="form-control",
                     @placeholder = @Html.DisplayNameFor(user => user.DateBirth),
-                    @type= "date",
+                    @type = "date",
                     @required = true
                 })
             </div>
+            <div>
+                @Html.ValidationMessageFor(user => user.DateBirth, "", new { @class = "text-danger" })
+            </div>
+          <br />
         }
         else
         {
@@ -129,6 +166,10 @@
                     @required = true
                 })
             </div>
+            <div>
+                @Html.ValidationMessageFor(user => user.Position, "", new { @class = "text-danger" })
+            </div>
+            <br />
         }
 
         <div>
@@ -136,9 +177,11 @@
             {
                 @class="form-control",
                 @placeholder = @Html.DisplayNameFor(user => user.Phone),
-                @type= "text",
                 @required = true
             })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.Phone, "", new { @class = "text-danger" })
         </div>
 
         <br />
@@ -152,6 +195,13 @@
                     @type = "file"
                 })
             </div>
+            <div>
+                @Html.ValidationMessageFor(user => user.Photo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="text-danger">
+            @Html.ValidationSummary(true)
         </div>
 
         <br />

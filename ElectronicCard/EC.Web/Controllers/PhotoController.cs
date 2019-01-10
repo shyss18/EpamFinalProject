@@ -17,6 +17,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize]
         public ActionResult EditPhoto(string login)
         {
             var photo = _photoService.GetUserPhoto(login);
@@ -50,6 +51,11 @@ namespace EC.Web.Controllers
         [HttpPost]
         public ActionResult EditPhoto(EditPhotoModel model)
         {
+            if (model.Image != null && !model.Image.ContentType.Contains("image"))
+            {
+                ModelState.AddModelError("", "Выберете файл изображения");
+            }
+
             if (model.Image != null)
             {
                 var photo = _photoService.GetUserPhoto(User.Identity.Name);
