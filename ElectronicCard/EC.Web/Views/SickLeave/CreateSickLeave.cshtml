@@ -47,7 +47,7 @@
             <br />
 
             <div class="form-group row">
-                <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId">
+                <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId" data-val="true" data-val-required="Выберете диагноз">
                     @Html.Action("GetDiagnosisForSelect", "Diagnosis")
                 </select>
             </div>

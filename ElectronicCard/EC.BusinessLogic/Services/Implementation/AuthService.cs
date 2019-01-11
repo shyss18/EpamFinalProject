@@ -138,14 +138,9 @@ namespace EC.BusinessLogic.Services.Implementation
                     Position = user.Doctor.Position
                 };
 
-                if (user.Doctor.Patients.Count > 0)
+                if (user.Doctor.Patients != null && user.Doctor.Patients.Count > 0)
                 {
                     doctor.Patients = user.Doctor.Patients;
-                }
-
-                if (user.Photo != null)
-                {
-                    doctor.Photo = user.Photo;
                 }
 
                 _userRepository.Update(doctor);
@@ -169,16 +164,11 @@ namespace EC.BusinessLogic.Services.Implementation
                     DateBirth = user.Patient.DateBirth
                 };
 
-                if (user.Patient.Doctors != null)
+                if (user.Patient.Doctors != null && user.Patient.Doctors.Count > 0)
                 {
                     patient.Doctors = user.Patient.Doctors;
                 }
-
-                if (user.Photo != null)
-                {
-                    patient.Photo = user.Photo;
-                }
-
+                
                 _userRepository.Update(patient);
             }
         }

@@ -36,7 +36,7 @@
 <div class="container" align="center">
     <div class="col-md-4">
         <h4 class="text-center text-success" style="padding-top: 10%">Добавление записи</h4>
-        @using (Html.BeginForm("CreateRecord", "Record", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
+        @using (Html.BeginForm("CreateRecord", "Record", FormMethod.Post, new { @class = "form-group", novalidate = true }))
         {
             <div class="col-form-label h3">
                 Дата записи
@@ -59,7 +59,7 @@
             if (User.IsInRole("Admin") || User.IsInRole("Editor"))
             {
                 <div class="form-group row">
-                    <select class="js-example-templating form-control" style="width: 100%;" id="PatientId" name="PatientId">
+                    <select class="js-example-templating form-control" style="width: 100%;" id="PatientId" name="PatientId" data-val="true" data-val-required="Выберете пациента">
                         @Html.Action("GetListPatient", "User")
                     </select>
                 </div>
@@ -71,8 +71,8 @@
             else if (User.IsInRole("Doctor"))
             {
                 <div class="form-group row">
-                    <select class="js-example-templating form-control" style="width: 100%;" id="PatientId" name="PatientId">
-                        @Html.Action("GetDoctorPatients", "User", User.Identity.Name)
+                    <select class="js-example-templating form-control" style="width: 100%;" id="PatientId" name="PatientId" data-val="true" data-val-required="Выберете пациента">
+                        @Html.Action("GetDoctorPatients", "User", new { login = User.Identity.Name })
                     </select>
                 </div>
                 <div>
@@ -85,7 +85,7 @@
                 Диагноз
             </div>
             <div class="form-group row">
-                <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId">
+                <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId" data-val="true" data-val-required="Выберете диагноз">
                     @Html.Action("GetDiagnosisForSelect", "Diagnosis")
                 </select>
             </div>
@@ -98,7 +98,7 @@
                 Больничный лист
             </div>
             <div class="form-group row">
-                <select class="js-example-templating form-control" style="width: 100%;" id="SickLeaveId" name="SickLeaveId">
+                <select class="js-example-templating form-control" style="width: 100%;" id="SickLeaveId" name="SickLeaveId" data-val="true" data-val-required="Выберете больничный лист">
                     @Html.Action("GetSickLeaveForSelect", "SickLeave")
                 </select>
             </div>
@@ -113,7 +113,7 @@
             if (User.IsInRole("Admin") || User.IsInRole("Editor"))
             {
                 <div class="form-group row">
-                    <select class="js-example-templating form-control" style="width: 100%;" id="DoctorId" name="DoctorId">
+                    <select class="js-example-templating form-control" style="width: 100%;" id="DoctorId" name="DoctorId" data-val="true" data-val-required="Выберете доктора">
                         @Html.Action("GetListDoctors", "User")
                     </select>
                 </div>
@@ -125,7 +125,7 @@
             else if (User.IsInRole("Doctor"))
             {
                 <div class="form-group row">
-                    <select class="js-example-templating form-control" style="width: 100%;" id="DoctorId" name="DoctorId">
+                    <select class="js-example-templating form-control" style="width: 100%;" id="DoctorId" name="DoctorId" data-val="true" data-val-required="Выберете доктора">
                         @Html.Action("GetDoctorForSelect", "User", new { login = User.Identity.Name })
                     </select>
                 </div>
@@ -143,9 +143,6 @@
                     @Html.Action("GetProceduresForSelect", "Procedure")
                 </select>
             </div>
-            <div>
-                @Html.ValidationMessageFor(model => model.Procedures, "", new { @class = "text-danger" })
-            </div>
             <br />
 
             <div class="col-form-label h3">
@@ -155,9 +152,6 @@
                 <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Preparations" name="Preparations">
                     @Html.Action("GetPreparationForSelect", "Preparation")
                 </select>
-            </div>
-            <div>
-                @Html.ValidationMessageFor(model => model.Preparations, "", new { @class = "text-danger" })
             </div>
             <br />
 

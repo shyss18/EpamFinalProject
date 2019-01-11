@@ -120,7 +120,6 @@
     <Content Include="Content\dashboard.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\checkUser.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
     <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
     <Content Include="Scripts\jquery.validate.min.js" />
@@ -192,7 +191,6 @@
     <Content Include="Views\Diagnosis\GetAllDiagnoses.cshtml" />
     <Content Include="Views\Auth\Account.cshtml" />
     <Content Include="Views\Shared\AdminPanel.cshtml" />
-    <Content Include="Views\User\CreateUser.cshtml" />
     <Content Include="Views\Role\GetRolesForSelect.cshtml" />
     <Content Include="Views\User\GetListPatient.cshtml" />
     <Content Include="Views\User\GetListDoctors.cshtml" />
@@ -229,6 +227,9 @@
     <Content Include="Views\Record\Search.cshtml" />
     <Content Include="Views\Record\Records.cshtml" />
     <Content Include="Views\Phone\GetPhone.cshtml" />
+    <Content Include="Views\Shared\ChooseUser.cshtml" />
+    <Content Include="Views\User\CreatePatient.cshtml" />
+    <Content Include="Views\User\CreateDoctor.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

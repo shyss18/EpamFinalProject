@@ -52,16 +52,19 @@ namespace EC.Web.Models
         public string LastName { get; set; }
 
         [DisplayName("Место работы")]
-        public string PlaceWork { get; set; }
+        [Required(ErrorMessage = "Введите место работы")]
+        public string PlaceWork { get; set; } = "Default";
 
         [DisplayName("Должность")]
-        public string Position { get; set; }
+        [Required(ErrorMessage = "Введите должность")]
+        public string Position { get; set; } = "Default";
 
         [DisplayName("Дата рождения")]
         [DataType(DataType.Date, ErrorMessage = "Поле должно быть датой")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yy}", ApplyFormatInEditMode = true)]
         [Remote("CheckDate", "User")]
-        public DateTime DateBirth { get; set; }
+        [Required(ErrorMessage = "Введите дату рождения")]
+        public DateTime DateBirth { get; set; } = DateTime.Now;
 
         [DisplayName("Номер телефона")]
         [DataType(DataType.PhoneNumber)]

@@ -1,0 +1,22 @@
+﻿<div class="modal fade" id="choose" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title text-info" id="title">Добавление пользователя</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body" align="center">
+                <div class="col-sm-12 row">
+                    <div class="col-sm-6">
+                        @Html.ActionLink("Добавить пациента", "CreatePatient", "User", null, new { @class = "btn btn-outline-primary" })
+                    </div>
+                    <div class="col-sm-6">
+                        @Html.ActionLink("Добавить врача", "CreateDoctor", "User", null, new { @class = "btn btn-outline-success" })
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

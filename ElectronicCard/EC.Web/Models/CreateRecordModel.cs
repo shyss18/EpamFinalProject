@@ -11,6 +11,7 @@ namespace EC.Web.Models
         [DataType(DataType.Date, ErrorMessage = "Поле должно быть датой")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yy}", ApplyFormatInEditMode = true)]
         [Remote("CheckDate", "Record")]
+        [Required(ErrorMessage = "Введите дату записи")]
         public DateTime DateRecord { get; set; }
 
         [Required(ErrorMessage = "Выберете пациента")]

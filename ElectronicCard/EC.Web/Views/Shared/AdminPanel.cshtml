@@ -9,7 +9,7 @@
                     </h6>
                     <ul class="nav flex-column">
                         <li class="nav-item">
-                            <a class="nav-link" href="@Url.Action("CreateUser", "User")">
+                            <a class="nav-link" data-toggle="modal" data-target="#choose" href="#">
                                 <span data-feather="plus-circle"></span>
                                 Добавить пользователя
                             </a>
@@ -21,7 +21,9 @@
                             </a>
                         </li>
                     </ul>
+
                 }
+
                 @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
                 {
                     <h6 class="sidebar-heading d-flex justify-content-between align-items-center px-3 mt-4 mb-1 text-muted">
@@ -134,3 +136,7 @@
         </nav>
     </div>
 </div>
+@if (User.IsInRole("Admin"))
+{
+    { Html.RenderPartial("ChooseUser"); }
+}

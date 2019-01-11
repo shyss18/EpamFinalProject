@@ -1,7 +1,6 @@
 ﻿@model EC.Web.Models.CreateUserModel
-
 @{
-    ViewBag.Title = "Добавление пользователя";
+    ViewBag.Title = "Добавление врача";
     Layout = "~/Views/Shared/_Layout.cshtml";
 }
 
@@ -17,19 +16,16 @@
             placeholder: 'Пациенты'
         });
     });
-
-    $(document).ready(function () {
-        $("#Doctors").select2({
-            placeholder: 'Врачи'
-        });
-    });
 </script>
 
 <div class="container" align="center">
     <div class="col-md-4">
-        <h4 class="text-center text-success" style="padding-top: 10%">Добавление пользователя</h4>
-        @using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { @class = "form-group", @novalidate = true, enctype = "multipart/form-data" }))
+        <h4 class="text-center text-success" style="padding-top: 10%">Добавление врача</h4>
+        @using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { @class = "form-group", novalidate = "true", enctype = "multipart/form-data" }))
         {
+            @Html.AntiForgeryToken()
+            @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "true" })
+
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.Login, new
                 {
@@ -101,7 +97,7 @@
             </div>
 
             <div class="form-group row">
-                <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Roles" name="Roles">
+                <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Roles" name="Roles" data-val="true" data-val-required="Выберете роль">
                     @Html.Action("GetRolesForSelect", "Role")
                 </select>
             </div>
@@ -109,12 +105,6 @@
                 @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
             </div>
             <br />
-            <div class="form-group row">
-                <div class="form-check">
-                    @Html.CheckBoxFor(model => model.IsDoctor, new { @class = "form-check-input" })
-                    @Html.LabelFor(model => model.IsDoctor, "Доктор", new { @class = "form-check-label", @for = "IsDoctor" })
-                </div>
-            </div>
 
             <div class="form-group row">
                 @Html.TextBoxFor(model => model.Position, new
@@ -135,40 +125,6 @@
 
                 <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Patients" name="Patients">
                     @Html.Action("GetListPatient", "User")
-                </select>
-            </div>
-
-            <div class="form-group row">
-                @Html.TextBoxFor(model => model.PlaceWork, new
-                {
-                    @class = "form-control",
-                    @placeholder = Html.DisplayNameFor(model => model.PlaceWork),
-                    @required = true
-                })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(model => model.PlaceWork, "", new { @class = "text-danger" })
-            </div>
-            <br />
-            <div class="form-group row">
-                @Html.TextBoxFor(model => model.DateBirth, new
-                {
-                    @class = "form-control",
-                    @placeholder = @Html.DisplayNameFor(user => user.DateBirth),
-                    @required = true
-                })
-            </div>
-            <div>
-                @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
-            </div>
-            <br />
-
-            <div id="hideDoctors" class="form-group row">
-                <div class="form-group">
-                    Назначьте докторов
-                </div>
-                <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Doctors" name="Doctors">
-                    @Html.Action("GetListDoctors", "User")
                 </select>
             </div>
 
@@ -203,3 +159,4 @@
         }
     </div>
 </div>
+

@@ -19,7 +19,7 @@
 </head>
 <body>
     <nav class="navbar navbar-expand-md navbar-light navBack fixed-top shadow">
-        <a class="navbar-brand" href="#">Электронная карта</a>
+        @Html.ActionLink("Электронная карта", "Index", "Home", null, new { @class = "navbar-brand" })
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
@@ -97,7 +97,7 @@
     @{ Html.RenderPartial("CheckForDoctor");}
     <footer id="footer" class="py-3">
         <div class="text-white text-center">
-            <p class="h6">&copy @DateTime.Now.Year<a class="text-white ml-2" href="#">Электронная карта</a></p>
+            <p class="h6">&copy @DateTime.Now.Year@Html.ActionLink("Электронная карта", "Index", "Home", null, new { @class = "text-white ml-2" })
         </div>
     </footer>
 
@@ -108,6 +108,5 @@
     <script>
         feather.replace();
     </script>
-    <script src="~/Scripts/checkUser.js"></script>
 </body>
 </html>

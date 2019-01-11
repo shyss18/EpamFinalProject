@@ -21,12 +21,20 @@ namespace EC.Web.Controllers
 
         [HttpGet]
         [Authorize(Roles = "Admin")]
-        public ActionResult CreateUser()
+        public ActionResult CreatePatient()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult CreateDoctor()
         {
             return View();
         }
 
         [HttpPost]
+        [ValidateAntiForgeryToken]
         public ActionResult CreateUser(CreateUserModel model)
         {
             if (model.Photo != null && !model.Photo.ContentType.Contains("image"))
@@ -118,7 +126,12 @@ namespace EC.Web.Controllers
                 return View("GetAllUsers", _userService.GetAllUsers());
             }
 
-            return View(model);
+            if (model.IsDoctor)
+            {
+                return View("CreateDoctor", model);
+            }
+
+            return View("CreatePatient", model);
         }
 
         [HttpGet]
@@ -168,7 +181,7 @@ namespace EC.Web.Controllers
                     edit.MiddleName = user.Patient.MiddleName;
                     edit.LastName = user.Patient.LastName;
                     edit.PlaceWork = user.Patient.PlaceWork;
-                    edit.PlaceWork = user.Patient.PlaceWork;
+                    edit.DateBirth = user.Patient.DateBirth;
 
                     if (user.Patient.Doctors != null)
                     {
@@ -270,7 +283,7 @@ namespace EC.Web.Controllers
             return View("NotFound");
         }
 
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Patch)]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult GetDoctorForSelect(string login)
         {
             var doctor = _userService.GetUserByLogin(login);
@@ -278,7 +291,7 @@ namespace EC.Web.Controllers
             return doctor == null ? null : PartialView("GetDoctorForSelect", doctor.Doctor);
         }
 
-        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Patch)]
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
         public ActionResult GetDoctorPatients(string login)
         {
             var doctor = _userService.GetUserByLogin(login);
