@@ -20,7 +20,7 @@
 <div class="container" align="center">
     <div class="col-md-4">
         <h4 class="text-center text-success" style="padding-top: 10%">Добавление больничного листа</h4>
-        @using (Html.BeginForm("UpdateSickLeave", "SickLeave", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
+        @using (Html.BeginForm("UpdateSickLeave", "SickLeave", FormMethod.Post, new { @class = "form-group", novalidate = true }))
         {
             @Html.HiddenFor(model => model.Id)
             <div class="form-group row">
@@ -52,7 +52,7 @@
             </div>
             <br />
             <div class="form-group row">
-                <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId">
+                <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId"  data-val="true" data-val-required="Выберете диагноз">
                     @Html.Action("GetDiagnosisForSelect", "Diagnosis")
                 </select>
             </div>

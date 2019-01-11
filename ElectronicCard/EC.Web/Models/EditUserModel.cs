@@ -10,7 +10,6 @@ namespace EC.Web.Models
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
-
         [DisplayName("Имя")]
         [Required(ErrorMessage = "Введите имя")]
         public string FirstName { get; set; }
@@ -26,17 +25,20 @@ namespace EC.Web.Models
         [HiddenInput(DisplayValue = false)]
         public bool IsDoctor { get; set; }
 
-        [DisplayName("Должность")]
-        public string Position { get; set; }
-
         [DisplayName("Место работы")]
-        public string PlaceWork { get; set; }
+        [Required(ErrorMessage = "Введите место работы")]
+        public string PlaceWork { get; set; } = "Default";
+
+        [DisplayName("Должность")]
+        [Required(ErrorMessage = "Введите должность")]
+        public string Position { get; set; } = "Default";
 
         [DisplayName("Дата рождения")]
         [DataType(DataType.Date, ErrorMessage = "Поле должно быть датой")]
         [DisplayFormat(DataFormatString = "{0:dd.MM.yy}", ApplyFormatInEditMode = true)]
         [Remote("CheckDate", "User")]
-        public DateTime DateBirth { get; set; }
+        [Required(ErrorMessage = "Введите дату рождения")]
+        public DateTime DateBirth { get; set; } = DateTime.Now;
 
         [DisplayName("Роли")]
         [Required(ErrorMessage = "Выбере роли")]
