@@ -1,23 +1,38 @@
 ﻿using EC.BusinessLogic.MyService;
 using EC.BusinessLogic.Services.Interfaces;
 using System.ServiceModel;
+using static System.Int32;
 
 namespace EC.BusinessLogic.Services.Implementation
 {
     public class AdvertisingService : IAdvertisingService
     {
-        private readonly IPromotionService _promotionService;
+        private MyService.IPromotionService _promotionService;
 
         public AdvertisingService()
         {
-            var channelFactory = new ChannelFactory<IPromotionService>(new BasicHttpBinding(), "http://localhost/EC.PromotionService/PromotionService.svc");
-
-            _promotionService = channelFactory.CreateChannel();
+            CreateChannel();
         }
-        
-        public string TestConnection()
+
+        public IPromotionService CreateChannel()
         {
-            return _promotionService.TestConnection();
+            var binding = new BasicHttpBinding
+            {
+                MaxReceivedMessageSize = MaxValue
+            };
+            
+            var channelFactory = new ChannelFactory<IPromotionService>(binding, "http://localhost/EC.PromotionService/PromotionService.svc");
+            
+            _promotionService = channelFactory.CreateChannel();
+
+            return _promotionService;
+        }
+
+        public Promotion GetPromotionImage()
+        {
+            var image = _promotionService.GetPromotionImage();
+
+            return image;
         }
     }
 }

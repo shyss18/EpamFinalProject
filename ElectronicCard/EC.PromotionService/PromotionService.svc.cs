@@ -1,39 +1,33 @@
-﻿using System;
-using System.Collections.Generic;
-using EC.Entities.Entities;
+﻿using EC.PromotionService.Models;
+using Microsoft.Win32;
+using System.IO;
 
 namespace EC.PromotionService
 {
     public class PromotionService : IPromotionService
     {
-        public string TestConnection()
+        public Promotion GetPromotionImage()
         {
-            return "Ok";
-        }
+            Promotion promotion;
 
-        public void CreatePromotion(Promotion item)
-        {
-            throw new NotImplementedException();
-        }
+            using (var fileStream = File.OpenRead(@"D:\ElectronicCard\ElectronicCard\EC.PromotionService\Images\clinic.jpg"))
+            {
+                var result = new byte[fileStream.Length];
 
-        public Promotion GetByIdPromotion(int? id)
-        {
-            throw new NotImplementedException();
-        }
+                fileStream.Read(result, 0, result.Length);
 
-        public IReadOnlyCollection<Promotion> GetAllPromotions()
-        {
-            throw new NotImplementedException();
-        }
+                var classes = Registry.ClassesRoot;
 
-        public void DeletePromotion(int? id)
-        {
-            throw new NotImplementedException();
-        }
+                var fileClass = classes.OpenSubKey(Path.GetExtension(fileStream.Name));
 
-        public void UpdatePromotion(int? id)
-        {
-            throw new NotImplementedException();
+                promotion = new Promotion
+                {
+                    Image = result,
+                    TypeImage = fileClass.GetValue("Content type").ToString()
+                };
+            }
+
+            return promotion;
         }
     }
 }

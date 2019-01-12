@@ -4,123 +4,25 @@
     <xsd:schema targetNamespace="http://tempuri.org/Imports">
       <xsd:import schemaLocation="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd0" namespace="http://tempuri.org/" />
       <xsd:import schemaLocation="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd1" namespace="http://schemas.microsoft.com/2003/10/Serialization/" />
-      <xsd:import schemaLocation="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EC.Entities.Entities" />
-      <xsd:import schemaLocation="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd3" namespace="http://schemas.datacontract.org/2004/07/System.Security.Policy" />
-      <xsd:import schemaLocation="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd4" namespace="http://schemas.datacontract.org/2004/07/System.Security.Util" />
-      <xsd:import schemaLocation="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd5" namespace="http://schemas.microsoft.com/2003/10/Serialization/Arrays" />
+      <xsd:import schemaLocation="http://localhost/EC.PromotionService/PromotionService.svc?xsd=xsd2" namespace="http://schemas.datacontract.org/2004/07/EC.PromotionService.Models" />
     </xsd:schema>
   </wsdl:types>
-  <wsdl:message name="IPromotionService_TestConnection_InputMessage">
-    <wsdl:part name="parameters" element="tns:TestConnection" />
+  <wsdl:message name="IPromotionService_GetPromotionImage_InputMessage">
+    <wsdl:part name="parameters" element="tns:GetPromotionImage" />
   </wsdl:message>
-  <wsdl:message name="IPromotionService_TestConnection_OutputMessage">
-    <wsdl:part name="parameters" element="tns:TestConnectionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_CreatePromotion_InputMessage">
-    <wsdl:part name="parameters" element="tns:CreatePromotion" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_CreatePromotion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:CreatePromotionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_GetByIdPromotion_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetByIdPromotion" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_GetByIdPromotion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetByIdPromotionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_GetAllPromotions_InputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllPromotions" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_GetAllPromotions_OutputMessage">
-    <wsdl:part name="parameters" element="tns:GetAllPromotionsResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_DeletePromotion_InputMessage">
-    <wsdl:part name="parameters" element="tns:DeletePromotion" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_DeletePromotion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:DeletePromotionResponse" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_UpdatePromotion_InputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePromotion" />
-  </wsdl:message>
-  <wsdl:message name="IPromotionService_UpdatePromotion_OutputMessage">
-    <wsdl:part name="parameters" element="tns:UpdatePromotionResponse" />
+  <wsdl:message name="IPromotionService_GetPromotionImage_OutputMessage">
+    <wsdl:part name="parameters" element="tns:GetPromotionImageResponse" />
   </wsdl:message>
   <wsdl:portType name="IPromotionService">
-    <wsdl:operation name="TestConnection">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPromotionService/TestConnection" message="tns:IPromotionService_TestConnection_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPromotionService/TestConnectionResponse" message="tns:IPromotionService_TestConnection_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="CreatePromotion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPromotionService/CreatePromotion" message="tns:IPromotionService_CreatePromotion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPromotionService/CreatePromotionResponse" message="tns:IPromotionService_CreatePromotion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetByIdPromotion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPromotionService/GetByIdPromotion" message="tns:IPromotionService_GetByIdPromotion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPromotionService/GetByIdPromotionResponse" message="tns:IPromotionService_GetByIdPromotion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="GetAllPromotions">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPromotionService/GetAllPromotions" message="tns:IPromotionService_GetAllPromotions_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPromotionService/GetAllPromotionsResponse" message="tns:IPromotionService_GetAllPromotions_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="DeletePromotion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPromotionService/DeletePromotion" message="tns:IPromotionService_DeletePromotion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPromotionService/DeletePromotionResponse" message="tns:IPromotionService_DeletePromotion_OutputMessage" />
-    </wsdl:operation>
-    <wsdl:operation name="UpdatePromotion">
-      <wsdl:input wsaw:Action="http://tempuri.org/IPromotionService/UpdatePromotion" message="tns:IPromotionService_UpdatePromotion_InputMessage" />
-      <wsdl:output wsaw:Action="http://tempuri.org/IPromotionService/UpdatePromotionResponse" message="tns:IPromotionService_UpdatePromotion_OutputMessage" />
+    <wsdl:operation name="GetPromotionImage">
+      <wsdl:input wsaw:Action="http://tempuri.org/IPromotionService/GetPromotionImage" message="tns:IPromotionService_GetPromotionImage_InputMessage" />
+      <wsdl:output wsaw:Action="http://tempuri.org/IPromotionService/GetPromotionImageResponse" message="tns:IPromotionService_GetPromotionImage_OutputMessage" />
     </wsdl:operation>
   </wsdl:portType>
   <wsdl:binding name="BasicHttpBinding_IPromotionService" type="tns:IPromotionService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
-    <wsdl:operation name="TestConnection">
-      <soap:operation soapAction="http://tempuri.org/IPromotionService/TestConnection" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="CreatePromotion">
-      <soap:operation soapAction="http://tempuri.org/IPromotionService/CreatePromotion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetByIdPromotion">
-      <soap:operation soapAction="http://tempuri.org/IPromotionService/GetByIdPromotion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="GetAllPromotions">
-      <soap:operation soapAction="http://tempuri.org/IPromotionService/GetAllPromotions" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="DeletePromotion">
-      <soap:operation soapAction="http://tempuri.org/IPromotionService/DeletePromotion" style="document" />
-      <wsdl:input>
-        <soap:body use="literal" />
-      </wsdl:input>
-      <wsdl:output>
-        <soap:body use="literal" />
-      </wsdl:output>
-    </wsdl:operation>
-    <wsdl:operation name="UpdatePromotion">
-      <soap:operation soapAction="http://tempuri.org/IPromotionService/UpdatePromotion" style="document" />
+    <wsdl:operation name="GetPromotionImage">
+      <soap:operation soapAction="http://tempuri.org/IPromotionService/GetPromotionImage" style="document" />
       <wsdl:input>
         <soap:body use="literal" />
       </wsdl:input>
