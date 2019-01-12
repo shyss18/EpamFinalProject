@@ -116,6 +116,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\Images\noPhoto.png" />
     <Content Include="Content\select2.min.css" />
     <Content Include="Content\dashboard.css" />
     <Content Include="Global.asax" />
@@ -138,7 +139,6 @@
     <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PreparationController.cs" />
     <Compile Include="Controllers\ProcedureController.cs" />
-    <Compile Include="Controllers\AdvertisingController.cs" />
     <Compile Include="Controllers\RecordController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SickLeaveController.cs" />
@@ -230,6 +230,7 @@
     <Content Include="Views\Shared\ChooseUser.cshtml" />
     <Content Include="Views\User\CreatePatient.cshtml" />
     <Content Include="Views\User\CreateDoctor.cshtml" />
+    <Content Include="Views\Shared\NotFound.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

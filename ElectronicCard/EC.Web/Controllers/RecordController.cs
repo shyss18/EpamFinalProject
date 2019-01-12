@@ -4,23 +4,26 @@ using System.Linq;
 using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
 using System.Web.Mvc;
+using EC.Common.Cache;
 using EC.Web.Models;
 
 namespace EC.Web.Controllers
 {
     public class RecordController : Controller
     {
+        private readonly IRecordCache _cache;
         private readonly IRecordService _recordService;
         private readonly IPreparationService _preparationService;
         private readonly IProcedureService _procedureService;
         private readonly IUserService _userService;
 
-        public RecordController(IRecordService recordService, IPreparationService preparationService, IProcedureService procedureService, IUserService userService)
+        public RecordController(IRecordService recordService, IPreparationService preparationService, IProcedureService procedureService, IUserService userService, IRecordCache cache)
         {
             _recordService = recordService;
             _preparationService = preparationService;
             _procedureService = procedureService;
             _userService = userService;
+            _cache = cache;
         }
 
         [HttpGet]
@@ -62,7 +65,7 @@ namespace EC.Web.Controllers
                     return RedirectToAction("GetAllRecords");
                 }
 
-                return RedirectToAction("GetDoctorsRecords", "Record", new { login = User.Identity.Name });
+                return RedirectToAction("GetDoctorRecords", "Record", new { login = User.Identity.Name });
             }
 
             return View(model);
@@ -72,7 +75,13 @@ namespace EC.Web.Controllers
         [Authorize(Roles = "Admin, Editor")]
         public ActionResult EditRecord(int? id)
         {
-            var record = _recordService.GetRecordById(id);
+            var record = _cache.GetCache(id);
+
+            if (record == null)
+            {
+                record = _recordService.GetRecordById(id);
+                _cache.Create(record);
+            }
 
             if (record != null)
             {
@@ -101,7 +110,13 @@ namespace EC.Web.Controllers
         {
             if (ModelState.IsValid)
             {
-                var record = _recordService.GetRecordById(model.Id);
+                var record = _cache.GetCache(model.Id);
+
+                if (record == null)
+                {
+                    record = _recordService.GetRecordById(model.Id);
+                    _cache.Create(record);
+                }
 
                 record.DateRecord = model.DateRecord;
                 record.PatientId = model.PatientId;
@@ -131,6 +146,7 @@ namespace EC.Web.Controllers
                 }
 
                 _recordService.UpdateRecord(record);
+                _cache.Update(record);
 
                 return RedirectToAction("DetailsRecord", new { id = record.Id });
             }
@@ -142,7 +158,13 @@ namespace EC.Web.Controllers
         [Authorize]
         public ActionResult DetailsRecord(int? id)
         {
-            var record = _recordService.GetRecordById(id);
+            var record = _cache.GetCache(id);
+
+            if (record == null)
+            {
+                record = _recordService.GetRecordById(id);
+                _cache.Create(record);
+            }
 
             return record == null ? View("NotFound") : View(record);
         }
@@ -151,6 +173,7 @@ namespace EC.Web.Controllers
         public ActionResult DeleteRecord(int? id)
         {
             _recordService.DeleteRecord(id);
+            _cache.Delete(id);
 
             if (User.IsInRole("Admin") || User.IsInRole("Editor"))
             {
@@ -170,7 +193,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
-        [Authorize(Roles = "User")]
+        [Authorize(Roles = "Admin, Editor, User")]
         public ActionResult GetPatientRecords(string login)
         {
             var records = _recordService.GetPatientRecords(login);
