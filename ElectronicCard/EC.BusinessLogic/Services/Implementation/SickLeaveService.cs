@@ -16,22 +16,37 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void CreateSickLeave(SickLeave sickLeave)
         {
+            if (sickLeave == null)
+            {
+                return;
+            }
+
             _repository.Create(sickLeave);
         }
 
         public void UpdateSickLeave(SickLeave sickLeave)
         {
+            if (sickLeave == null)
+            {
+                return;
+            }
+
             _repository.Update(sickLeave);
         }
 
         public void DeleteSickLeave(int? id)
         {
+            if (id == null || id <= 0)
+            {
+                return;
+            }
+
             _repository.Delete(id);
         }
 
         public SickLeave GetById(int? id)
         {
-            return id == null ? null : _repository.GetById(id);
+            return id == null || id <= 0 ? null : _repository.GetById(id);
         }
 
         public IReadOnlyCollection<SickLeave> GetAll()

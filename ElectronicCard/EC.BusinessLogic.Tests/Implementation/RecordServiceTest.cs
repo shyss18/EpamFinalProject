@@ -59,7 +59,6 @@ namespace EC.BusinessLogic.Tests.Implementation
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public void CreateRecordInValid()
         {
             //Arrange
@@ -69,7 +68,7 @@ namespace EC.BusinessLogic.Tests.Implementation
             _service.CreateRecord(record);
 
             //Assert
-            _recordMock.Verify(r => r.Create(record));
+            _recordMock.Verify(r => r.Create(record), Times.Never);
         }
 
         [TestMethod]
@@ -108,7 +107,6 @@ namespace EC.BusinessLogic.Tests.Implementation
         }
 
         [TestMethod]
-        [ExpectedException(typeof(NullReferenceException))]
         public void UpdateRecordInvalid()
         {
             //Arrange

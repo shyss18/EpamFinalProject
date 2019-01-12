@@ -2,5 +2,17 @@
     ViewBag.Title = "Главная страница";
 }
 
-
-
+@if (!User.Identity.IsAuthenticated)
+{
+    <div class="container text-center">
+        <div class="alert alert-info сol-md-8" role="alert">
+            <h4 class="alert-heading">Добро пожаловать</h4>
+            <p class="mb-0">Чтобы продолжить войдите или зарегистрируйтесь.</p>
+        </div>
+        <br />
+    </div>
+}
+<div class="container text-center">
+    <img src="@Url.Action("GetImage", "Home")" class="img-thumbnail" alt="Здесь могла бы быть ваша реклама" width="800" height="700" />
+</div>
+        

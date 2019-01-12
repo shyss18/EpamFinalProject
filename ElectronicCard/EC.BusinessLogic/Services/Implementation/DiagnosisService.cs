@@ -16,22 +16,37 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void CreateDiagnosis(Diagnosis diagnosis)
         {
+            if (diagnosis == null)
+            {
+                return;
+            }
+
             _repository.Create(diagnosis);
         }
 
         public void UpdateDiagnosis(Diagnosis diagnosis)
         {
+            if (diagnosis == null)
+            {
+                return;
+            }
+
             _repository.Update(diagnosis);
         }
 
         public void DeleteDiagnosis(int? id)
         {
+            if (id == null || id <= 0)
+            {
+                return;
+            }
+
             _repository.Delete(id);
         }
 
         public Diagnosis GetById(int? id)
         {
-            return id == null ? null : _repository.GetById(id);
+            return id == null || id <= 0 ? null : _repository.GetById(id);
         }
 
         public IReadOnlyCollection<Diagnosis> GetAll()

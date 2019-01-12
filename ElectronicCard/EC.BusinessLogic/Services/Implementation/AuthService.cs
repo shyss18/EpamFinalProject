@@ -46,6 +46,11 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void SignUp(User user)
         {
+            if (user == null)
+            {
+                return;
+            }
+
             if (user.IsDoctor)
             {
                 var doctor = new Doctor
@@ -168,7 +173,7 @@ namespace EC.BusinessLogic.Services.Implementation
                 {
                     patient.Doctors = user.Patient.Doctors;
                 }
-                
+
                 _userRepository.Update(patient);
             }
         }

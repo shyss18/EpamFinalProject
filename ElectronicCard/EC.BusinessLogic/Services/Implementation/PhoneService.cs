@@ -18,22 +18,37 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void CreatePhone(Phone phone)
         {
+            if (phone == null)
+            {
+                return;
+            }
+
             _phoneRepository.Create(phone);
         }
 
         public void UpdatePhone(Phone phone)
         {
+            if (phone == null)
+            {
+                return;
+            }
+
             _phoneRepository.Update(phone);
         }
 
         public void DeletePhone(int? id)
         {
+            if (id == null || id <= 0)
+            {
+                return;
+            }
+
             _phoneRepository.Delete(id);
         }
 
         public Phone GetById(int? id)
         {
-            return id == null ? null : _phoneRepository.GetById(id);
+            return id == null || id <= 0 ? null : _phoneRepository.GetById(id);
         }
 
         public IReadOnlyCollection<Phone> GetUserContacts(string login)
