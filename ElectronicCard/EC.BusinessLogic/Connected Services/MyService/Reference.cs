@@ -9,55 +9,80 @@
 //------------------------------------------------------------------------------
 
 namespace EC.BusinessLogic.MyService {
+    using System.Runtime.Serialization;
+    using System;
     
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Runtime.Serialization", "4.0.0.0")]
+    [System.Runtime.Serialization.DataContractAttribute(Name="Promotion", Namespace="http://schemas.datacontract.org/2004/07/EC.PromotionService.Models")]
+    [System.SerializableAttribute()]
+    public partial class Promotion : object, System.Runtime.Serialization.IExtensibleDataObject, System.ComponentModel.INotifyPropertyChanged {
+        
+        [System.NonSerializedAttribute()]
+        private System.Runtime.Serialization.ExtensionDataObject extensionDataField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private byte[] ImageField;
+        
+        [System.Runtime.Serialization.OptionalFieldAttribute()]
+        private string TypeImageField;
+        
+        [global::System.ComponentModel.BrowsableAttribute(false)]
+        public System.Runtime.Serialization.ExtensionDataObject ExtensionData {
+            get {
+                return this.extensionDataField;
+            }
+            set {
+                this.extensionDataField = value;
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public byte[] Image {
+            get {
+                return this.ImageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.ImageField, value) != true)) {
+                    this.ImageField = value;
+                    this.RaisePropertyChanged("Image");
+                }
+            }
+        }
+        
+        [System.Runtime.Serialization.DataMemberAttribute()]
+        public string TypeImage {
+            get {
+                return this.TypeImageField;
+            }
+            set {
+                if ((object.ReferenceEquals(this.TypeImageField, value) != true)) {
+                    this.TypeImageField = value;
+                    this.RaisePropertyChanged("TypeImage");
+                }
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
     [System.ServiceModel.ServiceContractAttribute(ConfigurationName="MyService.IPromotionService")]
     public interface IPromotionService {
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/TestConnection", ReplyAction="http://tempuri.org/IPromotionService/TestConnectionResponse")]
-        string TestConnection();
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/GetPromotionImage", ReplyAction="http://tempuri.org/IPromotionService/GetPromotionImageResponse")]
+        EC.BusinessLogic.MyService.Promotion GetPromotionImage();
         
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/TestConnection", ReplyAction="http://tempuri.org/IPromotionService/TestConnectionResponse")]
-        System.Threading.Tasks.Task<string> TestConnectionAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/CreatePromotion", ReplyAction="http://tempuri.org/IPromotionService/CreatePromotionResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Security.Policy.EvidenceBase))]
-        void CreatePromotion(EC.Entities.Entities.Promotion item);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/CreatePromotion", ReplyAction="http://tempuri.org/IPromotionService/CreatePromotionResponse")]
-        System.Threading.Tasks.Task CreatePromotionAsync(EC.Entities.Entities.Promotion item);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/GetByIdPromotion", ReplyAction="http://tempuri.org/IPromotionService/GetByIdPromotionResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Security.Policy.EvidenceBase))]
-        EC.Entities.Entities.Promotion GetByIdPromotion(System.Nullable<int> id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/GetByIdPromotion", ReplyAction="http://tempuri.org/IPromotionService/GetByIdPromotionResponse")]
-        System.Threading.Tasks.Task<EC.Entities.Entities.Promotion> GetByIdPromotionAsync(System.Nullable<int> id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/GetAllPromotions", ReplyAction="http://tempuri.org/IPromotionService/GetAllPromotionsResponse")]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(object[]))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(EC.Entities.Entities.Promotion))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Security.Policy.Url))]
-        [System.ServiceModel.ServiceKnownTypeAttribute(typeof(System.Security.Policy.EvidenceBase))]
-        object GetAllPromotions();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/GetAllPromotions", ReplyAction="http://tempuri.org/IPromotionService/GetAllPromotionsResponse")]
-        System.Threading.Tasks.Task<object> GetAllPromotionsAsync();
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/DeletePromotion", ReplyAction="http://tempuri.org/IPromotionService/DeletePromotionResponse")]
-        void DeletePromotion(System.Nullable<int> id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/DeletePromotion", ReplyAction="http://tempuri.org/IPromotionService/DeletePromotionResponse")]
-        System.Threading.Tasks.Task DeletePromotionAsync(System.Nullable<int> id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/UpdatePromotion", ReplyAction="http://tempuri.org/IPromotionService/UpdatePromotionResponse")]
-        void UpdatePromotion(System.Nullable<int> id);
-        
-        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/UpdatePromotion", ReplyAction="http://tempuri.org/IPromotionService/UpdatePromotionResponse")]
-        System.Threading.Tasks.Task UpdatePromotionAsync(System.Nullable<int> id);
+        [System.ServiceModel.OperationContractAttribute(Action="http://tempuri.org/IPromotionService/GetPromotionImage", ReplyAction="http://tempuri.org/IPromotionService/GetPromotionImageResponse")]
+        System.Threading.Tasks.Task<EC.BusinessLogic.MyService.Promotion> GetPromotionImageAsync();
     }
     
     [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
@@ -87,52 +112,12 @@ namespace EC.BusinessLogic.MyService {
                 base(binding, remoteAddress) {
         }
         
-        public string TestConnection() {
-            return base.Channel.TestConnection();
+        public EC.BusinessLogic.MyService.Promotion GetPromotionImage() {
+            return base.Channel.GetPromotionImage();
         }
         
-        public System.Threading.Tasks.Task<string> TestConnectionAsync() {
-            return base.Channel.TestConnectionAsync();
-        }
-        
-        public void CreatePromotion(EC.Entities.Entities.Promotion item) {
-            base.Channel.CreatePromotion(item);
-        }
-        
-        public System.Threading.Tasks.Task CreatePromotionAsync(EC.Entities.Entities.Promotion item) {
-            return base.Channel.CreatePromotionAsync(item);
-        }
-        
-        public EC.Entities.Entities.Promotion GetByIdPromotion(System.Nullable<int> id) {
-            return base.Channel.GetByIdPromotion(id);
-        }
-        
-        public System.Threading.Tasks.Task<EC.Entities.Entities.Promotion> GetByIdPromotionAsync(System.Nullable<int> id) {
-            return base.Channel.GetByIdPromotionAsync(id);
-        }
-        
-        public object GetAllPromotions() {
-            return base.Channel.GetAllPromotions();
-        }
-        
-        public System.Threading.Tasks.Task<object> GetAllPromotionsAsync() {
-            return base.Channel.GetAllPromotionsAsync();
-        }
-        
-        public void DeletePromotion(System.Nullable<int> id) {
-            base.Channel.DeletePromotion(id);
-        }
-        
-        public System.Threading.Tasks.Task DeletePromotionAsync(System.Nullable<int> id) {
-            return base.Channel.DeletePromotionAsync(id);
-        }
-        
-        public void UpdatePromotion(System.Nullable<int> id) {
-            base.Channel.UpdatePromotion(id);
-        }
-        
-        public System.Threading.Tasks.Task UpdatePromotionAsync(System.Nullable<int> id) {
-            return base.Channel.UpdatePromotionAsync(id);
+        public System.Threading.Tasks.Task<EC.BusinessLogic.MyService.Promotion> GetPromotionImageAsync() {
+            return base.Channel.GetPromotionImageAsync();
         }
     }
 }

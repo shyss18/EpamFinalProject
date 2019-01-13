@@ -17,6 +17,11 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void CreateUser(User user)
         {
+            if (user == null)
+            {
+                return;
+            }
+
             if (user.IsDoctor)
             {
                 var doctor = new Doctor
@@ -82,6 +87,11 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void UpdateUser(User user)
         {
+            if (user == null)
+            {
+                return;
+            }
+
             if (user.IsDoctor)
             {
                 var doctor = new Doctor
@@ -149,6 +159,11 @@ namespace EC.BusinessLogic.Services.Implementation
         {
             try
             {
+                if (id == null || id <= 0)
+                {
+                    return false;
+                }
+
                 _userRepository.Delete(id);
 
                 return true;
@@ -161,7 +176,7 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public User GetUserById(int? id)
         {
-            return id == null ? null : _userRepository.GetById(id);
+            return id == null || id <= 0 ? null : _userRepository.GetById(id);
         }
 
         public User GetUserByLogin(string login)
@@ -186,7 +201,7 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public IReadOnlyCollection<Patient> GetUserPatients(int? userId)
         {
-            return userId == null ? null : _userRepository.GetUserPatients(userId);
+            return userId == null || userId <= 0 ? null : _userRepository.GetUserPatients(userId);
         }
     }
 }

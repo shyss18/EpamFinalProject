@@ -10,6 +10,7 @@ namespace EC.DataAccess.Repositories.Implementation
 {
     public class RecordRepository : IRecordRepository
     {
+        private const int DEFAULT = 0;
         private readonly ISqlFactory _factory;
         private readonly IPreparationRepository _preparationRepository;
         private readonly IProcedureRepository _procedureRepository;
@@ -141,16 +142,16 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = item["PatientId"] as int? ?? default(int),
-                    DoctorId = item["DoctorId"] as int? ?? default(int),
-                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
-                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int),
+                    PatientId = item["PatientId"] as int? ?? DEFAULT,
+                    DoctorId = item["DoctorId"] as int? ?? DEFAULT,
+                    DiagnosisId = item["DiagnosisId"] as int? ?? DEFAULT,
+                    SickLeaveId = item["SickLeaveId"] as int? ?? DEFAULT,
 
                     Preparations = _preparationRepository.GetPreparationsByRecordId(id),
                     Procedures = _procedureRepository.GetProceduresByRecordId(id)
                 };
 
-                if (record.PatientId != default(int))
+                if (record.PatientId != DEFAULT)
                 {
                     record.Patient = new Patient
                     {
@@ -163,7 +164,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.DoctorId != default(int))
+                if (record.DoctorId != DEFAULT)
                 {
                     record.Doctor = new Doctor
                     {
@@ -175,7 +176,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.DiagnosisId != default(int))
+                if (record.DiagnosisId != DEFAULT)
                 {
                     record.Diagnosis = new Diagnosis
                     {
@@ -184,7 +185,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.SickLeaveId != default(int))
+                if (record.SickLeaveId != DEFAULT)
                 {
                     record.SickLeave = new SickLeave
                     {
@@ -194,15 +195,15 @@ namespace EC.DataAccess.Repositories.Implementation
                         PeriodAction = (int)item["PeriodAction"]
                     };
 
-                    var diagnosis = item["SLDiagnosisId"] as int? ?? default(int);
+                    var diagnosis = item["SLDiagnosisId"] as int? ?? DEFAULT;
 
-                    if (diagnosis != default(int))
+                    if (diagnosis != DEFAULT)
                     {
                         record.SickLeave.DiagnosisId = (int)item["SLDiagnosisId"];
                     }
                 }
 
-                if (record.DiagnosisId != default(int))
+                if (record.DiagnosisId != DEFAULT)
                 {
                     record.SickLeave.Diagnosis = _diagnosisRepository.GetById(record.SickLeave.DiagnosisId);
                 }
@@ -226,13 +227,13 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = item["PatientId"] as int? ?? default(int),
-                    DoctorId = item["DoctorId"] as int? ?? default(int),
-                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
-                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int)
+                    PatientId = item["PatientId"] as int? ?? DEFAULT,
+                    DoctorId = item["DoctorId"] as int? ?? DEFAULT,
+                    DiagnosisId = item["DiagnosisId"] as int? ?? DEFAULT,
+                    SickLeaveId = item["SickLeaveId"] as int? ?? DEFAULT
                 };
 
-                if (record.PatientId != default(int))
+                if (record.PatientId != DEFAULT)
                 {
                     record.Patient = new Patient
                     {
@@ -245,7 +246,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.DoctorId != default(int))
+                if (record.DoctorId != DEFAULT)
                 {
                     record.Doctor = new Doctor
                     {
@@ -257,7 +258,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.DiagnosisId != default(int))
+                if (record.DiagnosisId != DEFAULT)
                 {
                     record.Diagnosis = new Diagnosis
                     {
@@ -266,7 +267,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.SickLeaveId != default(int))
+                if (record.SickLeaveId != DEFAULT)
                 {
                     record.SickLeave = new SickLeave
                     {
@@ -276,9 +277,9 @@ namespace EC.DataAccess.Repositories.Implementation
                         PeriodAction = (int)item["PeriodAction"]
                     };
 
-                    var diagnosis = item["SLDiagnosisId"] as int? ?? default(int);
+                    var diagnosis = item["SLDiagnosisId"] as int? ?? DEFAULT;
 
-                    if (diagnosis != default(int))
+                    if (diagnosis != DEFAULT)
                     {
                         record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
                     }
@@ -311,13 +312,13 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = item["PatientId"] as int? ?? default(int),
-                    DoctorId = item["DoctorId"] as int? ?? default(int),
-                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
-                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int),
+                    PatientId = item["PatientId"] as int? ?? DEFAULT,
+                    DoctorId = item["DoctorId"] as int? ?? DEFAULT,
+                    DiagnosisId = item["DiagnosisId"] as int? ?? DEFAULT,
+                    SickLeaveId = item["SickLeaveId"] as int? ?? DEFAULT,
                 };
 
-                if (record.PatientId != default(int))
+                if (record.PatientId != DEFAULT)
                 {
                     record.Patient = new Patient
                     {
@@ -330,7 +331,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.DoctorId != default(int))
+                if (record.DoctorId != DEFAULT)
                 {
                     record.Doctor = new Doctor
                     {
@@ -342,7 +343,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.DiagnosisId != default(int))
+                if (record.DiagnosisId != DEFAULT)
                 {
                     record.Diagnosis = new Diagnosis
                     {
@@ -351,7 +352,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.SickLeaveId != default(int))
+                if (record.SickLeaveId != DEFAULT)
                 {
                     record.SickLeave = new SickLeave
                     {
@@ -361,9 +362,9 @@ namespace EC.DataAccess.Repositories.Implementation
                         PeriodAction = (int)item["PeriodAction"]
                     };
 
-                    var diagnosis = item["SLDiagnosisId"] as int? ?? default(int);
+                    var diagnosis = item["SLDiagnosisId"] as int? ?? DEFAULT;
 
-                    if (diagnosis != default(int))
+                    if (diagnosis != DEFAULT)
                     {
                         record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
                     }
@@ -396,13 +397,13 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = item["PatientId"] as int? ?? default(int),
-                    DoctorId = item["DoctorId"] as int? ?? default(int),
-                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int),
-                    SickLeaveId = item["SickLeaveId"] as int? ?? default(int),
+                    PatientId = item["PatientId"] as int? ?? DEFAULT,
+                    DoctorId = item["DoctorId"] as int? ?? DEFAULT,
+                    DiagnosisId = item["DiagnosisId"] as int? ?? DEFAULT,
+                    SickLeaveId = item["SickLeaveId"] as int? ?? DEFAULT,
                 };
 
-                if (record.PatientId != default(int))
+                if (record.PatientId != DEFAULT)
                 {
                     record.Patient = new Patient
                     {
@@ -415,7 +416,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.DoctorId != default(int))
+                if (record.DoctorId != DEFAULT)
                 {
                     record.Doctor = new Doctor
                     {
@@ -427,7 +428,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.DiagnosisId != default(int))
+                if (record.DiagnosisId != DEFAULT)
                 {
                     record.Diagnosis = new Diagnosis
                     {
@@ -436,7 +437,7 @@ namespace EC.DataAccess.Repositories.Implementation
                     };
                 }
 
-                if (record.SickLeaveId != default(int))
+                if (record.SickLeaveId != DEFAULT)
                 {
                     record.SickLeave = new SickLeave
                     {
@@ -447,9 +448,9 @@ namespace EC.DataAccess.Repositories.Implementation
                         DiagnosisId = (int)item["SLDiagnosisId"]
                     };
 
-                    var diagnosis = item["SLDiagnosisId"] as int? ?? default(int);
+                    var diagnosis = item["SLDiagnosisId"] as int? ?? DEFAULT;
 
-                    if (diagnosis != default(int))
+                    if (diagnosis != DEFAULT)
                     {
                         record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
                     }

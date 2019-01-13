@@ -65,6 +65,7 @@
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Models\Promotion.cs" />
     <Compile Include="PromotionService.svc.cs">
       <DependentUpon>PromotionService.svc</DependentUpon>
     </Compile>
@@ -79,12 +80,6 @@
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\EC.Entities\EC.Entities.csproj">
-      <Project>{3c567a87-874d-4919-aaad-ec90e5827ac6}</Project>
-      <Name>EC.Entities</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

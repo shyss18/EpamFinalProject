@@ -1,10 +1,7 @@
-﻿using System;
-using EC.BusinessLogic.Services.Interfaces;
+﻿using EC.BusinessLogic.Services.Interfaces;
 using EC.Entities.Entities;
 using EC.Web.Models;
 using System.Collections.Generic;
-using System.IO;
-using System.Web;
 using System.Web.Mvc;
 
 namespace EC.Web.Controllers
@@ -14,12 +11,10 @@ namespace EC.Web.Controllers
         private static bool _isDoctor;
 
         private readonly IAuthService _authService;
-        private readonly IPhoneService _phoneService;
 
-        public AuthController(IAuthService authService, IPhoneService phoneService)
+        public AuthController(IAuthService authService)
         {
             _authService = authService;
-            _phoneService = phoneService;
         }
 
         [HttpGet]

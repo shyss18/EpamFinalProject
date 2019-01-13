@@ -47,6 +47,7 @@
       <HintPath>..\packages\structuremap.web.3.1.0.133\lib\net40\StructureMap.Web.dll</HintPath>
     </Reference>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Runtime.Serialization" />
     <Reference Include="System.ServiceModel" />
@@ -94,6 +95,10 @@
     <Compile Include="Services\Interfaces\IUserService.cs" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Connected Services\MyService\EC.BusinessLogic.MyService.Promotion.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\MyService\PromotionService.wsdl" />
     <None Include="Connected Services\MyService\PromotionService.xsd">
       <SubType>Designer</SubType>
@@ -104,17 +109,7 @@
     <None Include="Connected Services\MyService\PromotionService2.xsd">
       <SubType>Designer</SubType>
     </None>
-    <None Include="Connected Services\MyService\PromotionService3.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\MyService\PromotionService4.xsd">
-      <SubType>Designer</SubType>
-    </None>
-    <None Include="Connected Services\MyService\PromotionService5.xsd">
-      <SubType>Designer</SubType>
-    </None>
     <None Include="packages.config" />
-    <None Include="Properties\DataSources\EC.Entities.Entities.Promotion.datasource" />
   </ItemGroup>
   <ItemGroup>
     <WCFMetadata Include="Connected Services\" />

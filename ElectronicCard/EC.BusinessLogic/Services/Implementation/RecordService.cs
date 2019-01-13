@@ -20,6 +20,11 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void CreateRecord(Record record)
         {
+            if (record == null)
+            {
+                return;
+            }
+
             _recordRepository.Create(record);
 
             var user = _userRepository.GetById(record.DoctorId);
@@ -35,20 +40,17 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void UpdateRecord(Record record)
         {
-            if (record != null)
+            if (record == null)
             {
-                _recordRepository.Update(record);
+                return;
             }
-            else
-            {
-                throw new NullReferenceException();
-            }
-            
+
+            _recordRepository.Update(record);
         }
 
         public void DeleteRecord(int? id)
         {
-            if (id <= 0 || id == null)
+            if (id == null || id <= 0)
             {
                 return;
             }
@@ -68,6 +70,11 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public IReadOnlyCollection<Record> GetPatientRecords(string login)
         {
+            if (login == null)
+            {
+                return null;
+            }
+
             var user = _userRepository.GetUserByLogin(login);
 
             return user == null ? null : _recordRepository.GetPatientRecords(user.Id);
@@ -75,6 +82,11 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public IReadOnlyCollection<Record> GetDoctorRecords(string login)
         {
+            if (login == null)
+            {
+                return null;
+            }
+
             var user = _userRepository.GetUserByLogin(login);
 
             return user == null ? null : _recordRepository.GetDoctorRecords(user.Id);
