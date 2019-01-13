@@ -1,0 +1,17 @@
+USE MASTER
+GO
+
+CREATE LOGIN ElectronicCardDBOwner
+	WITH PASSWORD = N'qwerty123',
+	DEFAULT_DATABASE = MASTER,
+	DEFAULT_LANGUAGE = russian;
+GO
+
+ALTER LOGIN ElectronicCardDBOwner ENABLE;
+GO
+
+ALTER SERVER ROLE sysadmin ADD MEMBER ElectronicCardDBOwner;
+
+GRANT CONTROL SERVER TO ElectronicCardDBOwner;
+
+GO
