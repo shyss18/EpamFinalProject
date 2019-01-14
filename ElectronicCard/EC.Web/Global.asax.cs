@@ -51,11 +51,33 @@ namespace EC.Web
 
             var logger = container.GetInstance<ICustomLogger>();
 
-            string separatorString = new string('-', 100);
+            var separatorString = new string('-', 100);
 
             var exceptionString = string.Format($"EXCEPTION TYPE: {exception.GetType().FullName} \n EXCEPTION MESSAGE: {exception.Message} \n EXCEPTION DLL: {exception.Source} \n EXCEPTION METHOD: {exception.TargetSite.Name} \n EXCEPTION STACKTRACE: {exception.StackTrace} \n {separatorString} \n {string.Empty}");
 
             logger.WriteToFile(exceptionString);
+
+            if (exception is HttpException httpException)
+            {
+                switch (httpException.GetHttpCode())
+                {
+                    case 401:
+                        Response.Redirect("~/Auth/SignIn");
+                        break;
+
+                    case 403:
+                        Response.Redirect("~/Error/Forbidden");
+                        break;
+
+                    case 404:
+                        Response.Redirect("~/Error/NotFound");
+                        break;
+
+                    case 500:
+                        Response.Redirect("~/Error/ServerError");
+                        break;
+                }
+            }
         }
     }
 }
