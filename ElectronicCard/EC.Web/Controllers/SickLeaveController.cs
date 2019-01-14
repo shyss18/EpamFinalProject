@@ -55,7 +55,7 @@ namespace EC.Web.Controllers
 
             if (sickLeave == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(sickLeave);
@@ -81,7 +81,7 @@ namespace EC.Web.Controllers
                 return View(edit);
             }
 
-            return View("NotFound");
+            return RedirectToAction("NotFound", "Error");
         }
 
         [HttpPost]

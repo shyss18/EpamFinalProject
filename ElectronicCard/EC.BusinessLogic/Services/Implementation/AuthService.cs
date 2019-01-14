@@ -11,6 +11,7 @@ namespace EC.BusinessLogic.Services.Implementation
 {
     public class AuthService : IAuthService
     {
+        private static string _verificationCode = "123456";
         private readonly IUserRepository _userRepository;
 
         public AuthService(IUserRepository userRepository)
@@ -103,6 +104,16 @@ namespace EC.BusinessLogic.Services.Implementation
         public void SignOut()
         {
             FormsAuthentication.SignOut();
+        }
+
+        public string GetVerificationCode()
+        {
+            return _verificationCode;
+        }
+
+        public void EditVerificationCode(string code)
+        {
+            _verificationCode = code;
         }
 
         public User GetUserByLogin(string login)

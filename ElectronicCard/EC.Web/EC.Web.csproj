@@ -116,9 +116,11 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Content\bootstrap.min.css" />
+    <Content Include="Content\formStyle.css" />
     <Content Include="Content\Images\noPhoto.png" />
     <Content Include="Content\select2.min.css" />
     <Content Include="Content\dashboard.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
     <Content Include="Scripts\bootstrap.min.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
@@ -134,6 +136,7 @@
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
     <Compile Include="Controllers\PhotoController.cs" />
@@ -158,6 +161,7 @@
     <Compile Include="Models\EditPhotoModel.cs" />
     <Compile Include="Models\EditRecordModel.cs" />
     <Compile Include="Models\EditSickLeaveModel.cs" />
+    <Compile Include="Models\EditVerificationCodeModel.cs" />
     <Compile Include="Models\RegistrationModel.cs" />
     <Compile Include="Models\SignInModel.cs" />
     <Compile Include="Models\EditUserModel.cs" />
@@ -230,7 +234,11 @@
     <Content Include="Views\Shared\ChooseUser.cshtml" />
     <Content Include="Views\User\CreatePatient.cshtml" />
     <Content Include="Views\User\CreateDoctor.cshtml" />
-    <Content Include="Views\Shared\NotFound.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Auth\EditVerificationCode.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

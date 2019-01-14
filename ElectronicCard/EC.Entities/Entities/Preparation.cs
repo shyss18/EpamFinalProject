@@ -11,7 +11,7 @@ namespace EC.Entities.Entities
 
         [DisplayName("Название препарата")]
         [Required(ErrorMessage = "Введите название препарата")]
-        [StringLength(20, ErrorMessage = "Длина названия препарата должна быть до 20 знаков")]
+        [StringLength(150, ErrorMessage = "Длина названия препарата должна быть до 150 знаков")]
         public string Title { get; set; }
 
         [DisplayName("Описание препарата")]
@@ -21,6 +21,7 @@ namespace EC.Entities.Entities
 
         [DisplayName("Продолжительность применения")]
         [Required(ErrorMessage = "Введите продолжительность применения")]
+        [Remote("CheckTimeUse", "Preparation")]
         public int TimeUse { get; set; }
     }
 }

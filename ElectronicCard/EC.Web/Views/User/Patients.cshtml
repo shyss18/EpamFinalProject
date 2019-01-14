@@ -11,9 +11,18 @@
         @foreach (var user in Model)
         {
             <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; margin-bottom: 20px; margin-right: 20px;">
-                <img src="@Url.Action("GetImage", "Photo", new{login= user.Login})" class="card-img-top" alt="Нет фото" height="200" width="200" />
-                <h5 class="card-title">@user.FirstName @user.LastName</h5>
-                @Html.ActionLink("Подробнее", "UserDetails", "User", new { id = user.Id }, new { @class = "card-link" })
+                @if (user.Photo == null)
+                {
+                    <img src="~/Content/Images/noPhoto.png" class="card-img-top img-thumbnail" alt="Нет фото" width="200" height="200" />
+                }
+                else
+                {
+                    <img src="@Url.Action("GetImage", "Photo", new {login = user.Login})" class="card-img-top" alt="Нет фото" height="200" width="200" />
+                }
+                <div class="card-body">
+                    <h5 class="card-title">@user.FirstName @user.LastName</h5>
+                    @Html.ActionLink("Подробнее", "UserDetails", "User", new { id = user.Id }, new { @class = "card-link" })
+                </div>
             </div>
         }
     </div>

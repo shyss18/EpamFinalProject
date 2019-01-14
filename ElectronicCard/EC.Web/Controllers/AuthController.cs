@@ -72,7 +72,7 @@ namespace EC.Web.Controllers
                     {
                         new Phone
                         {
-                            PhoneNumber = registration.Phone
+                            PhoneNumber = registration.PhoneNumber
                         }
                     }
                 };
@@ -134,7 +134,7 @@ namespace EC.Web.Controllers
 
             if (user == null)
             {
-                return View("NotFound");
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(user);
@@ -175,7 +175,7 @@ namespace EC.Web.Controllers
                 return View(model);
             }
 
-            return View("NotFound");
+            return RedirectToAction("NotFound", "Error");
         }
 
         [HttpPost]
@@ -214,6 +214,27 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult EditVerificationCode()
+        {
+            return View();
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin")]
+        public ActionResult EditVerificationCode(EditVerificationCodeModel model)
+        {
+            if (ModelState.IsValid)
+            {
+                _authService.EditVerificationCode(model.NewCode);
+
+                return RedirectToAction("Account", "Auth", new { login = User.Identity.Name });
+            }
+
+            return View(model);
+        }
+
+        [HttpGet]
         [Authorize]
         public ActionResult EditPassword(string login)
         {
@@ -229,7 +250,7 @@ namespace EC.Web.Controllers
                 return View(edit);
             }
 
-            return View("NotFound");
+            return RedirectToAction("NotFound", "Error");
         }
 
         [HttpPost]
@@ -258,14 +279,9 @@ namespace EC.Web.Controllers
             {
                 _isDoctor = true;
 
-                return RedirectToAction("SignUp");
             }
-            else
-            {
-                _isDoctor = false;
 
-                return RedirectToAction("SignUp");
-            }
+            return RedirectToAction("SignUp");
         }
 
         [HttpGet]

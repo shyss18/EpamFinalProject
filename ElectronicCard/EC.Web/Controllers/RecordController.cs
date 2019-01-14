@@ -102,7 +102,7 @@ namespace EC.Web.Controllers
                 return View(edit);
             }
 
-            return View("NotFound");
+            return RedirectToAction("NotFound", "Error");
         }
 
         [HttpPost]
@@ -158,15 +158,23 @@ namespace EC.Web.Controllers
         [Authorize]
         public ActionResult DetailsRecord(int? id)
         {
-            var record = _cache.GetCache(id);
+            var recordCache = _cache.GetCache(id);
 
-            if (record == null)
+            if (recordCache == null)
             {
-                record = _recordService.GetRecordById(id);
+                var record = _recordService.GetRecordById(id);
+
+                if (record == null)
+                {
+                    return RedirectToAction("NotFound", "Error");
+                }
+
                 _cache.Create(record);
+
+                return View(record);
             }
 
-            return record == null ? View("NotFound") : View(record);
+            return View(recordCache);
         }
 
         [HttpPost]
@@ -198,7 +206,12 @@ namespace EC.Web.Controllers
         {
             var records = _recordService.GetPatientRecords(login);
 
-            return records == null ? View("NotFound") : View("GetAllRecords", records);
+            if (records == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            return View("GetAllRecords", records);
         }
 
         [HttpGet]
@@ -207,7 +220,12 @@ namespace EC.Web.Controllers
         {
             var records = _recordService.GetDoctorRecords(login);
 
-            return records == null ? View("NotFound") : View("GetAllRecords", records);
+            if (records == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            return View("GetAllRecords", records);
         }
 
         [HttpGet]
@@ -313,9 +331,9 @@ namespace EC.Web.Controllers
                     JsonRequestBehavior.AllowGet);
             }
 
-            if (DateTime.Now < parsedDate)
+            if (parsedDate < DateTime.Now.Date)
             {
-                return Json("Введите дату не относящуюся к будущему",
+                return Json("Нельзя вводить дату относящуюся к прошлому",
                     JsonRequestBehavior.AllowGet);
             }
 

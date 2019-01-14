@@ -97,6 +97,30 @@ namespace EC.DataAccess.Repositories.Implementation
             return phone;
         }
 
+        public Phone GetPhoneByNumber(string number)
+        {
+            var numberParameter = _factory.CreateParameter("number", number, DbType.String);
+
+            var reader = _factory.CreateConnection()
+                .CreateCommand(DbConstants.GET_PHONE_BY_NUMBER)
+                .AddParameters(numberParameter)
+                .ExecuteReader();
+
+            Phone phone = null;
+
+            foreach (var item in reader)
+            {
+                phone = new Phone
+                {
+                    Id = (int)item["Id"],
+                    PhoneNumber = (string)item["PhoneNumber"],
+                    UserId = (int)item["UserId"]
+                };
+            }
+
+            return phone;
+        }
+
         public IReadOnlyCollection<Phone> GetAll()
         {
             throw new System.NotImplementedException();

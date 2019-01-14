@@ -41,7 +41,7 @@ namespace EC.Web.Controllers
 
             if (procedure == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(procedure);
@@ -55,7 +55,7 @@ namespace EC.Web.Controllers
 
             if (procedure == null)
             {
-                return View("NotFound");
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(procedure);

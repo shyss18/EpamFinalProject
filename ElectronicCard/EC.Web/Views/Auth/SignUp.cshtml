@@ -173,15 +173,15 @@
         }
 
         <div>
-            @Html.TextBoxFor(user=>user.Phone, new
+            @Html.TextBoxFor(user=>user.PhoneNumber, new
             {
                 @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.Phone),
+                @placeholder = @Html.DisplayNameFor(user => user.PhoneNumber),
                 @required = true
             })
         </div>
         <div>
-            @Html.ValidationMessageFor(user => user.Phone, "", new { @class = "text-danger" })
+            @Html.ValidationMessageFor(user => user.PhoneNumber, "", new { @class = "text-danger" })
         </div>
 
         <br />

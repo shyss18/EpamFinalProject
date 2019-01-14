@@ -41,7 +41,7 @@ namespace EC.Web.Controllers
 
             if (preparation == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(preparation);
@@ -55,7 +55,7 @@ namespace EC.Web.Controllers
 
             if (preparation == null)
             {
-                return View("NotFound");
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(preparation);
@@ -97,6 +97,17 @@ namespace EC.Web.Controllers
             var preparations = _preparationService.GetAll();
 
             return PartialView(preparations);
+        }
+
+        [HttpGet]
+        public JsonResult CheckTimeUse(string TimeUse)
+        {
+            if (int.TryParse(TimeUse, out var check))
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Введите число", JsonRequestBehavior.AllowGet);
         }
     }
 }

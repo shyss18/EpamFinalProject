@@ -47,7 +47,7 @@ namespace EC.Web.Controllers
         {
             if (id == null)
             {
-                return View("NotFound");
+                return RedirectToAction("NotFound", "Error");
             }
 
             _phoneService.DeletePhone(id);
@@ -62,7 +62,7 @@ namespace EC.Web.Controllers
 
             if (userPhones == null)
             {
-                return View("NotFound");
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(userPhones);
@@ -89,6 +89,19 @@ namespace EC.Web.Controllers
             }
 
             return View(phones);
+        }
+
+        [HttpGet]
+        public JsonResult CheckPhone(string PhoneNumber)
+        {
+            var phone = _phoneService.GetPhoneByNumber(PhoneNumber);
+
+            if (phone != null)
+            {
+                return Json("Данный номер уже используется", JsonRequestBehavior.AllowGet);
+            }
+
+            return Json(true, JsonRequestBehavior.AllowGet);
         }
     }
 }
