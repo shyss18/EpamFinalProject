@@ -14,24 +14,39 @@ namespace EC.BusinessLogic.Services.Implementation
             _roleRepository = roleRepository;
         }
 
-        public void CreateRole(Role item)
+        public void CreateRole(Role role)
         {
-            _roleRepository.Create(item);
+            if (role == null)
+            {
+                return;
+            }
+
+            _roleRepository.Create(role);
         }
 
         public void DeleteRole(int? id)
         {
+            if (id == null || id <= 0)
+            {
+                return;
+            }
+
             _roleRepository.Delete(id);
         }
 
         public void UpdateRole(Role role)
         {
+            if (role == null)
+            {
+                return;
+            }
+
             _roleRepository.Update(role);
         }
 
         public Role GetById(int? id)
         {
-            return id == null ? null : _roleRepository.GetById(id);
+            return id == null || id <= 0 ? null : _roleRepository.GetById(id);
         }
 
         public IReadOnlyCollection<Role> GetAll()

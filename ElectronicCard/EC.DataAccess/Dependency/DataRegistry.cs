@@ -14,6 +14,9 @@ namespace EC.DataAccess.Dependency
             For<IPreparationRepository>().Use<PreparationRepository>();
             For<ISickLeaveRepository>().Use<SickLeaveRepository>();
             For<IDiagnosisRepository>().Use<DiagnosisRepository>();
+            For<IUserRepository>().Use<UserRepository>();
+            For<IRecordRepository>().Use<RecordRepository>();
+            For<IPhotoRepository>().Use<PhotoRepository>();
         }
     }
 }

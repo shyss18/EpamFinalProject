@@ -1,0 +1,12 @@
+﻿@model IEnumerable<EC.Entities.Entities.Record>
+@{
+    ViewBag.Title = "Все записи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+
+@{
+    Html.RenderPartial("Records", Model);
+}
+
+

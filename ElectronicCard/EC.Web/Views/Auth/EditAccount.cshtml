@@ -1,0 +1,144 @@
+﻿@model EC.Web.Models.EditAccountModel
+
+@{
+    ViewBag.Title = "Редактирование аккаунта";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" align="center">
+    <div class="col-md-4">
+        <h4 class="text-center text-warning" style="padding-top: 10%">Редактирование аккаунта</h4>
+        @using (Html.BeginForm("EditAccount", "Auth", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
+        {
+            @Html.HiddenFor(model => model.Id)
+
+            <div class="col-form-label h3">
+                Логин
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Login, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Login),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-form-label h3">
+                Email
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Email, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Email),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-form-label h3">
+                Имя
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.FirstName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.FirstName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-form-label h3">
+                Отчество
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.MiddleName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.MiddleName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="col-form-label h3">
+                Фамилия
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.LastName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.LastName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+
+            if (Model.IsDoctor)
+            {
+                @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "true" })
+
+                <div class="col-form-label h3">
+                    Должность
+                </div>
+                <div class="form-group row">
+                    @Html.TextBoxFor(model => model.Position, new
+                    {
+                        @class = "form-control",
+                        @placeholder = Html.DisplayNameFor(model => model.Position),
+                    })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                </div>
+            }
+            else
+            {
+                @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "false" })
+
+                <div class="col-form-label h3">
+                    Место работы
+                </div>
+                <div class="form-group row">
+                    @Html.TextBoxFor(model => model.PlaceWork, new
+                    {
+                        @class = "form-control",
+                        @placeholder = Html.DisplayNameFor(model => model.PlaceWork),
+                    })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.PlaceWork, "", new { @class = "text-danger" })
+                </div>
+
+                <div class="col-form-label h3">
+                    Дата рождения
+                </div>
+                <div class="form-group row">
+                    @Html.TextBoxFor(model => model.DateBirth, new
+                    {
+                        @class = "form-control",
+                        @placeholder = Html.DisplayNameFor(model => model.DateBirth),
+                        @type = "date"
+                    })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
+                </div>
+            }
+
+            <div class="container">
+                <button class="btn btn-outline-warning" type="submit">Изменить</button>
+                @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+
+    </div>
+</div>

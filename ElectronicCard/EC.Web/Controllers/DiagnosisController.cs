@@ -14,6 +14,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult CreateDiagnosis()
         {
             return View();
@@ -25,19 +26,36 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _diagnosisService.CreateDiagnosis(diagnosis);
+
+                return RedirectToAction("GetAllDiagnoses");
             }
 
             return View(diagnosis);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
+        public ActionResult DiagnosisDetails(int? id)
+        {
+            var diagnosis = _diagnosisService.GetById(id);
+
+            if (diagnosis == null)
+            {
+                return RedirectToAction("NotFound", "Error");
+            }
+
+            return View(diagnosis);
+        }
+
+        [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult UpdateDiagnosis(int? id)
         {
             var diagnosis = _diagnosisService.GetById(id);
 
             if (diagnosis == null)
             {
-                return View("NotFound");
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(diagnosis);
@@ -49,6 +67,8 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _diagnosisService.UpdateDiagnosis(diagnosis);
+
+                return RedirectToAction("GetAllDiagnoses");
             }
 
             return View(diagnosis);
@@ -59,15 +79,24 @@ namespace EC.Web.Controllers
         {
             _diagnosisService.DeleteDiagnosis(id);
 
-            return View();
+            return RedirectToAction("GetAllDiagnoses");
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult GetAllDiagnoses()
         {
             var diagnoses = _diagnosisService.GetAll();
 
             return View(diagnoses);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult GetDiagnosisForSelect()
+        {
+            var diagnoses = _diagnosisService.GetAll();
+
+            return PartialView(diagnoses);
         }
     }
 }

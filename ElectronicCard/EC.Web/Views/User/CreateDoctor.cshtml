@@ -1,0 +1,162 @@
+﻿@model EC.Web.Models.CreateUserModel
+@{
+    ViewBag.Title = "Добавление врача";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#Roles").select2({
+            placeholder: 'Роли'
+        });
+    });
+
+    $(document).ready(function () {
+        $("#Patients").select2({
+            placeholder: 'Пациенты'
+        });
+    });
+</script>
+
+<div class="container" align="center">
+    <div class="col-md-4">
+        <h4 class="text-center text-success" style="padding-top: 10%">Добавление врача</h4>
+        @using (Html.BeginForm("CreateUser", "User", FormMethod.Post, new { @class = "form-group", novalidate = "true", enctype = "multipart/form-data" }))
+        {
+            @Html.AntiForgeryToken()
+            @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "true" })
+
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Login, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Login),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Login, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Email, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Email),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Email, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Password, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Password),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Password, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.FirstName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.FirstName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.MiddleName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.MiddleName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.LastName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.LastName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                Выберете роль/ли
+            </div>
+
+            <div class="form-group row">
+                <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Roles" name="Roles" data-val="true" data-val-required="Выберете роль">
+                    @Html.Action("GetRolesForSelect", "Role")
+                </select>
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.Position, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.Position),
+                    @required = true
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div id="hidePatient" class="form-group row">
+                <div class="form-group row">
+                    Выберете пациентов
+                </div>
+
+                <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Patients" name="Patients">
+                    @Html.Action("GetListPatient", "User")
+                </select>
+            </div>
+
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.PhoneNumber, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.PhoneNumber),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div>
+                <label class="input-label" for="Photo">Выберете фото</label>
+                @Html.TextBoxFor(model => model.Photo, new
+                {
+                    @type = "file"
+                })
+            </div>
+            <div class="text-danger">
+                @Html.ValidationSummary(true)
+            </div>
+
+            <br />
+
+            <div class="container">
+                <input type="submit" class="btn btn-outline-success" value="Добавить" />
+                @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+

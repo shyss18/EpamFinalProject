@@ -1,0 +1,6 @@
+﻿@model IEnumerable<EC.Entities.Entities.SickLeave>
+
+@foreach (var sickLeave in Model)
+{
+    <option value="@sickLeave.Id">Номер: @sickLeave.Number Диагноз: @sickLeave.Diagnosis.Title</option>
+}

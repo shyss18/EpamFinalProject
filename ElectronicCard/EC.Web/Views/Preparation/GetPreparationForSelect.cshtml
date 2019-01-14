@@ -1,0 +1,6 @@
+﻿@model IEnumerable<EC.Entities.Entities.Preparation>
+
+@foreach (var preparation in Model)
+{
+    <option value="@preparation.Id">@preparation.Title</option>
+}

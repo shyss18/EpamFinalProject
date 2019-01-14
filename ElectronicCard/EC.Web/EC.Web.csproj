@@ -25,6 +25,7 @@
     <NuGetPackageImportStamp>
     </NuGetPackageImportStamp>
     <TypeScriptToolsVersion>3.0</TypeScriptToolsVersion>
+    <WebGreaseLibPath>..\packages\WebGrease.1.5.2\lib</WebGreaseLibPath>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -45,9 +46,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="Antlr3.Runtime, Version=3.4.1.9004, Culture=neutral, PublicKeyToken=eb42632606e9261f, processorArchitecture=MSIL">
+      <HintPath>..\packages\Antlr.3.4.1.9004\lib\Antlr3.Runtime.dll</HintPath>
+    </Reference>
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="Microsoft.Practices.ServiceLocation, Version=1.3.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\CommonServiceLocator.1.3\lib\portable-net4+sl5+netcore45+wpa81+wp8\Microsoft.Practices.ServiceLocation.dll</HintPath>
+    </Reference>
+    <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
+      <HintPath>..\packages\Newtonsoft.Json.12.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
     <Reference Include="StructureMap, Version=4.4.2.472, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\StructureMap.4.4.2\lib\net45\StructureMap.dll</HintPath>
@@ -64,6 +71,9 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Optimization, Version=1.1.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\Microsoft.AspNet.Web.Optimization.1.1.3\lib\net40\System.Web.Optimization.dll</HintPath>
+    </Reference>
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Web" />
@@ -73,6 +83,9 @@
     <Reference Include="System.EnterpriseServices" />
     <Reference Include="WebActivatorEx, Version=2.0.0.0, Culture=neutral, PublicKeyToken=7b26dc2a43f6a0d4, processorArchitecture=MSIL">
       <HintPath>..\packages\WebActivatorEx.2.2.0\lib\net40\WebActivatorEx.dll</HintPath>
+    </Reference>
+    <Reference Include="WebGrease, Version=1.5.2.14234, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
+      <HintPath>..\packages\WebGrease.1.5.2\lib\WebGrease.dll</HintPath>
     </Reference>
   </ItemGroup>
   <ItemGroup>
@@ -102,29 +115,37 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
-    <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\styles.css" />
+    <Content Include="Content\formStyle.css" />
+    <Content Include="Content\Images\noPhoto.png" />
+    <Content Include="Content\select2.min.css" />
+    <Content Include="Content\dashboard.css" />
+    <Content Include="Content\style.css" />
     <Content Include="Global.asax" />
-    <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
-    <Content Include="Scripts\jquery-3.0.0.js" />
     <Content Include="Scripts\jquery-3.0.0.min.js" />
-    <Content Include="Scripts\modernizr-2.6.2.js" />
+    <Content Include="Scripts\jquery.unobtrusive-ajax.min.js" />
+    <Content Include="Scripts\jquery.validate.min.js" />
+    <Content Include="Scripts\jquery.validate.unobtrusive.min.js" />
+    <Content Include="Scripts\select2.min.js" />
     <Content Include="Web.config" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\StructuremapMvc.cs" />
     <Compile Include="Controllers\AuthController.cs" />
     <Compile Include="Controllers\DiagnosisController.cs" />
+    <Compile Include="Controllers\ErrorController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\PhoneController.cs" />
+    <Compile Include="Controllers\PhotoController.cs" />
     <Compile Include="Controllers\PreparationController.cs" />
     <Compile Include="Controllers\ProcedureController.cs" />
-    <Compile Include="Controllers\AdvertisingController.cs" />
+    <Compile Include="Controllers\RecordController.cs" />
     <Compile Include="Controllers\RoleController.cs" />
     <Compile Include="Controllers\SickLeaveController.cs" />
+    <Compile Include="Controllers\UserController.cs" />
     <Compile Include="DependencyResolution\ControllerConvention.cs" />
     <Compile Include="DependencyResolution\IoC.cs" />
     <Compile Include="DependencyResolution\StructureMapDependencyScope.cs" />
@@ -132,6 +153,18 @@
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
+    <Compile Include="Models\CreateRecordModel.cs" />
+    <Compile Include="Models\CreateSickLeaveModel.cs" />
+    <Compile Include="Models\CreateUserModel.cs" />
+    <Compile Include="Models\EditAccountModel.cs" />
+    <Compile Include="Models\EditPasswordModel.cs" />
+    <Compile Include="Models\EditPhotoModel.cs" />
+    <Compile Include="Models\EditRecordModel.cs" />
+    <Compile Include="Models\EditSickLeaveModel.cs" />
+    <Compile Include="Models\EditVerificationCodeModel.cs" />
+    <Compile Include="Models\RegistrationModel.cs" />
+    <Compile Include="Models\SignInModel.cs" />
+    <Compile Include="Models\EditUserModel.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -139,7 +172,6 @@
     <None Include="packages.config" />
     <Content Include="Views\_ViewStart.cshtml" />
     <Content Include="Views\Shared\_Layout.cshtml" />
-    <Content Include="Views\Phone\Index.cshtml" />
     <Content Include="Views\Home\Index.cshtml" />
     <Content Include="Views\Shared\AboutPartial.cshtml" />
     <Content Include="Views\Auth\SignIn.cshtml" />
@@ -147,7 +179,66 @@
     <Content Include="Views\Procedure\CreateProcedure.cshtml" />
     <Content Include="Views\Procedure\UpdateProcedure.cshtml" />
     <Content Include="Views\Procedure\ProcedureDetails.cshtml" />
-    <Content Include="Views\Procedure\GetAllProcedure.cshtml" />
+    <Content Include="Views\Procedure\GetAllProcedures.cshtml" />
+    <Content Include="Views\Shared\CheckForDoctor.cshtml" />
+    <Content Include="Views\Auth\SuccessRegister.cshtml" />
+    <Content Include="Views\Procedure\DeleteProcedure.cshtml" />
+    <Content Include="Views\Preparation\CreatePreparation.cshtml" />
+    <Content Include="Views\Preparation\PreparationDetails.cshtml" />
+    <Content Include="Views\Preparation\UpdatePreparation.cshtml" />
+    <Content Include="Views\Preparation\GetAllPreparations.cshtml" />
+    <Content Include="Views\Preparation\DeletePreparation.cshtml" />
+    <Content Include="Views\Diagnosis\CreateDiagnosis.cshtml" />
+    <Content Include="Views\Diagnosis\DiagnosisDetails.cshtml" />
+    <Content Include="Views\Diagnosis\UpdateDiagnosis.cshtml" />
+    <Content Include="Views\Diagnosis\DeleteDiagnosis.cshtml" />
+    <Content Include="Views\Diagnosis\GetAllDiagnoses.cshtml" />
+    <Content Include="Views\Auth\Account.cshtml" />
+    <Content Include="Views\Shared\AdminPanel.cshtml" />
+    <Content Include="Views\Role\GetRolesForSelect.cshtml" />
+    <Content Include="Views\User\GetListPatient.cshtml" />
+    <Content Include="Views\User\GetListDoctors.cshtml" />
+    <Content Include="Views\User\EditUser.cshtml" />
+    <Content Include="Views\Auth\EditAccount.cshtml" />
+    <Content Include="Views\Phone\EditUserContacts.cshtml" />
+    <Content Include="Views\Phone\CreatePhone.cshtml" />
+    <Content Include="Views\Phone\DeletePhone.cshtml" />
+    <Content Include="Views\Phone\UserPhones.cshtml" />
+    <Content Include="Views\Phone\UpdatePhone.cshtml" />
+    <Content Include="Views\Auth\EditPassword.cshtml" />
+    <Content Include="Views\Photo\EditPhoto.cshtml" />
+    <Content Include="Views\User\GetAllUsers.cshtml" />
+    <Content Include="Views\User\UserDetails.cshtml" />
+    <Content Include="Views\User\DeleteUser.cshtml" />
+    <Content Include="Views\Diagnosis\GetDiagnosisForSelect.cshtml" />
+    <Content Include="Views\SickLeave\CreateSickLeave.cshtml" />
+    <Content Include="Views\SickLeave\SickLeaveDetails.cshtml" />
+    <Content Include="Views\SickLeave\UpdateSickLeave.cshtml" />
+    <Content Include="Views\SickLeave\GetAllSickLeaves.cshtml" />
+    <Content Include="Views\SickLeave\GetSickLeaveForSelect.cshtml" />
+    <Content Include="Views\SickLeave\DeleteSickLeave.cshtml" />
+    <Content Include="Views\Record\CreateRecord.cshtml" />
+    <Content Include="Views\User\GetDoctorPatients.cshtml" />
+    <Content Include="Views\User\GetDoctorForSelect.cshtml" />
+    <Content Include="Views\Procedure\GetProceduresForSelect.cshtml" />
+    <Content Include="Views\Preparation\GetPreparationForSelect.cshtml" />
+    <Content Include="Views\Record\DetailsRecord.cshtml" />
+    <Content Include="Views\Record\GetAllRecords.cshtml" />
+    <Content Include="Views\Record\DeleteRecord.cshtml" />
+    <Content Include="Views\Record\EditRecord.cshtml" />
+    <Content Include="Views\User\WarningDelete.cshtml" />
+    <Content Include="Views\User\Patients.cshtml" />
+    <Content Include="Views\Record\Search.cshtml" />
+    <Content Include="Views\Record\Records.cshtml" />
+    <Content Include="Views\Phone\GetPhone.cshtml" />
+    <Content Include="Views\Shared\ChooseUser.cshtml" />
+    <Content Include="Views\User\CreatePatient.cshtml" />
+    <Content Include="Views\User\CreateDoctor.cshtml" />
+    <Content Include="Views\Error\NotFound.cshtml" />
+    <Content Include="Views\Auth\EditVerificationCode.cshtml" />
+    <Content Include="Views\Error\Forbidden.cshtml" />
+    <Content Include="Views\Error\ServerError.cshtml" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
@@ -155,13 +246,7 @@
       <DependentUpon>Web.config</DependentUpon>
     </None>
   </ItemGroup>
-  <ItemGroup>
-    <Folder Include="Models\" />
-    <Folder Include="Views\Diagnosis\" />
-    <Folder Include="Views\Preparation\" />
-    <Folder Include="Views\Role\" />
-    <Folder Include="Views\SickLeave\" />
-  </ItemGroup>
+  <ItemGroup />
   <ItemGroup>
     <ProjectReference Include="..\EC.BusinessLogic\EC.BusinessLogic.csproj">
       <Project>{3cac8f00-63c3-434c-896e-c2a8be6a3f2e}</Project>

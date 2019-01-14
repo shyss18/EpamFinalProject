@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using System.Web.Mvc;
 
 namespace EC.Entities.Entities
@@ -8,12 +9,19 @@ namespace EC.Entities.Entities
         [HiddenInput(DisplayValue = false)]
         public int Id { get; set; }
 
+        [DisplayName("Название процедуры")]
+        [Required(ErrorMessage = "Введите название процедуры")]
+        [StringLength(150, ErrorMessage = "Длина названия процедуры должна быть до 150 знаков")]
         public string Title { get; set; }
 
+        [DisplayName("Описание")]
+        [Required(ErrorMessage = "Введите описание процедуры")]
+        [StringLength(150, ErrorMessage = "Описание процедуры должно быть до 150 знаков")]
         public string Description { get; set; }
 
+        [DisplayName("Продолжительность лечения")]
+        [Required(ErrorMessage = "Введите продолжительность лечения")]
+        [Remote("CheckTimeUse", "Procedure")]
         public int TimeUse { get; set; }
-
-        public virtual IReadOnlyCollection<Record> Records { get; set; }
     }
 }

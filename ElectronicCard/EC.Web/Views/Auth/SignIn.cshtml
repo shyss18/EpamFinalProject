@@ -1,4 +1,5 @@
-﻿@model EC.Entities.Entities.User
+﻿@using System.Web.Optimization
+@model EC.Web.Models.SignInModel
 
 @{
     Layout = null;
@@ -11,45 +12,56 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Вход</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/formStyle.css" rel="stylesheet" />
+    @Styles.Render("~/Content/form")
 </head>
 
 <body class="text-center">
     @using (Html.BeginForm("SignIn", "Auth", FormMethod.Post, new { @class = "form-signin", @novalidate = true }))
     {
+        @Html.AntiForgeryToken();
+
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">Вход</h1>
         </div>
         <div>
-            @Html.TextBoxFor(user=>user.Email, new
+            @Html.TextBoxFor(user => user.Login, new
             {
-            @class="form-control",
-            @placeholder = @Html.DisplayNameFor(user => user.Email),
-            @type= "email",
-            @required = true,
-            @autofocus = true
+                @class = "form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.Login),
+                @type = "text",
+                @required = true,
+                @autofocus = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.Login, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.Password, new
             {
-            @class="form-control",
-            @placeholder = @Html.DisplayNameFor(user => user.Password),
-            @type="password",
-            @required = true
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.Password),
+                @type="password",
+                @required = true
             })
         </div>
         <div>
+            @Html.ValidationMessageFor(user => user.Password, "", new { @class = "text-danger" })
+        </div>
+        <br />
+        <div class="text-danger">
+            @Html.ValidationSummary(true)
+        </div>
+        
+        <div>
             <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
             @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-lg btn-secondary btn-block" })
-            @Html.ActionLink("Нет аккаунта? Создайте", "SignUp", "Auth")
             <p class="mt-5 mb-3 text-muted text-center">&copy; @DateTime.Now.Year</p>
         </div>
     }
-    <script src="~/Scripts/jquery-3.0.0.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
 </body>
-
+@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/jqueryval")
 </html>

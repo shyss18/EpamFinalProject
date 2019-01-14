@@ -1,0 +1,27 @@
+﻿@model EC.Entities.Entities.Record
+
+<div class="modal fade" id="deleteRecord" tabindex="-1" role="dialog" aria-labelledby="title" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <div class="modal-header text-center">
+                <h4 class="modal-title text-info" id="title">Удаление</h4>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body">
+                @using (Html.BeginForm("DeleteRecord", "Record", new { id = Model.Id }, FormMethod.Post, null))
+                {
+                    <div>
+                        Вы действительно хотите удалить запись с датой @Model.DateRecord.Date.ToShortDateString()?
+                    </div>
+                    <br />
+                    <div class="modal-footer">
+                        <button type="submit" class="btn btn-danger">Удалить</button>
+                        <button type="button" class="btn btn-secondary" data-dismiss="modal">Отмена</button>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</div>

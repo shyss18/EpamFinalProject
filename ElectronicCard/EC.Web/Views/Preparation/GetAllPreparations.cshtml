@@ -1,0 +1,22 @@
+﻿@model IEnumerable<EC.Entities.Entities.Preparation>
+
+@{
+    ViewBag.Title = "Все препараты";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h4 class="text-center text-info">Препараты</h4>
+    <div class="row justify-content-center text-center">
+        @foreach (var preparation in Model)
+        {
+            <div class="card shadow p-3 mb-5 bg-white rounded" style="width: 18rem; margin-bottom: 20px; margin-right: 20px;">
+                <div class="card-body">
+                    <h5 class="card-title">@preparation.Title</h5>
+                    @Html.ActionLink("Подробнее", "PreparationDetails", "Preparation", new { id = preparation.Id }, new { @class = "card-link" })
+                </div>
+            </div>
+        }
+    </div>
+</div>
+

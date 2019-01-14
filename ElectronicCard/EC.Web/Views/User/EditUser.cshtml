@@ -1,0 +1,168 @@
+﻿@model EC.Web.Models.EditUserModel
+
+@{
+    ViewBag.Title = "Редактирование профиля";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function() {
+        $("#Roles").select2({
+            placeholder: 'Роли'
+        });
+    });
+
+    $(document).ready(function() {
+        $("#Patients").select2({
+            placeholder: 'Пациенты'
+        });
+    });
+
+    $(document).ready(function() {
+        $("#Doctors").select2({
+            placeholder: 'Врачи'
+        });
+    });
+
+    $(document).ready(function() {
+        var changeRoles = @Html.Raw(Json.Encode(Model.Roles));
+        $("#Roles").val(changeRoles).trigger("change");
+    });
+
+    $(document).ready(function() {
+        var changeDoctors = @Html.Raw(Json.Encode(Model.Doctors));
+        $("#Doctors").val(changeDoctors).trigger("change");
+    });
+
+    $(document).ready(function() {
+        var changePatients = @Html.Raw(Json.Encode(Model.Patients));
+        $("#Patients").val(changePatients).trigger("change");
+    });
+</script>
+
+<div class="container" align="center">
+    <div class="col-md-4">
+        <h4 class="text-center text-warning" style="padding-top: 10%">Редактирование пользователя</h4>
+        @using (Html.BeginForm("EditUser", "User", FormMethod.Post, new { @class = "form-group", novalidate = true }))
+        {
+            @Html.HiddenFor(model => model.Id)
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.FirstName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.FirstName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.FirstName, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.MiddleName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.MiddleName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.MiddleName, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.LastName, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.LastName),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.LastName, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="form-group row">
+                Выберете роль/ли
+            </div>
+
+            <div class="form-group row">
+                <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Roles" name="Roles" data-val="true" data-val-required="Выберете роль">
+                    @Html.Action("GetRolesForSelect", "Role")
+                </select>
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.Roles, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            if (Model.IsDoctor)
+            {
+                @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "true" })
+
+                <div class="form-group row">
+                    @Html.TextBoxFor(model => model.Position, new
+                    {
+                        @class = "form-control",
+                        @placeholder = Html.DisplayNameFor(model => model.Position),
+                        @required = true
+                    })
+
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.Position, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <div class="form-group row">
+                    <div class="form-group row">
+                        Выберете пациентов
+                    </div>
+
+                    <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Patients" name="Patients">
+                        @Html.Action("GetListPatient", "User")
+                    </select>
+                </div>
+            }
+            else
+            {
+                @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "false" })
+
+                <div class="form-group row">
+                    @Html.TextBoxFor(model => model.PlaceWork, new
+                    {
+                        @class = "form-control",
+                        @placeholder = Html.DisplayNameFor(model => model.PlaceWork),
+                        @required = true
+                    })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.PlaceWork, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <div class="form-group row">
+                    @Html.TextBoxFor(model => model.DateBirth, new
+                    {
+                        @class = "form-control",
+                        @placeholder = Html.DisplayNameFor(model => model.DateBirth),
+                        @required = true,
+                        @type= "date"
+                    })
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.DateBirth, "", new { @class = "text-danger" })
+                </div>
+                <br />
+                <div class="form-group row">
+                    <div class="form-group row">
+                        Назначьте докторов
+                    </div>
+
+                    <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Doctors" name="Doctors">
+                        @Html.Action("GetListDoctors", "User")
+                    </select>
+                </div>
+            }
+
+            <div class="container">
+                <input type="submit" class="btn btn-outline-warning" value="Изменить" />
+                @Html.ActionLink("Отмена", "UserDetails", "User", new { id = Model.Id }, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>

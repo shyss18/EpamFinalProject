@@ -16,22 +16,37 @@ namespace EC.BusinessLogic.Services.Implementation
 
         public void CreateProcedure(Procedure procedure)
         {
+            if (procedure == null)
+            {
+                return;
+            }
+
             _procedureRepository.Create(procedure);
         }
 
         public void UpdateProcedure(Procedure procedure)
         {
-            _procedureRepository.Update(procedure);
-        }
+            if (procedure == null)
+            {
+                return;
+            }
 
-        public Procedure GetById(int? id)
-        {
-            return id == null ? null : _procedureRepository.GetById(id);
+            _procedureRepository.Update(procedure);
         }
 
         public void DeleteProcedure(int? id)
         {
+            if (id == null || id <= 0)
+            {
+                return;
+            }
+
             _procedureRepository.Delete(id);
+        }
+
+        public Procedure GetById(int? id)
+        {
+            return id == null || id <= 0 ? null : _procedureRepository.GetById(id);
         }
 
         public IReadOnlyCollection<Procedure> GetAll()

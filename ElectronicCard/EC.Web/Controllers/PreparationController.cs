@@ -14,6 +14,7 @@ namespace EC.Web.Controllers
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult CreatePreparation()
         {
             return View();
@@ -25,32 +26,36 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _preparationService.CreatePreparation(preparation);
+
+                return RedirectToAction("GetAllPreparations");
             }
 
             return View(preparation);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult PreparationDetails(int? id)
         {
             var preparation = _preparationService.GetById(id);
 
             if (preparation == null)
             {
-                return HttpNotFound();
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(preparation);
         }
 
         [HttpGet]
+        [Authorize(Roles = "Admin, Editor")]
         public ActionResult UpdatePreparation(int? id)
         {
             var preparation = _preparationService.GetById(id);
 
             if (preparation == null)
             {
-                return View("NotFound");
+                return RedirectToAction("NotFound", "Error");
             }
 
             return View(preparation);
@@ -62,6 +67,8 @@ namespace EC.Web.Controllers
             if (ModelState.IsValid)
             {
                 _preparationService.UpdatePreparation(preparation);
+
+                return RedirectToAction("PreparationDetails", preparation.Id);
             }
 
             return View(preparation);
@@ -72,15 +79,35 @@ namespace EC.Web.Controllers
         {
             _preparationService.DeletePreparation(id);
 
-            return View();
+            return RedirectToAction("GetAllPreparations");
         }
 
         [HttpGet]
-        public ActionResult GetAllPreparation()
+        [Authorize(Roles = "Admin, Editor")]
+        public ActionResult GetAllPreparations()
         {
             var preparation = _preparationService.GetAll();
 
             return View(preparation);
+        }
+
+        [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
+        public ActionResult GetPreparationForSelect()
+        {
+            var preparations = _preparationService.GetAll();
+
+            return PartialView(preparations);
+        }
+
+        [HttpGet]
+        public JsonResult CheckTimeUse(string TimeUse)
+        {
+            if (int.TryParse(TimeUse, out var check))
+            {
+                return Json(true, JsonRequestBehavior.AllowGet);
+            }
+
+            return Json("Введите число", JsonRequestBehavior.AllowGet);
         }
     }
 }

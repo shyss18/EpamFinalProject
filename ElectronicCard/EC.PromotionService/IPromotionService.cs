@@ -1,6 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using EC.PromotionService.Models;
 using System.ServiceModel;
-using EC.Entities.Entities;
 
 namespace EC.PromotionService
 {
@@ -8,21 +7,6 @@ namespace EC.PromotionService
     public interface IPromotionService
     {
         [OperationContract]
-        string TestConnection();
-
-        [OperationContract]
-        void CreatePromotion(Promotion item);
-
-        [OperationContract]
-        Promotion GetByIdPromotion(int? id);
-
-        [OperationContract]
-        IReadOnlyCollection<Promotion> GetAllPromotions();
-
-        [OperationContract]
-        void DeletePromotion(int? id);
-
-        [OperationContract]
-        void UpdatePromotion(int? id);
+        Promotion GetPromotionImage();
     }
 }

@@ -3,7 +3,7 @@ GO
 
 CREATE PROCEDURE CreateProcedure 
       @name NVARCHAR(20),
-	  @description NVARCHAR(60),
+	  @description NVARCHAR(150),
 	  @timeUse INT
 AS
 BEGIN

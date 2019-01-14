@@ -1,28 +1,32 @@
 ﻿using System.Web.Mvc;
 using EC.BusinessLogic.Services.Interfaces;
-using EC.Entities.Entities;
 
 namespace EC.Web.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly IRoleService _roleService;
-        private readonly IPreparationService _preparationService;
-        private readonly IProcedureService _procedureService;
+        private readonly IAdvertisingService _advertisingService;
 
-        public HomeController(IRoleService roleService, IPreparationService preparationService, IProcedureService procedureService)
+        public HomeController(IAdvertisingService advertisingService)
         {
-            _roleService = roleService;
-            _preparationService = preparationService;
-            _procedureService = procedureService;
+            _advertisingService = advertisingService;
         }
 
         public ActionResult Index()
         {
-            _roleService.GetAll();
-
-
             return View();
+        }
+
+        public FileContentResult GetImage()
+        {
+            var photo = _advertisingService.GetPromotionImage();
+
+            if (photo != null)
+            {
+                return File(photo.Image, photo.TypeImage);
+            }
+
+            return null;
         }
     }
 }

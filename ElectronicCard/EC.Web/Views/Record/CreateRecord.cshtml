@@ -1,0 +1,166 @@
+﻿@model EC.Web.Models.CreateRecordModel
+
+@{
+    ViewBag.Title = "Добавление записи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<script>
+    $(document).ready(function () {
+        $("#PatientId").select2({
+            placeholder: 'Пациент'
+        });
+
+        $("#DoctorId").select2({
+            placeholder: 'Доктор'
+        });
+
+        $("#DiagnosisId").select2({
+            placeholder: 'Диагноз'
+        });
+
+        $("#SickLeaveId").select2({
+            placeholder: 'Больничный лист'
+        });
+
+        $("#Procedures").select2({
+            placeholder: 'Процедуры'
+        });
+
+        $("#Preparations").select2({
+            placeholder: 'Препараты'
+        });
+    });
+</script>
+
+<div class="container" align="center">
+    <div class="col-md-4">
+        <h4 class="text-center text-success" style="padding-top: 10%">Добавление записи</h4>
+        @using (Html.BeginForm("CreateRecord", "Record", FormMethod.Post, new { @class = "form-group", novalidate = true }))
+        {
+            <div class="col-form-label h3">
+                Дата записи
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.DateRecord, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.DateRecord),
+                    @type= "date"
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.DateRecord, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="col-form-label h3">
+                Пациент
+            </div>
+            if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+            {
+                <div class="form-group row">
+                    <select class="js-example-templating form-control" style="width: 100%;" id="PatientId" name="PatientId" data-val="true" data-val-required="Выберете пациента">
+                        @Html.Action("GetListPatient", "User")
+                    </select>
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                </div>
+                <br />
+            }
+            else if (User.IsInRole("Doctor"))
+            {
+                <div class="form-group row">
+                    <select class="js-example-templating form-control" style="width: 100%;" id="PatientId" name="PatientId" data-val="true" data-val-required="Выберете пациента">
+                        @Html.Action("GetDoctorPatients", "User", new { login = User.Identity.Name })
+                    </select>
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.PatientId, "", new { @class = "text-danger" })
+                </div>
+                <br />
+            }
+
+            <div class="col-form-label h3">
+                Диагноз
+            </div>
+            <div class="form-group row">
+                <select class="js-example-templating form-control" style="width: 100%;" id="DiagnosisId" name="DiagnosisId" data-val="true" data-val-required="Выберете диагноз">
+                    @Html.Action("GetDiagnosisForSelect", "Diagnosis")
+                </select>
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.DiagnosisId, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="col-form-label h3">
+                Больничный лист
+            </div>
+            <div class="form-group row">
+                <select class="js-example-templating form-control" style="width: 100%;" id="SickLeaveId" name="SickLeaveId" data-val="true" data-val-required="Выберете больничный лист">
+                    @Html.Action("GetSickLeaveForSelect", "SickLeave")
+                </select>
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.SickLeaveId, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div class="col-form-label h3">
+                Врач
+            </div>
+            if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+            {
+                <div class="form-group row">
+                    <select class="js-example-templating form-control" style="width: 100%;" id="DoctorId" name="DoctorId" data-val="true" data-val-required="Выберете доктора">
+                        @Html.Action("GetListDoctors", "User")
+                    </select>
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.DoctorId, "", new { @class = "text-danger" })
+                </div>
+                <br />
+            }
+            else if (User.IsInRole("Doctor"))
+            {
+                <div class="form-group row">
+                    <select class="js-example-templating form-control" style="width: 100%;" id="DoctorId" name="DoctorId" data-val="true" data-val-required="Выберете доктора">
+                        @Html.Action("GetDoctorForSelect", "User", new { login = User.Identity.Name })
+                    </select>
+                </div>
+                <div>
+                    @Html.ValidationMessageFor(model => model.DoctorId, "", new { @class = "text-danger" })
+                </div>
+                <br />
+            }
+
+            <div class="col-form-label h3">
+                Процедуры
+            </div>
+            <div class="form-group row">
+                <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Procedures" name="Procedures">
+                    @Html.Action("GetProceduresForSelect", "Procedure")
+                </select>
+            </div>
+            <br />
+
+            <div class="col-form-label h3">
+                Препараты
+            </div>
+            <div class="form-group row">
+                <select class="js-example-basic-multiple form-control" style="width: 100%;" multiple="multiple" id="Preparations" name="Preparations">
+                    @Html.Action("GetPreparationForSelect", "Preparation")
+                </select>
+            </div>
+            <br />
+
+            <div class="container">
+                <input type="submit" class="btn btn-outline-success" value="Добавить" />
+                @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+

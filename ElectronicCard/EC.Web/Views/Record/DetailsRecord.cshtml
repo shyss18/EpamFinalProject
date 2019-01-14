@@ -1,0 +1,309 @@
+﻿@model EC.Entities.Entities.Record
+@{
+    ViewBag.Title = "Подробнее о записи";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container">
+    <h4 class="text-info text-center">Информация о записи</h4>
+    <div class="row col-sm-12">
+        @Html.LabelFor(m => m.DateRecord, "Дата записи:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+        <div class="col-sm-2 col-form-label">
+            @Html.DisplayFor(m => m.DateRecord)
+        </div>
+    </div>
+    <div class="text-center col-sm-12 h4 text-info">
+        Информация о пациенте и враче
+    </div>
+    <div class="row col-md-12">
+        <div class="col-md-6">
+            <div class="text-center h3 col-form-label">
+                Пациент
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Patient.FirstName, "Имя:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(m => m.Patient.FirstName)
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Patient.MiddleName, "Отчество:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(m => m.Patient.MiddleName)
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Patient.LastName, "Фамилия:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(m => m.Patient.LastName)
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Patient.DateBirth, "Дата рождения:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-2 col-form-label">
+                    @Html.DisplayFor(m => m.Patient.DateBirth)
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Patient.PlaceWork, "Место работы:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(m => m.Patient.PlaceWork)
+                </div>
+            </div>
+        </div>
+        <div class="col-md-6">
+            <div class="text-center h3 col-form-label">
+                Врач
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Doctor.FirstName, "Имя:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(m => m.Doctor.FirstName)
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Doctor.MiddleName, "Отчество:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(m => m.Doctor.MiddleName)
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Doctor.LastName, "Фамилия:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-6 col-form-label">
+                    @Html.DisplayTextFor(m => m.Doctor.LastName)
+                </div>
+            </div>
+            <div class="row col-sm-12">
+                @Html.LabelFor(m => m.Doctor.Position, "Должность:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-2 col-form-label">
+                    @Html.DisplayTextFor(m => m.Doctor.Position)
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="row col-sm-12">
+        @Html.LabelFor(m => m.Diagnosis.Title, "Диагноз:", new { @class = "col-sm-6 h3 col-form-label text-right text-info" })
+        <div class="col-sm-6 col-form-label">
+            @Html.DisplayTextFor(m => m.Diagnosis.Title)
+        </div>
+    </div>
+    <div class="text-center col-sm-12 h4 text-info">
+        Лечение
+    </div>
+    <div class="col-md-12 row">
+        @if (Model.Preparations.Count > 0 & Model.Procedures.Count > 0)
+        {
+            <div class="col-md-6">
+                <div class="text-center h3 col-form-label">
+                    Препараты
+                </div>
+                @foreach (var preparation in Model.Preparations)
+                {
+                    <div class="border border-info">
+                        <div class="col-sm-12 row ">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Название препарата:
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @preparation.Title
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Описание препарата:
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @preparation.Description
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Продолжительномть применения(дни):
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @preparation.TimeUse
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+            <div class="col-md-6">
+                <div class="text-center h3 col-form-label">
+                    Процедуры
+                </div>
+                @foreach (var procedure in Model.Procedures)
+                {
+                    <div class="border border-info">
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Название процедуры:
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @procedure.Title
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Описание процедуры:
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @procedure.Description
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Продолжительность лечения(дни):
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @procedure.TimeUse
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+        }
+        else if (Model.Preparations.Count > 0 & Model.Procedures.Count == 0)
+        {
+            <div class="col-md-12">
+                <div class="text-center h3 col-form-label">
+                    Препараты
+                </div>
+                @foreach (var preparation in Model.Preparations)
+                {
+                    <div class="border border-info">
+                        <div class="col-sm-12 row ">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Название препарата:
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @preparation.Title
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Описание препарата:
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @preparation.Description
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Продолжительномть применения(дни):
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @preparation.TimeUse
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+        }
+        else if (Model.Preparations.Count == 0 & Model.Procedures.Count > 0)
+        {
+            <div class="col-md-12">
+                <div class="text-center h3 col-form-label">
+                    Процедуры
+                </div>
+                @foreach (var procedure in Model.Procedures)
+                {
+                    <div class="border border-info">
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Название процедуры:
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @procedure.Title
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Описание процедуры:
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @procedure.Description
+                            </div>
+                        </div>
+                        <div class="col-sm-12 row">
+                            <div class="col-sm-6 h3 col-form-label text-right">
+                                Продолжительность лечения(дни):
+                            </div>
+                            <div class="col-sm-6 col-form-label">
+                                @procedure.TimeUse
+                            </div>
+                        </div>
+                    </div>
+                    <br />
+                }
+            </div>
+        }
+        else
+        {
+            <div class="col-sm-12 text-center h5 text-danger">
+                Лечение не назначено
+            </div>
+        }
+    </div>
+    <div class="text-center col-sm-12 h4 text-info">
+        Больничный лист
+    </div>
+
+    @if (Model.SickLeave != null)
+    {
+        <div class="col-md-12">
+            <div class="col-sm-12 row">
+                <div class="col-sm-6 h3 col-form-label text-right">
+                    Выдан:
+                </div>
+
+                @if (Model.SickLeave.IsGive)
+                {
+                    <div class="col-sm-6 col-form-label text-success">
+                        Да
+                    </div>
+                }
+                else
+                {
+                    <div class="col-sm-6 col-form-label text-danger">
+                        Нет
+                    </div>
+                }
+
+            </div>
+            <div class="col-sm-12 row">
+                @Html.LabelFor(m => m.SickLeave.Number, "Номер листа:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-2 col-form-label">
+                    @Html.DisplayTextFor(m => m.SickLeave.Number)
+                </div>
+            </div>
+            <div class="col-sm-12 row">
+                @Html.LabelFor(m => m.SickLeave.PeriodAction, "Период действия:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-2 col-form-label">
+                    @Html.DisplayTextFor(m => m.SickLeave.PeriodAction)
+                </div>
+            </div>
+            <div class="col-sm-12 row">
+                @Html.LabelFor(m => m.SickLeave.Diagnosis.Title, "Название диагноза:", new { @class = "col-sm-6 col-form-label h3 text-right" })
+                <div class="col-sm-2 col-form-label">
+                    @Html.DisplayTextFor(m => m.SickLeave.Diagnosis.Title)
+                </div>
+            </div>
+        </div>
+
+    }
+</div>
+<br />
+<div class="container text-center">
+    @if (User.IsInRole("Admin") || User.IsInRole("Editor"))
+    {
+        @Html.ActionLink("Изменить", "EditRecord", new { id = Model.Id }, new { @class = "btn btn-outline-warning" })
+        <a class="btn btn-outline-danger my-2 my-sm-0" href="#" data-toggle="modal" data-target="#deleteRecord">Удалить</a>
+        { Html.RenderPartial("DeleteRecord"); }
+    }
+    @Html.ActionLink("На главную страницу", "Index", "Home", null, new { @class = "nav-link" })
+</div>
+
+

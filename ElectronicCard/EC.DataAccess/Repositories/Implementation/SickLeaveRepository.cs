@@ -1,4 +1,5 @@
-﻿using EC.Common.Helpers;
+﻿using System;
+using EC.Common.Helpers;
 using EC.Common.Helpers.Interface;
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
@@ -9,6 +10,7 @@ namespace EC.DataAccess.Repositories.Implementation
 {
     public class SickLeaveRepository : ISickLeaveRepository
     {
+        private const int DEFAULT = 0;
         private readonly ISqlFactory _query;
 
         public SickLeaveRepository(ISqlFactory query)
@@ -72,13 +74,18 @@ namespace EC.DataAccess.Repositories.Implementation
                     IsGive = (bool)item["IsGive"],
                     Number = (int)item["Number"],
                     PeriodAction = (int)item["PeriodAction"],
-                    DiagnosisId = (int)item["DiagnosisId"],
-                    Diagnosis = new Diagnosis
+                    DiagnosisId = item["DiagnosisId"] != DBNull.Value ? (int)item["DiagnosisId"] : DEFAULT
+                };
+
+                if (sickLeave.DiagnosisId != DEFAULT)
+                {
+                    sickLeave.DiagnosisId = (int)item["DiagnosisId"];
+                    sickLeave.Diagnosis = new Diagnosis
                     {
                         Id = (int)item["DiagnosisId"],
                         Title = (string)item["Title"]
-                    }
-                };
+                    };
+                }
             }
 
             return sickLeave;
@@ -86,7 +93,7 @@ namespace EC.DataAccess.Repositories.Implementation
 
         public IReadOnlyCollection<SickLeave> GetAll()
         {
-            List<SickLeave> allSickLeaves = new List<SickLeave>();
+            var allSickLeaves = new List<SickLeave>();
 
             var reader = _query.CreateConnection()
                 .CreateCommand(DbConstants.GET_ALL_SICKLEAVES)
@@ -94,19 +101,26 @@ namespace EC.DataAccess.Repositories.Implementation
 
             foreach (var item in reader)
             {
-                allSickLeaves.Add(new SickLeave
+                var sickLeave = new SickLeave
                 {
-                    Id = (int)item["SickLeaveId"],
-                    IsGive = (bool)item["IsGive"],
-                    Number = (int)item["Number"],
-                    PeriodAction = (int)item["PeriodAction"],
-                    DiagnosisId = (int)item["DiagnosisId"],
-                    Diagnosis = new Diagnosis
+                    Id = (int) item["SickLeaveId"],
+                    IsGive = (bool) item["IsGive"],
+                    Number = (int) item["Number"],
+                    PeriodAction = (int) item["PeriodAction"],
+                    DiagnosisId = item["DiagnosisId"] != DBNull.Value ? (int)item["DiagnosisId"] : DEFAULT
+                };
+                
+                if (sickLeave.DiagnosisId != DEFAULT)
+                {
+                    sickLeave.DiagnosisId = (int) item["DiagnosisId"];
+                    sickLeave.Diagnosis = new Diagnosis
                     {
-                        Id = (int)item["DiagnosisId"],
-                        Title = (string)item["Title"]
-                    }
-                });
+                        Id = (int) item["DiagnosisId"],
+                        Title = (string) item["Title"]
+                    };
+                }
+
+                allSickLeaves.Add(sickLeave);
             }
 
             return allSickLeaves;

@@ -1,4 +1,5 @@
-﻿@model EC.Entities.Entities.User
+﻿@using System.Web.Optimization
+@model EC.Web.Models.RegistrationModel
 
 @{
     Layout = null;
@@ -11,66 +12,30 @@
 <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Регистрация</title>
-    <link href="~/Content/bootstrap.css" rel="stylesheet" />
-    <link href="~/Content/formStyle.css" rel="stylesheet" />
+    @Styles.Render("~/Content/form")
 </head>
 
 <body class="text-center">
-    @using (Html.BeginForm("SignUp", "Auth", FormMethod.Post, new { @class = "form-signin", @novalidate = true }))
+    @using (Html.BeginForm("SignUp", "Auth", FormMethod.Post, new { @class = "form-signin", @novalidate = true, enctype = "multipart/form-data" }))
     {
+        @Html.AntiForgeryToken()
         <div class="text-center mb-4">
             <h1 class="h3 mb-3 font-weight-normal">Регистрация</h1>
         </div>
-        <div>
-            @Html.TextBoxFor(user=>user.FirstName, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.FirstName),
-                @type= "text",
-                @required = true,
-                @autofocus = true
-            })
-        </div>
-
-        <div>
-            @Html.TextBoxFor(user=>user.MiddleName, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.MiddleName),
-                @type= "text",
-                @required = true
-            })
-        </div>
-
-        <div>
-            @Html.TextBoxFor(user=>user.LastName, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.LastName),
-                @type= "text",
-                @required = true
-            })
-        </div>
-
-        <div>
-            @Html.TextBoxFor(user=>user.DateBirth, new
-            {
-                @class="form-control",
-                @placeholder = @Html.DisplayNameFor(user => user.DateBirth),
-                @type= "text",
-                @required = true
-            })
-        </div>
-
         <div>
             @Html.TextBoxFor(user=>user.Login, new
             {
                 @class="form-control",
                 @placeholder = @Html.DisplayNameFor(user => user.Login),
                 @type= "text",
-                @required = true
+                @required = true,
+                @autofocus = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.Login, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.Email, new
@@ -81,36 +46,174 @@
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.Email, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.Password, new
             {
                 @class="form-control",
                 @placeholder = @Html.DisplayNameFor(user => user.Password),
-                @type="password",
+                @type= "password",
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.Password, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
             @Html.TextBoxFor(user=>user.ConfirmPassword, new
             {
                 @class="form-control",
                 @placeholder = @Html.DisplayNameFor(user => user.ConfirmPassword),
-                @type="password",
+                @type= "password",
                 @required = true
             })
         </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.ConfirmPassword, "", new { @class = "text-danger" })
+        </div>
+        <br />
 
         <div>
-            <button class="btn btn-lg btn-primary btn-block" type="submit">Войти</button>
+            @Html.TextBoxFor(user=>user.FirstName, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.FirstName),
+                @type= "text",
+                @required = true
+            })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.FirstName, "", new { @class = "text-danger" })
+        </div>
+        <br />
+
+        <div>
+            @Html.TextBoxFor(user=>user.MiddleName, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.MiddleName),
+                @type= "text",
+                @required = true
+            })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.MiddleName, "", new { @class = "text-danger" })
+        </div>
+        <br />
+
+        <div>
+            @Html.TextBoxFor(user=>user.LastName, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.LastName),
+                @type= "text",
+                @required = true
+            })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.LastName, "", new { @class = "text-danger" })
+        </div>
+        <br />
+
+        if ((bool)ViewBag.IsDoctor == false)
+        {
+            @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "false" })
+
+            <div>
+                @Html.TextBoxFor(user=>user.PlaceWork, new
+                {
+                    @class="form-control",
+                    @placeholder = @Html.DisplayNameFor(user => user.PlaceWork),
+                    @type= "text",
+                    @required = true
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(user => user.PlaceWork, "", new { @class = "text-danger" })
+            </div>
+            <br />
+
+            <div>
+                @Html.TextBoxFor(user=>user.DateBirth, new
+                {
+                    @class="form-control",
+                    @placeholder = @Html.DisplayNameFor(user => user.DateBirth),
+                    @type = "date",
+                    @required = true
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(user => user.DateBirth, "", new { @class = "text-danger" })
+            </div>
+          <br />
+        }
+        else
+        {
+            @Html.CheckBoxFor(user => user.IsDoctor, new { @type = "hidden", @value = "true" })
+
+            <div>
+                @Html.TextBoxFor(user=>user.Position, new
+                {
+                    @class="form-control",
+                    @placeholder = @Html.DisplayNameFor(user => user.Position),
+                    @type= "text",
+                    @required = true
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(user => user.Position, "", new { @class = "text-danger" })
+            </div>
+            <br />
+        }
+
+        <div>
+            @Html.TextBoxFor(user=>user.PhoneNumber, new
+            {
+                @class="form-control",
+                @placeholder = @Html.DisplayNameFor(user => user.PhoneNumber),
+                @required = true
+            })
+        </div>
+        <div>
+            @Html.ValidationMessageFor(user => user.PhoneNumber, "", new { @class = "text-danger" })
+        </div>
+
+        <br />
+
+        <div class="text-left">
+            <div class="form-group">
+                @Html.Label("", "Выберите фото", new { @for = "Photo" })
+                @Html.TextBoxFor(model => model.Photo, new
+                {
+                    @class = "form-control-file",
+                    @type = "file"
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(user => user.Photo, "", new { @class = "text-danger" })
+            </div>
+        </div>
+
+        <div class="text-danger">
+            @Html.ValidationSummary(true)
+        </div>
+
+        <br />
+
+        <div class="container">
+            <button class="btn btn-lg btn-success btn-block" type="submit">Зарегистрироваться</button>
             @Html.ActionLink("Отмена", "Index", "Home", null, new { @class = "btn btn-lg btn-secondary btn-block" })
             @Html.ActionLink("Уже есть аккаунт? Войдите", "SignIn", "Auth")
             <p class="mt-5 mb-3 text-muted text-center">&copy; @DateTime.Now.Year</p>
         </div>
     }
-    <script src="~/Scripts/jquery-3.0.0.js"></script>
-    <script src="~/Scripts/bootstrap.js"></script>
+    @Scripts.Render("~/bundles/jquery")
+    @Scripts.Render("~/bundles/jqueryval")
 </body>
-
 </html>

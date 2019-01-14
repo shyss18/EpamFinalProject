@@ -1,5 +1,0 @@
-USE ElectronicCardDB;
-GO
-
-ALTER TABLE Users
-ADD FOREIGN KEY(RecordId) REFERENCES Records(Id);

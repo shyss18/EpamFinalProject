@@ -1,23 +1,22 @@
 ﻿using EC.BusinessLogic.MyService;
 using EC.BusinessLogic.Services.Interfaces;
-using System.ServiceModel;
 
 namespace EC.BusinessLogic.Services.Implementation
 {
     public class AdvertisingService : IAdvertisingService
     {
-        private readonly IPromotionService _promotionService;
+        private readonly PromotionServiceClient _promotionService;
 
         public AdvertisingService()
         {
-            var channelFactory = new ChannelFactory<IPromotionService>(new BasicHttpBinding(), "http://localhost/EC.PromotionService/PromotionService.svc");
-
-            _promotionService = channelFactory.CreateChannel();
+            _promotionService = new PromotionServiceClient();
         }
-        
-        public string TestConnection()
+
+        public Promotion GetPromotionImage()
         {
-            return _promotionService.TestConnection();
+            var image = _promotionService.GetPromotionImage();
+
+            return image;
         }
     }
 }
