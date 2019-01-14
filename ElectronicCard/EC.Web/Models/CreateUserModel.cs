@@ -68,7 +68,8 @@ namespace EC.Web.Models
         [DataType(DataType.PhoneNumber)]
         [Required(ErrorMessage = "Введите номер телефона")]
         [RegularExpression(@"[\(]\d{4}[\)][\-]\d{3}[\-]\d{2}[\-]\d{2}", ErrorMessage = "Формат телефона (код оператора)-xxx-xx-xx")]
-        public string Phone { get; set; }
+        [Remote("CheckPhone", "Phone")]
+        public string PhoneNumber { get; set; }
 
         [DisplayName("Пациенты")]
         public int[] Patients { get; set; }

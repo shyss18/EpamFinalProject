@@ -9,5 +9,6 @@ namespace EC.BusinessLogic.Services.Interfaces
         void UpdatePhone(Phone phone);
         void DeletePhone(int? id);
         IReadOnlyCollection<Phone> GetUserContacts(string login);
+        Phone GetPhoneByNumber(string number);
     }
 }

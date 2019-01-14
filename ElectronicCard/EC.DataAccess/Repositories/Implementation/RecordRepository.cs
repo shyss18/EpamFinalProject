@@ -142,10 +142,10 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = item["PatientId"] as int? ?? DEFAULT,
-                    DoctorId = item["DoctorId"] as int? ?? DEFAULT,
-                    DiagnosisId = item["DiagnosisId"] as int? ?? DEFAULT,
-                    SickLeaveId = item["SickLeaveId"] as int? ?? DEFAULT,
+                    PatientId = item["PatientId"] != DBNull.Value ? (int)item["PatientId"] : DEFAULT,
+                    DoctorId = item["DoctorId"] != DBNull.Value ? (int)item["DoctorId"] : DEFAULT,
+                    DiagnosisId = item["DiagnosisId"] != DBNull.Value ? (int)item["DiagnosisId"] : DEFAULT,
+                    SickLeaveId = item["SickLeaveId"] != DBNull.Value ? (int)item["SickLeaveId"] : DEFAULT,
 
                     Preparations = _preparationRepository.GetPreparationsByRecordId(id),
                     Procedures = _procedureRepository.GetProceduresByRecordId(id)
@@ -192,15 +192,9 @@ namespace EC.DataAccess.Repositories.Implementation
                         Id = (int)item["SickLeaveId"],
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"]
+                        PeriodAction = (int)item["PeriodAction"],
+                        DiagnosisId = item["SLDiagnosisId"] != DBNull.Value ? (int)item["SLDiagnosisId"] : DEFAULT
                     };
-
-                    var diagnosis = item["SLDiagnosisId"] as int? ?? DEFAULT;
-
-                    if (diagnosis != DEFAULT)
-                    {
-                        record.SickLeave.DiagnosisId = (int)item["SLDiagnosisId"];
-                    }
                 }
 
                 if (record.DiagnosisId != DEFAULT)
@@ -227,180 +221,10 @@ namespace EC.DataAccess.Repositories.Implementation
                     Id = (int)item["Id"],
                     DateRecord = (DateTime)item["DateRecord"],
 
-                    PatientId = item["PatientId"] as int? ?? DEFAULT,
-                    DoctorId = item["DoctorId"] as int? ?? DEFAULT,
-                    DiagnosisId = item["DiagnosisId"] as int? ?? DEFAULT,
-                    SickLeaveId = item["SickLeaveId"] as int? ?? DEFAULT
-                };
-
-                if (record.PatientId != DEFAULT)
-                {
-                    record.Patient = new Patient
-                    {
-                        UserId = (int)item["PatientId"],
-                        FirstName = (string)item["FirstName"],
-                        MiddleName = (string)item["MiddleName"],
-                        LastName = (string)item["LastName"],
-                        DateBirth = (DateTime)item["DateBirth"],
-                        PlaceWork = (string)item["PlaceWork"]
-                    };
-                }
-
-                if (record.DoctorId != DEFAULT)
-                {
-                    record.Doctor = new Doctor
-                    {
-                        UserId = (int)item["DoctorId"],
-                        FirstName = (string)item["DoctorFirstName"],
-                        MiddleName = (string)item["DoctorMiddleName"],
-                        LastName = (string)item["DoctorLastName"],
-                        Position = (string)item["Position"]
-                    };
-                }
-
-                if (record.DiagnosisId != DEFAULT)
-                {
-                    record.Diagnosis = new Diagnosis
-                    {
-                        Id = (int)item["DiagnosisId"],
-                        Title = (string)item["Title"]
-                    };
-                }
-
-                if (record.SickLeaveId != DEFAULT)
-                {
-                    record.SickLeave = new SickLeave
-                    {
-                        Id = (int)item["SickLeaveId"],
-                        IsGive = (bool)item["IsGive"],
-                        Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"]
-                    };
-
-                    var diagnosis = item["SLDiagnosisId"] as int? ?? DEFAULT;
-
-                    if (diagnosis != DEFAULT)
-                    {
-                        record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
-                    }
-                }
-
-                record.Preparations = _preparationRepository.GetPreparationsByRecordId(record.Id);
-                record.Procedures = _procedureRepository.GetProceduresByRecordId(record.Id);
-
-                allRecord.Add(record);
-            }
-
-            return allRecord;
-        }
-
-        public IReadOnlyCollection<Record> GetDoctorRecords(int? doctorId)
-        {
-            var idParameter = _factory.CreateParameter("userId", doctorId, DbType.Int32);
-
-            var reader = _factory.CreateConnection()
-                .CreateCommand(DbConstants.GET_DOCTOR_RECORDS)
-                .AddParameters(idParameter)
-                .ExecuteReader();
-
-            var doctorRecords = new List<Record>();
-
-            foreach (var item in reader)
-            {
-                var record = new Record
-                {
-                    Id = (int)item["Id"],
-                    DateRecord = (DateTime)item["DateRecord"],
-
-                    PatientId = item["PatientId"] as int? ?? DEFAULT,
-                    DoctorId = item["DoctorId"] as int? ?? DEFAULT,
-                    DiagnosisId = item["DiagnosisId"] as int? ?? DEFAULT,
-                    SickLeaveId = item["SickLeaveId"] as int? ?? DEFAULT,
-                };
-
-                if (record.PatientId != DEFAULT)
-                {
-                    record.Patient = new Patient
-                    {
-                        UserId = (int)item["PatientId"],
-                        FirstName = (string)item["FirstName"],
-                        MiddleName = (string)item["MiddleName"],
-                        LastName = (string)item["LastName"],
-                        DateBirth = (DateTime)item["DateBirth"],
-                        PlaceWork = (string)item["PlaceWork"]
-                    };
-                }
-
-                if (record.DoctorId != DEFAULT)
-                {
-                    record.Doctor = new Doctor
-                    {
-                        UserId = (int)item["DoctorId"],
-                        FirstName = (string)item["DoctorFirstName"],
-                        MiddleName = (string)item["DoctorMiddleName"],
-                        LastName = (string)item["DoctorLastName"],
-                        Position = (string)item["Position"]
-                    };
-                }
-
-                if (record.DiagnosisId != DEFAULT)
-                {
-                    record.Diagnosis = new Diagnosis
-                    {
-                        Id = (int)item["DiagnosisId"],
-                        Title = (string)item["Title"]
-                    };
-                }
-
-                if (record.SickLeaveId != DEFAULT)
-                {
-                    record.SickLeave = new SickLeave
-                    {
-                        Id = (int)item["SickLeaveId"],
-                        IsGive = (bool)item["IsGive"],
-                        Number = (int)item["Number"],
-                        PeriodAction = (int)item["PeriodAction"]
-                    };
-
-                    var diagnosis = item["SLDiagnosisId"] as int? ?? DEFAULT;
-
-                    if (diagnosis != DEFAULT)
-                    {
-                        record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
-                    }
-                }
-
-                record.Preparations = _preparationRepository.GetPreparationsByRecordId(doctorId);
-                record.Procedures = _procedureRepository.GetProceduresByRecordId(doctorId);
-
-                doctorRecords.Add(record);
-            }
-
-            return doctorRecords;
-        }
-
-        public IReadOnlyCollection<Record> GetPatientRecords(int? patientId)
-        {
-            var idParameter = _factory.CreateParameter("userId", patientId, DbType.Int32);
-
-            var reader = _factory.CreateConnection()
-                .CreateCommand(DbConstants.GET_PATIENT_RECORDS)
-                .AddParameters(idParameter)
-                .ExecuteReader();
-
-            var patientRecords = new List<Record>();
-
-            foreach (var item in reader)
-            {
-                var record = new Record
-                {
-                    Id = (int)item["Id"],
-                    DateRecord = (DateTime)item["DateRecord"],
-
-                    PatientId = item["PatientId"] as int? ?? DEFAULT,
-                    DoctorId = item["DoctorId"] as int? ?? DEFAULT,
-                    DiagnosisId = item["DiagnosisId"] as int? ?? DEFAULT,
-                    SickLeaveId = item["SickLeaveId"] as int? ?? DEFAULT,
+                    PatientId = item["PatientId"] != DBNull.Value ? (int)item["PatientId"] : DEFAULT,
+                    DoctorId = item["DoctorId"] != DBNull.Value ? (int)item["DoctorId"] : DEFAULT,
+                    DiagnosisId = item["DiagnosisId"] != DBNull.Value ? (int)item["DiagnosisId"] : DEFAULT,
+                    SickLeaveId = item["SickLeaveId"] != DBNull.Value ? (int)item["SickLeaveId"] : DEFAULT
                 };
 
                 if (record.PatientId != DEFAULT)
@@ -445,15 +269,166 @@ namespace EC.DataAccess.Repositories.Implementation
                         IsGive = (bool)item["IsGive"],
                         Number = (int)item["Number"],
                         PeriodAction = (int)item["PeriodAction"],
-                        DiagnosisId = (int)item["SLDiagnosisId"]
+                        DiagnosisId = item["SLDiagnosisId"] != DBNull.Value ? (int)item["SLDiagnosisId"] : DEFAULT
                     };
+                }
 
-                    var diagnosis = item["SLDiagnosisId"] as int? ?? DEFAULT;
+                record.Preparations = _preparationRepository.GetPreparationsByRecordId(record.Id);
+                record.Procedures = _procedureRepository.GetProceduresByRecordId(record.Id);
 
-                    if (diagnosis != DEFAULT)
+                allRecord.Add(record);
+            }
+
+            return allRecord;
+        }
+
+        public IReadOnlyCollection<Record> GetDoctorRecords(int? doctorId)
+        {
+            var idParameter = _factory.CreateParameter("userId", doctorId, DbType.Int32);
+
+            var reader = _factory.CreateConnection()
+                .CreateCommand(DbConstants.GET_DOCTOR_RECORDS)
+                .AddParameters(idParameter)
+                .ExecuteReader();
+
+            var doctorRecords = new List<Record>();
+
+            foreach (var item in reader)
+            {
+                var record = new Record
+                {
+                    Id = (int)item["Id"],
+                    DateRecord = (DateTime)item["DateRecord"],
+
+                    PatientId = item["PatientId"] != DBNull.Value ? (int)item["PatientId"] : DEFAULT,
+                    DoctorId = item["DoctorId"] != DBNull.Value ? (int)item["DoctorId"] : DEFAULT,
+                    DiagnosisId = item["DiagnosisId"] != DBNull.Value ? (int)item["DiagnosisId"] : DEFAULT,
+                    SickLeaveId = item["SickLeaveId"] != DBNull.Value ? (int)item["SickLeaveId"] : DEFAULT
+                };
+
+                if (record.PatientId != DEFAULT)
+                {
+                    record.Patient = new Patient
                     {
-                        record.SickLeave.DiagnosisId = (int) item["SLDiagnosisId"];
-                    }
+                        UserId = (int)item["PatientId"],
+                        FirstName = (string)item["FirstName"],
+                        MiddleName = (string)item["MiddleName"],
+                        LastName = (string)item["LastName"],
+                        DateBirth = (DateTime)item["DateBirth"],
+                        PlaceWork = (string)item["PlaceWork"]
+                    };
+                }
+
+                if (record.DoctorId != DEFAULT)
+                {
+                    record.Doctor = new Doctor
+                    {
+                        UserId = (int)item["DoctorId"],
+                        FirstName = (string)item["DoctorFirstName"],
+                        MiddleName = (string)item["DoctorMiddleName"],
+                        LastName = (string)item["DoctorLastName"],
+                        Position = (string)item["Position"]
+                    };
+                }
+
+                if (record.DiagnosisId != DEFAULT)
+                {
+                    record.Diagnosis = new Diagnosis
+                    {
+                        Id = (int)item["DiagnosisId"],
+                        Title = (string)item["Title"]
+                    };
+                }
+
+                if (record.SickLeaveId != DEFAULT)
+                {
+                    record.SickLeave = new SickLeave
+                    {
+                        Id = (int)item["SickLeaveId"],
+                        IsGive = (bool)item["IsGive"],
+                        Number = (int)item["Number"],
+                        PeriodAction = (int)item["PeriodAction"],
+                        DiagnosisId = item["SLDiagnosisId"] != DBNull.Value ? (int)item["SLDiagnosisId"] : DEFAULT
+                    };
+                }
+
+                record.Preparations = _preparationRepository.GetPreparationsByRecordId(doctorId);
+                record.Procedures = _procedureRepository.GetProceduresByRecordId(doctorId);
+
+                doctorRecords.Add(record);
+            }
+
+            return doctorRecords;
+        }
+
+        public IReadOnlyCollection<Record> GetPatientRecords(int? patientId)
+        {
+            var idParameter = _factory.CreateParameter("userId", patientId, DbType.Int32);
+
+            var reader = _factory.CreateConnection()
+                .CreateCommand(DbConstants.GET_PATIENT_RECORDS)
+                .AddParameters(idParameter)
+                .ExecuteReader();
+
+            var patientRecords = new List<Record>();
+
+            foreach (var item in reader)
+            {
+                var record = new Record
+                {
+                    Id = (int)item["Id"],
+                    DateRecord = (DateTime)item["DateRecord"],
+
+                    PatientId = item["PatientId"] != DBNull.Value ? (int)item["PatientId"] : DEFAULT,
+                    DoctorId = item["DoctorId"] != DBNull.Value ? (int)item["DoctorId"] : DEFAULT,
+                    DiagnosisId = item["DiagnosisId"] != DBNull.Value ? (int)item["DiagnosisId"] : DEFAULT,
+                    SickLeaveId = item["SickLeaveId"] != DBNull.Value ? (int)item["SickLeaveId"] : DEFAULT
+                };
+
+                if (record.PatientId != DEFAULT)
+                {
+                    record.Patient = new Patient
+                    {
+                        UserId = (int)item["PatientId"],
+                        FirstName = (string)item["FirstName"],
+                        MiddleName = (string)item["MiddleName"],
+                        LastName = (string)item["LastName"],
+                        DateBirth = (DateTime)item["DateBirth"],
+                        PlaceWork = (string)item["PlaceWork"]
+                    };
+                }
+
+                if (record.DoctorId != DEFAULT)
+                {
+                    record.Doctor = new Doctor
+                    {
+                        UserId = (int)item["DoctorId"],
+                        FirstName = (string)item["DoctorFirstName"],
+                        MiddleName = (string)item["DoctorMiddleName"],
+                        LastName = (string)item["DoctorLastName"],
+                        Position = (string)item["Position"]
+                    };
+                }
+
+                if (record.DiagnosisId != DEFAULT)
+                {
+                    record.Diagnosis = new Diagnosis
+                    {
+                        Id = (int)item["DiagnosisId"],
+                        Title = (string)item["Title"]
+                    };
+                }
+
+                if (record.SickLeaveId != DEFAULT)
+                {
+                    record.SickLeave = new SickLeave
+                    {
+                        Id = (int)item["SickLeaveId"],
+                        IsGive = (bool)item["IsGive"],
+                        Number = (int)item["Number"],
+                        PeriodAction = (int)item["PeriodAction"],
+                        DiagnosisId = item["SLDiagnosisId"] != DBNull.Value ? (int)item["SLDiagnosisId"] : DEFAULT
+                    };
                 }
 
                 record.Preparations = _preparationRepository.GetPreparationsByRecordId(patientId);

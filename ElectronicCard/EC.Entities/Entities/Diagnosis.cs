@@ -11,7 +11,7 @@ namespace EC.Entities.Entities
 
         [DisplayName("Название диагноза")]
         [Required(ErrorMessage = "Введите название диагноза")]
-        [StringLength(20, ErrorMessage = "Название диагноза должно быть до 20 знаков")]
+        [StringLength(150, ErrorMessage = "Название диагноза должно быть до 20 знаков")]
         public string Title { get; set; }
     }
 }

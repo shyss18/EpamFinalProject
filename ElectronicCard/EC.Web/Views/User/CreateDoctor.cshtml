@@ -129,14 +129,14 @@
             </div>
 
             <div class="form-group row">
-                @Html.TextBoxFor(model => model.Phone, new
+                @Html.TextBoxFor(model => model.PhoneNumber, new
                 {
                     @class = "form-control",
-                    @placeholder = Html.DisplayNameFor(model => model.Phone),
+                    @placeholder = Html.DisplayNameFor(model => model.PhoneNumber),
                 })
             </div>
             <div>
-                @Html.ValidationMessageFor(model => model.Phone, "", new { @class = "text-danger" })
+                @Html.ValidationMessageFor(model => model.PhoneNumber, "", new { @class = "text-danger" })
             </div>
             <br />
             <div>

@@ -1,0 +1,38 @@
+﻿@model EC.Web.Models.EditVerificationCodeModel
+
+@{
+    ViewBag.Title = "Изменение кода проверки";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<div class="container" align="center">
+    <div class="col-md-4">
+        <h4 class="text-center text-warning" style="padding-top: 10%">Изменение кода проверки</h4>
+        @using (Html.BeginForm("EditVerificationCode", "Auth", FormMethod.Post, new { @class = "form-group", @novalidate = true }))
+        {
+            <div class="form-group row">
+                @Html.DisplayNameFor(model => model.OldCode):
+                @Html.EditorFor(model => model.OldCode, new
+                {
+                    @class = "form-control"
+                })
+            </div>
+            <div class="form-group row">
+                @Html.TextBoxFor(model => model.NewCode, new
+                {
+                    @class = "form-control",
+                    @placeholder = Html.DisplayNameFor(model => model.NewCode),
+                })
+            </div>
+            <div>
+                @Html.ValidationMessageFor(model => model.NewCode, "", new { @class = "text-danger" })
+            </div>
+            <br />
+            <div class="container">
+                <input type="submit" class="btn btn-outline-warning" value="Изменить" />
+                @Html.ActionLink("Отмена", "Account", "Auth", new { login = User.Identity.Name }, new { @class = "btn btn-outline-secondary" })
+            </div>
+        }
+    </div>
+</div>
+

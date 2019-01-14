@@ -13,7 +13,7 @@
                 @using (Html.BeginForm("DeleteRecord", "Record", new { id = Model.Id }, FormMethod.Post, null))
                 {
                     <div>
-                        Вы действительно хотите удалить запись с датой @Model.DateRecord?
+                        Вы действительно хотите удалить запись с датой @Model.DateRecord.Date.ToShortDateString()?
                     </div>
                     <br />
                     <div class="modal-footer">
