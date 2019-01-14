@@ -46,9 +46,9 @@ namespace EC.BusinessLogic.Services.Implementation
             _phoneRepository.Delete(id);
         }
 
-        public Phone GetById(int? id)
+        public Phone GetPhoneByNumber(string number)
         {
-            return id == null || id <= 0 ? null : _phoneRepository.GetById(id);
+            return number == null  ? null : _phoneRepository.GetPhoneByNumber(number);
         }
 
         public IReadOnlyCollection<Phone> GetUserContacts(string login)

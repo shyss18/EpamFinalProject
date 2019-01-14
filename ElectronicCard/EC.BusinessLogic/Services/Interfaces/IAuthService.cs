@@ -10,5 +10,7 @@ namespace EC.BusinessLogic.Services.Interfaces
         User GetUserByLogin(string login);
         void UpdateUser(User user);
         User GetUserByEmail(string email);
+        string GetVerificationCode();
+        void EditVerificationCode(string code);
     }
 }

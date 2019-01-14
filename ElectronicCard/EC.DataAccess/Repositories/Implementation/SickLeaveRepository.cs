@@ -1,4 +1,5 @@
-﻿using EC.Common.Helpers;
+﻿using System;
+using EC.Common.Helpers;
 using EC.Common.Helpers.Interface;
 using EC.DataAccess.Repositories.Interfaces;
 using EC.Entities.Entities;
@@ -9,6 +10,7 @@ namespace EC.DataAccess.Repositories.Implementation
 {
     public class SickLeaveRepository : ISickLeaveRepository
     {
+        private const int DEFAULT = 0;
         private readonly ISqlFactory _query;
 
         public SickLeaveRepository(ISqlFactory query)
@@ -72,10 +74,10 @@ namespace EC.DataAccess.Repositories.Implementation
                     IsGive = (bool)item["IsGive"],
                     Number = (int)item["Number"],
                     PeriodAction = (int)item["PeriodAction"],
-                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int)
+                    DiagnosisId = item["DiagnosisId"] != DBNull.Value ? (int)item["DiagnosisId"] : DEFAULT
                 };
 
-                if (sickLeave.DiagnosisId != default(int))
+                if (sickLeave.DiagnosisId != DEFAULT)
                 {
                     sickLeave.DiagnosisId = (int)item["DiagnosisId"];
                     sickLeave.Diagnosis = new Diagnosis
@@ -105,10 +107,10 @@ namespace EC.DataAccess.Repositories.Implementation
                     IsGive = (bool) item["IsGive"],
                     Number = (int) item["Number"],
                     PeriodAction = (int) item["PeriodAction"],
-                    DiagnosisId = item["DiagnosisId"] as int? ?? default(int)
+                    DiagnosisId = item["DiagnosisId"] != DBNull.Value ? (int)item["DiagnosisId"] : DEFAULT
                 };
                 
-                if (sickLeave.DiagnosisId != default(int))
+                if (sickLeave.DiagnosisId != DEFAULT)
                 {
                     sickLeave.DiagnosisId = (int) item["DiagnosisId"];
                     sickLeave.Diagnosis = new Diagnosis

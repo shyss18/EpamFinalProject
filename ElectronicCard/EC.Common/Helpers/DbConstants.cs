@@ -21,6 +21,7 @@ namespace EC.Common.Helpers
         public const string UPDATE_PHONE = "UpdatePhone";
         public const string GET_USER_PHONES = "GetUserPhone";
         public const string GET_PHONE_BY_ID = "GetPhoneById";
+        public const string GET_PHONE_BY_NUMBER = "GetPhoneByNumber";
 
         #endregion
 

@@ -2,5 +2,5 @@
 
 @foreach (var sickLeave in Model)
 {
-    <option value="@sickLeave.Id">@sickLeave.Number </option>
+    <option value="@sickLeave.Id">Номер: @sickLeave.Number Диагноз: @sickLeave.Diagnosis.Title</option>
 }

@@ -58,7 +58,7 @@ namespace EC.Web.Controllers
                         {
                             new Phone
                             {
-                                PhoneNumber = model.Phone
+                                PhoneNumber = model.PhoneNumber
                             }
                         },
                         Doctor = new Doctor
@@ -88,7 +88,7 @@ namespace EC.Web.Controllers
                         {
                             new Phone
                             {
-                                PhoneNumber = model.Phone
+                                PhoneNumber = model.PhoneNumber
                             }
                         },
                         Patient = new Patient
@@ -145,7 +145,7 @@ namespace EC.Web.Controllers
                 return View(user);
             }
 
-            return View("NotFound");
+            return RedirectToAction("NotFound", "Error");
         }
 
         [HttpGet]
@@ -185,14 +185,14 @@ namespace EC.Web.Controllers
 
                     if (user.Patient.Doctors != null)
                     {
-                        edit.Doctors = user.Patient.Doctors.Select(p => p.Id).ToArray();
+                        edit.Doctors = user.Patient.Doctors.Select(p => p.UserId).ToArray();
                     }
                 }
 
                 return View(edit);
             };
 
-            return View("NotFound");
+            return RedirectToAction("NotFound", "Error");
         }
 
         [HttpPost]
@@ -234,7 +234,7 @@ namespace EC.Web.Controllers
 
                     if (model.Doctors != null)
                     {
-                        user.Patient.Doctors = _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.Id))
+                        user.Patient.Doctors = _userService.GetAllDoctors().Where(d => model.Doctors.Contains(d.UserId))
                             .ToList();
                     }
                 }
@@ -280,7 +280,7 @@ namespace EC.Web.Controllers
                 return View("Patients", _userService.GetUserPatients(doctor.Id));
             }
 
-            return View("NotFound");
+            return RedirectToAction("NotFound", "Error");
         }
 
         [AcceptVerbs(HttpVerbs.Get | HttpVerbs.Post)]
